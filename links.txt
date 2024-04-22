@@ -1,0 +1,28 @@
+## links para estudo sobre a minihell
+
+
+-> readline func: 
+https://tiswww.case.edu/php/chet/readline/readline.html#Readline-Variables
+
+-> big picture da arquitetura do projeto:
+https://whimsical.com/minishell-architecture-big-picture-7b9N8PL3qHrddbs977mQ2J
+
+-> construindo um simples interpretador:
+https://ruslanspivak.com/lsbasi-part1/
+
+-> site gamificado para aprender gitbranching:
+https://learngitbranching.js.org/?locale=pt_BR
+
+-> Gsaiago's notion:
+https://gsaiago.notion.site/MINISHELL-edf6f94934934af9a7c1ba90edaf9a5e
+
+-> Creating your own shell:
+https://file.notion.so/f/f/06dfaa31-f560-4581-8cd6-d01b8c7adf4d/7a0f29ac-93f7-45e9-a8de-e3dbf3f14492/Chapter5-WritingYourOwnShell.pdf?id=f9ee2077-05dc-48d1-a283-39e63a708169&table=block&spaceId=06dfaa31-f560-4581-8cd6-d01b8c7adf4d&expirationTimestamp=1713621600000&signature=JbmVBxYvpEEDSNDoXIvAoKkjY0FAZ9ewb17sy0K20KU&downloadName=Chapter5-WritingYourOwnShell.pdf
+
+-> manual de referencia do BASH:
+https://www.gnu.org/software/bash/manual/bash.html
+
+-> artigo sobre o parsing do BASH:
+https://mywiki.wooledge.org/BashParser
+
+-> https://build-your-own.org/
