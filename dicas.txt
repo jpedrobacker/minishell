@@ -1,0 +1,5 @@
+-> entender a diferenca entre interpretador/shell?
+O que é cada um?
+
+-> Fazer o SCAN do input! Fazer a validação do input!
+
