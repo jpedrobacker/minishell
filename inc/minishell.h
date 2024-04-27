@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/04/27 16:49:01 by aprado           ###   ########.fr       */
+/*   Updated: 2024/04/27 18:26:40 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ typedef struct	s_token
 {
 	int			fd_in;
 	int			fd_out;
-	char		*its_path;
+	char		*real_path;
 	char		*command;
+	char		**env_path;
 	char		**arr_command;
 	struct s_token	*next;
 }			t_token;
