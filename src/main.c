@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/04/27 18:23:53 by aprado           ###   ########.fr       */
+/*   Updated: 2024/04/27 18:58:53 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*find_env_path(char **envp)
 	return (env_path);
 }
 
-void	create_list(char **av, char **envp)
+void	create_list(char *usr_input, char **envp)
 {
 	t_token	*head;
 	char	**splited;
@@ -74,7 +74,7 @@ void	create_list(char **av, char **envp)
 
 	i = 0;
 	head = NULL;
-	splited = ft_split(av[1], '|');
+	splited = ft_split(usr_input, ' ');
 	env_path = find_env_path(envp);
 	paths = ft_split((env_path + 5), ':');
 	ft_printf("env path: %s\n", env_path);
@@ -89,9 +89,14 @@ void	create_list(char **av, char **envp)
 
 int	main(int ac, char **av, char **envp)
 {
-	if (ac != 2)
-		return (ft_putstr_fd("Missing parameters\n", 2), 0);
-	create_list(av, envp);
+	char	*usr_input;
+	(void) ac;
+	(void) av;
+	while (1)
+	{
+		usr_input = readline("minishell: ");
+		create_list(usr_input, envp);
+	}
 	return (1);
 }
 

@@ -3,3 +3,5 @@ O que é cada um?
 
 -> Fazer o SCAN do input! Fazer a validação do input!
 
+-> para usar em casa, fazer download da lib readline
+IMPORTANTE: sudo apt install libreadline-dev

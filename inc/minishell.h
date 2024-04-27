@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/04/27 18:26:40 by aprado           ###   ########.fr       */
+/*   Updated: 2024/04/27 18:50:24 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef struct	s_token
 {
