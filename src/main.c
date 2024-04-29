@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/04/27 18:58:53 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:37:45 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,37 @@ void	print_list(t_token **head)
 	aux = *head;
 	while (aux)
 	{
-		ft_printf("-> %s\n", aux->command);
+		ft_printf("comand: %s\n", aux->command);
+		ft_printf("path: %s\n", aux->real_path);
 		aux = aux->next;
 	}
 }
 
-void	create_node(char *s, t_token **head)
+char	*get_real_path(char ***all_paths, char *command)
+{
+	char	*test;
+	char	**paths;
+	int		i;
+
+	i = 0;
+	paths = (*all_paths);
+	while (paths[i])
+	{
+		test = ft_strjoin(paths[i], command);
+		//precisa colocar o / no final
+		ft_printf("test: %s\n", test);
+		if (!test)
+			return (NULL);
+		if (access(test, F_OK & X_OK) == 0)
+			return (test);
+		else
+			free(test);
+		i++;
+	}
+	return (NULL);
+}
+
+void	create_node(char *s, t_token **head, char ***paths)
 {
 	t_token	*new;
 	t_token	*current;
@@ -33,6 +58,7 @@ void	create_node(char *s, t_token **head)
 	if(!new)
 		return (ft_putstr_fd("Error\n", 2));
 	new->command = s;
+	new->real_path = get_real_path(paths, new->command);
 	new->next = NULL;
 	if (!(*head))
 	{
@@ -74,14 +100,14 @@ void	create_list(char *usr_input, char **envp)
 
 	i = 0;
 	head = NULL;
-	splited = ft_split(usr_input, ' ');
+	splited = ft_split(usr_input, '|');
 	env_path = find_env_path(envp);
 	paths = ft_split((env_path + 5), ':');
-	ft_printf("env path: %s\n", env_path);
-	ft_printf("first path: %s\n", paths[0]);
+	//ft_printf("env path: %s\n", env_path);
+	//ft_printf("first path: %s\n", paths[0]);
 	while (splited[i])
 	{
-		create_node(splited[i], &head);
+		create_node(splited[i], &head, &paths);
 		i++;
 	}
 	print_list(&head);
