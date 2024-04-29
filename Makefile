@@ -16,6 +16,9 @@ $(NAME): $(OBJ)
 		make -C lib
 		$(CC) $(CFLAGS) src/main.c $(OBJ) $(LIBFTPRINTF) $(LIBFT) -lreadline -o $(NAME)
 
+test:
+	$(CC) $(CFLAGS) test.c $(LIBFTPRINTF) $(LIBFT) -lreadline -o test
+
 clean:
 		make -C lib clean
 		rm -rf $(OBJ)

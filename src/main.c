@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/04/27 18:58:53 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:58:33 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ void	create_list(char *usr_input, char **envp)
 	char	**paths;
 	char	*env_path;
 	int		i;
-
+	(void) envp;
 	i = 0;
 	head = NULL;
 	splited = ft_split(usr_input, ' ');
-	env_path = find_env_path(envp);
+	env_path = getenv("PATH");
 	paths = ft_split((env_path + 5), ':');
 	ft_printf("env path: %s\n", env_path);
 	ft_printf("first path: %s\n", paths[0]);
@@ -95,16 +95,9 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		usr_input = readline("minishell: ");
+		add_history(usr_input);
 		create_list(usr_input, envp);
+		free(usr_input);
 	}
 	return (1);
 }
-
-/*
-int main (void)
-{
-	ft_printf("TESTE1\n");
-	test_print("TESTE2");
-	return (0);
-}
-*/
