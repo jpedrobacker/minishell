@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/04/29 15:25:18 by aprado           ###   ########.fr       */
+/*   Updated: 2024/04/30 12:32:31 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 
 # include "../lib/ft_printf.h"
 # include "../lib/libft/libft.h"
-# include <stdio.h>
 # include <unistd.h>
+# include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -33,8 +35,6 @@ typedef struct	s_token
 	struct s_token	*next;
 }			t_token;
 
-void test_print(char *src);
-
 /*-- path functions --*/
 char	*find_env_path(char **envp);
 char	*divide_command_input(char *s);
@@ -46,5 +46,8 @@ void	create_list(char *usr_input, char **envp);
 
 /*-- utils --*/
 void	print_list(t_token **head);
+
+void	env(char **envp);
+
 
 #endif
