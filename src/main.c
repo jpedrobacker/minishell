@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/04/29 15:54:01 by aprado           ###   ########.fr       */
+/*   Updated: 2024/04/30 12:52:40 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int ac, char **av, char **envp)
 			exit(EXIT_SUCCESS);
 		}
 		create_list(usr_input, envp);
+		free(usr_input);
 	}
 	return (1);
 }
