@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:09:39 by aprado            #+#    #+#             */
-/*   Updated: 2024/04/29 15:10:30 by aprado           ###   ########.fr       */
+/*   Updated: 2024/04/30 13:40:13 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	create_list(char *usr_input, char **envp)
 
 	i = 0;
 	head = NULL;
+	// echo "cat \t cat" | ls -la
+	// func que troca o '|' pelo '\t', se o '|' estiver dentro de "" ou ''
 	splited = ft_split(usr_input, '|');
 	env_path = find_env_path(envp);
 	paths = ft_split((env_path + 5), ':');
