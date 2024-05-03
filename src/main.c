@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/02 15:36:19 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/03 14:57:17 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 //cat "cat | cat"
 
-int	change_pipe(char **s, int start, int end)
+int	change_pipe(char *s, int start, int end)
 {
 	int	change;
 
 	change = 0;
 	while (start <= end)
 	{
-		if (*s[start] == '|')
+		if (s[start] == '|')
 		{
 			change++;
-			*s[start] = '\t';
+			s[start] = '\t';
 		}
 		start++;
 	}
@@ -38,24 +38,28 @@ int	change_pipe(char **s, int start, int end)
 
 void	change_input(char *s)
 {
-	//int	start;
-	//int	end;
-	int	i;
-	
-	/*
-	ft_printf("start :%s:\n", s);
+	int		i;
+	int		start;
+	int		end;
+
 	i = 0;
+	start = 0;
+	end = 0;
 	while (s[i])
 	{
-		if (s[i] == 'a')
-			s[i] = 'z';
+		if (s[i] == 34)
+		{
+			start = i;
+			i++;
+			while (s[i] && s[i] != 34)
+				i++;
+			end = i;
+			break ;
+		}
 		i++;
 	}
-	ft_printf("start :%s:\n", s);
-	*/
-	//ft_printf("end :%s:\n", *s + start);
-	//ft_printf("-> end %i\n", end);
-	//i = 0;
+	if (s[end] == 34)
+		change_pipe(s, start, end);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -63,7 +67,7 @@ int	main(int ac, char **av, char **envp)
 	char	*usr_input;
 	(void) ac;
 	(void) av;
-	(void)envp;
+	//(void)envp;
 
 	while (1)
 	{
@@ -82,7 +86,7 @@ int	main(int ac, char **av, char **envp)
 		change_input(usr_input);
 		ft_printf("main :%s:\n", usr_input);
 		//change_input(&av[1]);
-		//create_list(usr_input, envp);
+		create_list(usr_input, envp);
 		free(usr_input);
 	}
 	return (1);
