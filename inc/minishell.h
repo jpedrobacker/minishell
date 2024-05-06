@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/04/30 12:32:31 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/06 13:54:40 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,13 @@ char	*get_real_path(char ***all_paths, char *command);
 void	create_node(char *s, t_token **head, char ***paths);
 void	create_list(char *usr_input, char **envp);
 
+/*-- deal quotes functions --*/
+int		change_pipe(char *s, int *start, int *end);
+void	change_input(char *s);
+
 /*-- utils --*/
 void	print_list(t_token **head);
 
 void	env(char **envp);
-
 
 #endif
