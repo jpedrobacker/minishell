@@ -6,11 +6,24 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:51:06 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/06 13:52:42 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/06 17:29:42 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	replace_char(char *s, char old, char want)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == old)
+			s[i] = want;
+		i++;
+	}
+}
 
 int	change_pipe(char *s, int *start, int *end)
 {
@@ -33,6 +46,21 @@ int	change_pipe(char *s, int *start, int *end)
 	if (change == 0)
 		return (0);
 	return (1);
+}
+
+char	*get_quote_pos(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == 34 || s[i] == 39)
+			return (s + i);
+			//return (ft_strdup(s + i));
+		i++;
+	}
+	return (NULL);
 }
 
 void	change_input(char *s)
