@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/06 13:54:40 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/06 17:21:54 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ typedef struct	s_token
 	int			fd_in;
 	int			fd_out;
 	char		*real_path;
-	char		*command;
-	char		*command_input;
+	char		*cmd_name;
+	char		*cmd_input;
+	char		**arr_cmd_input;
 	char		**env_path;
-	char		**arr_command;
 	struct s_token	*next;
 }			t_token;
 
@@ -46,7 +46,9 @@ void	create_list(char *usr_input, char **envp);
 
 /*-- deal quotes functions --*/
 int		change_pipe(char *s, int *start, int *end);
+char	*get_quote_pos(char *s);
 void	change_input(char *s);
+void	replace_char(char *s, char old, char want);
 
 /*-- utils --*/
 void	print_list(t_token **head);
