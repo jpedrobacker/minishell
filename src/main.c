@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/03 14:57:17 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/06 09:30:22 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,24 @@
 
 //cat "cat | cat"
 
-int	change_pipe(char *s, int start, int end)
+int	change_pipe(char *s, int *start, int *end)
 {
 	int	change;
+	int	i;
 
 	change = 0;
-	while (start <= end)
+	i = *start;
+	while (i <= *end)
 	{
-		if (s[start] == '|')
+		if (s[i] == '|')
 		{
 			change++;
-			s[start] = '\t';
+			s[i] = '\t';
 		}
-		start++;
+		i++;
 	}
+	*start = 0;
+	*end = 0;
 	if (change == 0)
 		return (0);
 	return (1);
@@ -41,25 +45,32 @@ void	change_input(char *s)
 	int		i;
 	int		start;
 	int		end;
+	char	c1;
 
 	i = 0;
 	start = 0;
 	end = 0;
 	while (s[i])
 	{
-		if (s[i] == 34)
+		if (s[i] == 34 || s[i] == 39)
 		{
+			c1 = s[i];
 			start = i;
 			i++;
-			while (s[i] && s[i] != 34)
+			while (s[i] && s[i] != c1)
 				i++;
 			end = i;
-			break ;
+			if (s[end] != '\0')
+				change_pipe(s, &start, &end);
+			else
+				ft_printf("Quote>");
 		}
 		i++;
 	}
+	/*
 	if (s[end] == 34)
 		change_pipe(s, start, end);
+	*/
 }
 
 int	main(int ac, char **av, char **envp)
