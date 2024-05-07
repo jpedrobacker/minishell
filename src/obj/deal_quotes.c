@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:51:06 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/06 17:29:42 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/07 14:29:56 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,40 +25,46 @@ void	replace_char(char *s, char old, char want)
 	}
 }
 
-int	change_pipe(char *s, int *start, int *end)
+void	change_spaces(char *s, int *start, int *end)
 {
-	int	change;
 	int	i;
 
-	change = 0;
+	i = *start;
+	while (i <= *end)
+	{
+		if (s[i] == ' ')
+			s[i] = '\v';
+		i++;
+	}
+}
+
+void	change_pipe(char *s, int *start, int *end)
+{
+	int	i;
+
 	i = *start;
 	while (i <= *end)
 	{
 		if (s[i] == '|')
-		{
-			change++;
 			s[i] = '\t';
-		}
 		i++;
 	}
+	change_spaces(s, start, end);
 	*start = 0;
 	*end = 0;
-	if (change == 0)
-		return (0);
-	return (1);
 }
 
 char	*get_quote_pos(char *s)
 {
-	int	i;
+	char	*temp;
 
-	i = 0;
-	while (s[i])
+	temp = s;
+	while (*temp)
 	{
-		if (s[i] == 34 || s[i] == 39)
-			return (s + i);
+		if (*temp == 34 || *temp == 39)
+			return (temp);
 			//return (ft_strdup(s + i));
-		i++;
+		temp++;
 	}
 	return (NULL);
 }

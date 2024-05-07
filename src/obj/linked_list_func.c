@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:09:39 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/06 17:54:08 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/07 14:59:09 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,11 @@ void	create_node(char *s, t_token **head, char ***paths)
 	t_token	*new;
 	t_token	*current;
 
-	//char	*temp;
-
 	new = malloc(sizeof(t_token));
 	if(!new)
 		return (ft_putstr_fd("Error\n", 2));
-	replace_char(s, '\t', '|');
 	new->cmd_input = s;
-	/*
-	temp = get_quote_pos(s);
-	replace_char(temp, ' ', '+');
-	ft_printf("--> teste: %s\n", temp);
-	//new->arr_cmd_input = ft_split(s, ' ');
-	//Function para criar um array de arrays para mandarmos para o execve
-	*/
+	new->arr_cmd_input = ft_split(s, ' ');
 	new->cmd_name = divide_command_input(s);
 	new->real_path = get_real_path(paths, new->cmd_name);
 	new->next = NULL;
@@ -62,9 +53,11 @@ void	create_list(char *usr_input, char **envp)
 	while (splited[i])
 	{
 		//ft_printf("OPAAA\n");
-		//replace_char(splited[i], '\t', '|');
+		replace_char(splited[i], '\t', '|');
 		create_node(splited[i], &head, &paths);
+		replace_char(splited[i], '\v', ' ');
 		i++;
 	}
+	fix_matrix(&head);
 	print_list(&head);
 }
