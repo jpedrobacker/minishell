@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/06 17:21:54 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/07 14:59:45 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ void	create_node(char *s, t_token **head, char ***paths);
 void	create_list(char *usr_input, char **envp);
 
 /*-- deal quotes functions --*/
-int		change_pipe(char *s, int *start, int *end);
+void	change_pipe(char *s, int *start, int *end);
+void	change_spaces(char *s, int *start, int *end);
 char	*get_quote_pos(char *s);
 void	change_input(char *s);
 void	replace_char(char *s, char old, char want);
 
 /*-- utils --*/
+void	fix_matrix(t_token **head);
 void	print_list(t_token **head);
 
 void	env(char **envp);
