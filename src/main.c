@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/06 14:11:53 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/07 14:24:07 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	main(int ac, char **av, char **envp)
 		if (ft_strncmp(usr_input, "cd", ft_strlen(usr_input)) == 0)
 			cd("");
 		*/
+		ft_printf("antes: %s\n", usr_input);
 		change_input(usr_input);
+		ft_printf("depois: %s\n", usr_input);
 		create_list(usr_input, envp);
 		free(usr_input);
 	}
