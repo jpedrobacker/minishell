@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readline.c                                         :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/23 11:30:09 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/04/23 11:43:40 by jbergfel         ###   ########.fr       */
+/*   Created: 2024/04/30 11:39:02 by jbergfel          #+#    #+#             */
+/*   Updated: 2024/05/07 12:27:23 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../inc/minishell.h"
 
-void test_print(char *str)
+void	built_exit(void)
 {
-	ft_printf("%s\n", str);
+	exit(EXIT_SUCCESS);
 }

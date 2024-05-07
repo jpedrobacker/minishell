@@ -28,10 +28,10 @@ $(NAME): makelib $(OBJ)
 
 clean:
 		rm -rf $(OBJ)
-		cd $(LIBFTDIR) && make clean
+		make clean -C libft
 
 fclean: clean
 		rm -rf $(NAME)
-		cd $(LIBFTDIR) && make fclean
+		make fclean -C libft
 
 re: fclean all

@@ -6,96 +6,87 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/04/29 15:58:33 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:49:21 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	print_list(t_token **head)
-{
-	t_token	*aux;
+//cat "cat | cat"
 
-	aux = *head;
-	while (aux)
+int	change_pipe(char *s, int start, int end)
+{
+	int	change;
+
+	change = 0;
+	while (start <= end)
 	{
-		ft_printf("-> %s\n", aux->command);
-		aux = aux->next;
+		if (s[start] == '|')
+		{
+			change++;
+			s[start] = '\t';
+		}
+		start++;
 	}
+	if (change == 0)
+		return (0);
+	return (1);
 }
 
-void	create_node(char *s, t_token **head)
-{
-	t_token	*new;
-	t_token	*current;
+// " 34
+// ' 39
 
-	new = malloc(sizeof(t_token));
-	if(!new)
-		return (ft_putstr_fd("Error\n", 2));
-	new->command = s;
-	new->next = NULL;
-	if (!(*head))
-	{
-		(*head) = new;
-		return ;
-	}
-	current = (*head);
-	while (current->next)
-		current = current->next;
-	current->next = new;
-}
-
-char	*find_env_path(char **envp)
+void	change_input(char *s)
 {
-	char	*env_path;
 	int		i;
+	int		start;
+	int		end;
 
 	i = 0;
-	env_path = NULL;
-	while (envp[i])
+	start = 0;
+	end = 0;
+	while (s[i])
 	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+		if (s[i] == 34)
 		{
-			env_path = envp[i];
+			start = i;
+			i++;
+			while (s[i] && s[i] != 34)
+				i++;
+			end = i;
 			break ;
 		}
 		i++;
 	}
-	return (env_path);
-}
-
-void	create_list(char *usr_input, char **envp)
-{
-	t_token	*head;
-	char	**splited;
-	char	**paths;
-	char	*env_path;
-	int		i;
-	(void) envp;
-	i = 0;
-	head = NULL;
-	splited = ft_split(usr_input, ' ');
-	env_path = getenv("PATH");
-	paths = ft_split((env_path + 5), ':');
-	ft_printf("env path: %s\n", env_path);
-	ft_printf("first path: %s\n", paths[0]);
-	while (splited[i])
-	{
-		create_node(splited[i], &head);
-		i++;
-	}
-	print_list(&head);
+	if (s[end] == 34)
+		change_pipe(s, start, end);
 }
 
 int	main(int ac, char **av, char **envp)
 {
 	char	*usr_input;
+	char	*minshell;
+	char	curdir[PATH_MAX];
 	(void) ac;
 	(void) av;
+	//(void)envp;
 	while (1)
 	{
-		usr_input = readline("minishell: ");
-		add_history(usr_input);
+		minshell = ft_strjoin(getcwd(curdir, sizeof(curdir)), "$ ");
+		minshell = ft_strnstr(minshell, "home", ft_strlen(minshell));
+		usr_input = readline(minshell);
+		if (!usr_input)
+		{
+			ft_printf("Apertei cntrlD");
+			exit(EXIT_SUCCESS);
+		}
+		if (ft_strncmp(usr_input, "cd", ft_strlen(usr_input)) == 0)
+			built_cd("..");
+		//criar uma func que troca o '|' por '\t'
+		//ft_printf("main :%s:\n", usr_input);
+		change_input(usr_input);
+		//ft_printf("main :%s:\n", usr_input);
+		//change_input(&av[1]);
 		create_list(usr_input, envp);
 		free(usr_input);
 	}
