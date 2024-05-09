@@ -6,8 +6,13 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:39:02 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/04/30 11:47:34 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:27:23 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	built_exit(void)
+{
+	exit(EXIT_SUCCESS);
+}

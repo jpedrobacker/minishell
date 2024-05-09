@@ -15,7 +15,11 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 		make -C lib
-		$(CLANG) $(CFLAGS) src/main.c $(OBJ) $(LIBFTPRINTF) $(LIBFT) -lreadline -o $(NAME)
+		ar -rcs minishell.a $(OBJ)
+		$(CLANG) $(CFLAGS) src/main.c minishell.a $(LIBFTPRINTF) -lreadline -o $(NAME)
+
+test:
+	$(CC) $(CFLAGS) test.c $(LIBFTPRINTF) $(LIBFT) -lreadline -o test
 
 clean:
 		make -C lib clean
@@ -23,6 +27,7 @@ clean:
 
 fclean: clean
 		make -C lib fclean
+		rm -rf minishell.a
 		rm -rf $(NAME)
 
 re: fclean all

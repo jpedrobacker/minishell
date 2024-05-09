@@ -6,15 +6,15 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/07 14:59:45 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/07 12:42:04 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../lib/ft_printf.h"
 # include "../lib/libft/libft.h"
+# include "../lib/ft_printf.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -22,6 +22,7 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <linux/limits.h>
 
 typedef struct	s_token
 {
@@ -55,6 +56,11 @@ void	replace_char(char *s, char old, char want);
 void	fix_matrix(t_token **head);
 void	print_list(t_token **head);
 
-void	env(char **envp);
+/*-- builtins --*/
+int		built_cd(char *arg);
+int		built_echo(char *str, char *flag);
+int		built_pwd(void);
+void	built_env(char **envp);
+void	built_exit(void);
 
 #endif
