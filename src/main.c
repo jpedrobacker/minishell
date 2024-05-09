@@ -30,8 +30,6 @@ int	main(int ac, char **av, char **envp)
 			ft_printf("Apertei cntrlD");
 			exit(EXIT_SUCCESS);
 		}
-		if (ft_strncmp(usr_input, "cd", ft_strlen(usr_input)) == 0)
-			cd("");
 		ft_printf("antes: %s\n", usr_input);
 		change_input(usr_input);
 		ft_printf("depois: %s\n", usr_input);
