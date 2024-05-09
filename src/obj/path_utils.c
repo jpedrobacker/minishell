@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:07:29 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/03 12:55:25 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/06 09:03:24 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char	*divide_command_input(char *s)
 
 	i = 0;
 	j = 0;
+	len = 0;
 	while (s[i] && s[i] == ' ')
 		i++;
 	beginning = i;
