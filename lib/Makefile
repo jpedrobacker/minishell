@@ -25,13 +25,14 @@ makelib:
 
 $(NAME): makelib $(OBJ)
 		ar -rcs $(NAME) $(OBJ)
+		make clean
 
 clean:
 		rm -rf $(OBJ)
-		cd $(LIBFTDIR) && make clean
+		make clean -C libft
 
 fclean: clean
 		rm -rf $(NAME)
-		cd $(LIBFTDIR) && make fclean
+		make fclean -C libft
 
 re: fclean all

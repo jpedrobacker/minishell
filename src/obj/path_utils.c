@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:07:29 by aprado            #+#    #+#             */
-/*   Updated: 2024/04/29 15:08:22 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/06 09:03:24 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,20 @@ char	*divide_command_input(char *s)
 
 	i = 0;
 	j = 0;
-	while (s[i] == ' ')
+	len = 0;
+	while (s[i] && s[i] == ' ')
 		i++;
 	beginning = i;
-	while (s[i++] != ' ')
+	while (s[i] && s[i] != ' ')
+	{
+		i++;
 		len++;
+	}
 	cmd = malloc(sizeof(char) * (len + 1));
 	if (!cmd)
 		return (NULL);
 	while (beginning < i)
-	{
-		cmd[j++] = s[beginning];
-		beginning++;
-	}
+		cmd[j++] = s[beginning++];
 	cmd[len] = '\0';
 	return (cmd);
 }
