@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/09 15:10:01 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/10 17:32:41 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int ac, char **av, char **envp)
 	char	*usr_input;
 	char	*minshell;
 	char	curdir[PATH_MAX];
-	
+
 	(void) ac;
 	(void) av;
 	//(void)envp;
@@ -32,11 +32,11 @@ int	main(int ac, char **av, char **envp)
 			exit(EXIT_SUCCESS);
 		}
 		call_cmd(usr_input, envp);
-		ft_printf("antes: %s\n", usr_input);
+		//ft_printf("antes: %s\n", usr_input);
 		change_input(usr_input);
-		ft_printf("depois: %s\n", usr_input);
+		//ft_printf("depois: %s\n", usr_input);
 		create_list(usr_input, envp);
 		free(usr_input);
 	}
-	return (1);
+	return (0);
 }

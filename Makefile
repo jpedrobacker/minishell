@@ -18,8 +18,9 @@ $(NAME): $(OBJ)
 		ar -rcs minishell.a $(OBJ)
 		$(CLANG) $(CFLAGS) src/main.c minishell.a $(LIBFTPRINTF) -lreadline -o $(NAME)
 
-test:
-	$(CC) $(CFLAGS) test.c $(LIBFTPRINTF) $(LIBFT) -lreadline -o test
+val: re
+	make clean
+	valgrind --leak-check=full ./minishell
 
 clean:
 		make -C lib clean

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/09 15:39:05 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/10 17:38:57 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../lib/libft/libft.h"
 # include "../lib/ft_printf.h"
+# include "colors.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -43,6 +44,21 @@ typedef struct	s_varenv
 	struct s_varenv	*next;
 }			t_varenv;
 
+enum	typer_of_errors
+{
+	QUOTE = 1, //Looking for matching quote
+	NDIR = 2, //No such file or dir
+	NPERM = 3, //Permission denied
+	NCMD = 4, //Command not found
+	DUPERR = 5, //dup2 failed
+	FORKERR= 6, //for failed
+	PIPERR = 7,//error creating pipe
+	PIPENDERR = 8, //syntax error near unexpected toke '|'
+	MEM = 9, //no memory left on device
+	IS_DIR = 10, //Is a dir
+	NO_DIR = 11 //Not a dir
+};
+
 /*-- path functions --*/
 char	*find_env_path(char **envp);
 char	*divide_command_input(char *s);
@@ -70,7 +86,12 @@ int		built_pwd(void);
 void	built_env(char **envp);
 void	built_exit(void);
 t_varenv	*built_export(char **envp);
-
 void	call_cmd(char *cmd, char **envp);
+
+/*-- handle errors --*/
+void	*errors_mini(int type_err, char *param);
+void	to_free_token(t_token **token);
+void	to_free_varenv(t_varenv **lst_env);
+void	free_splits(char **split);
 
 #endif

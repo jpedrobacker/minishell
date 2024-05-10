@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list_func.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
+/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:09:39 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/07 14:59:09 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/10 17:39:56 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,7 @@ void	create_list(char *usr_input, char **envp)
 	}
 	fix_matrix(&head);
 	print_list(&head);
+	to_free_token(&head);
+	free_splits(splited);
+	free_splits(paths);
 }

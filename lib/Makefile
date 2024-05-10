@@ -25,6 +25,7 @@ makelib:
 
 $(NAME): makelib $(OBJ)
 		ar -rcs $(NAME) $(OBJ)
+		make clean
 
 clean:
 		rm -rf $(OBJ)

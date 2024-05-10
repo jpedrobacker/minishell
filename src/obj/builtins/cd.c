@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:14 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/07 12:50:02 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/10 17:05:16 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@ int	built_cd(char *arg)
 {
 	if (chdir(arg) != -1)
 		return (0);
+	errors_mini(NDIR, "cd");
 	return (1);
 }

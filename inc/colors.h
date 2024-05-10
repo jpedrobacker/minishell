@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/10 17:04:15 by jbergfel         ###   ########.fr       */
+/*   Created: 2024/05/10 13:54:22 by jbergfel          #+#    #+#             */
+/*   Updated: 2024/05/10 13:56:40 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#ifndef COLORS_H
+# define COLORS_H
 
-int	built_echo(char *str, char *flag)
-{
-	if (ft_strncmp(flag, "-n", ft_strlen(flag)) == 0)
-	{
-		ft_printf("%s", str);
-		return (0);
-	}
-	else
-	{
-		ft_printf("%s\n", str);
-		return (0);
-	}
-	return (1);
-}
+# define DEFAULT "\001\033[0;39m\002"
+# define GRAY "\001\033[1;90m\002"
+# define RED "\001\033[1;91m\002"
+# define GREEN "\001\033[1;92m\002"
+# define YELLOW "\001\033[1;93m\002"
+# define BLUE "\001\033[1;94m\002"
+# define MAGENTA "\001\033[1;95m\002"
+# define CYAN "\001\033[1;96m\002"
+# define WHITE "\001\033[0;97m\002"
+
+#endif
