@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/10 17:38:57 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/12 12:18:10 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ char	*divide_command_input(char *s);
 char	*get_real_path(char ***all_paths, char *command);
 
 /*-- linked list functions --*/
-void	create_node(char *s, t_token **head, char ***paths);
-void	create_list(char *usr_input, char **envp);
+void		create_node(char *s, t_token **head, char ***paths);
+void		create_list(char *usr_input, char **envp);
+t_varenv	make_envp_list(char **envp);
 
 /*-- deal quotes functions --*/
 void	change_pipe(char *s, int *start, int *end);
@@ -83,10 +84,10 @@ void	print_list(t_token **head);
 int		built_cd(char *arg);
 int		built_echo(char *str, char *flag);
 int		built_pwd(void);
-void	built_env(char **envp);
+void	built_env(t_varenv **envp);
 void	built_exit(void);
-t_varenv	*built_export(char **envp);
-void	call_cmd(char *cmd, char **envp);
+//t_varenv	*built_export(char **envp);
+void	call_cmd(char *cmd, t_varenv *envp);
 
 /*-- handle errors --*/
 void	*errors_mini(int type_err, char *param);
