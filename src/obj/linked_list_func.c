@@ -12,8 +12,18 @@
 
 #include "../inc/minishell.h"
 
+int	pre_execute(t_token **head)
+{
+	int	pid;
+
+	pid = fork();
+	if (pid < 0)
+		return (ft_putstr_fd("Error.\n", 2), 0);
+
+}
+
 //criar funcao para trocar o espaco que esta dentro das "" '' por \t
-void	create_node(char *s, t_token **head, char ***paths)
+void	create_node(char *s, t_token **head, char ***paths, char **envp)
 {
 	t_token	*new;
 	t_token	*current;
@@ -25,6 +35,7 @@ void	create_node(char *s, t_token **head, char ***paths)
 	new->arr_cmd_input = ft_split(s, ' ');
 	new->cmd_name = divide_command_input(s);
 	new->real_path = get_real_path(paths, new->cmd_name);
+	new->env_path = envp;
 	new->next = NULL;
 	if (!(*head))
 	{
@@ -54,11 +65,12 @@ void	create_list(char *usr_input, char **envp)
 	{
 		//ft_printf("OPAAA\n");
 		replace_char(splited[i], '\t', '|');
-		create_node(splited[i], &head, &paths);
+		create_node(splited[i], &head, &paths, envp);
 		replace_char(splited[i], '\v', ' ');
 		i++;
 	}
 	fix_matrix(&head);
+	pre_execute(&head);
 	print_list(&head);
 	to_free_token(&head);
 	free_splits(splited);
