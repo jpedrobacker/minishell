@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/15 14:25:58 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/15 16:05:20 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,10 @@
 # include <stdlib.h>
 # include <string.h>
 # include <errno.h>
-# include <signals.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <linux/limits.h>
-
-typedef struct	s_token
-{
-	int			fd_in;
-	int			fd_out;
-	char		*real_path;
-	char		*cmd_name;
-	char		*cmd_input;
-	char		**arr_cmd_input;
-	char		**env_path;
-	struct s_token	*next;
-}			t_token;
 
 typedef struct	s_varenv
 {
@@ -44,6 +32,20 @@ typedef struct	s_varenv
 	char			*var;
 	struct s_varenv	*next;
 }			t_varenv;
+
+typedef struct	s_token
+{
+	int			fd_in;
+	int			fd_out;
+	int			flag_expand;
+	char		*real_path;
+	char		*cmd_name;
+	char		*cmd_input;
+	char		**arr_cmd_input;
+	char		*env;
+	t_varenv	*envs_lst;
+	struct s_token	*next;
+}			t_token;
 
 enum	typer_of_errors
 {
@@ -66,8 +68,8 @@ char	*divide_command_input(char *s);
 char	*get_real_path(char ***all_paths, char *command);
 
 /*-- linked list functions --*/
-void		create_node(char *s, t_token **head, char ***paths, char **envp);
-t_token		create_list(char *usr_input, char **envp);
+void		create_node(char *s, t_token **head, char ***paths, t_varenv *envs);
+t_token		create_list(char *usr_input, char **envp, t_varenv *envs);
 t_varenv	make_envp_list(char **envp);
 void		link_envp(char *envp, t_varenv **head);
 
@@ -81,6 +83,8 @@ void		replace_char(char *s, char old, char want);
 /*-- utils --*/
 void		fix_matrix(t_token **head);
 void		print_list(t_token **head);
+int			is_there_var(char *s);
+char		*get_env_name(char *s);
 
 /*-- builtins --*/
 int			built_cd(t_token **token);
