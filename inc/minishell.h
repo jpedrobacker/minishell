@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/10 17:38:57 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:25:58 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <errno.h>
+# include <signals.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <linux/limits.h>
@@ -65,33 +66,37 @@ char	*divide_command_input(char *s);
 char	*get_real_path(char ***all_paths, char *command);
 
 /*-- linked list functions --*/
-void	create_node(char *s, t_token **head, char ***paths);
-void	create_list(char *usr_input, char **envp);
+void		create_node(char *s, t_token **head, char ***paths, char **envp);
+t_token		create_list(char *usr_input, char **envp);
+t_varenv	make_envp_list(char **envp);
+void		link_envp(char *envp, t_varenv **head);
 
 /*-- deal quotes functions --*/
-void	change_pipe(char *s, int *start, int *end);
-void	change_spaces(char *s, int *start, int *end);
-char	*get_quote_pos(char *s);
-void	change_input(char *s);
-void	replace_char(char *s, char old, char want);
+void		change_pipe(char *s, int *start, int *end);
+void		change_spaces(char *s, int *start, int *end);
+char		*get_quote_pos(char *s);
+void		change_input(char *s);
+void		replace_char(char *s, char old, char want);
 
 /*-- utils --*/
-void	fix_matrix(t_token **head);
-void	print_list(t_token **head);
+void		fix_matrix(t_token **head);
+void		print_list(t_token **head);
 
 /*-- builtins --*/
-int		built_cd(char *arg);
-int		built_echo(char *str, char *flag);
-int		built_pwd(void);
-void	built_env(char **envp);
-void	built_exit(void);
-t_varenv	*built_export(char **envp);
-void	call_cmd(char *cmd, char **envp);
+int			built_cd(t_token **token);
+int			built_echo(t_token **token);
+int			built_pwd(void);
+void		built_env(t_varenv **envp);
+void		built_exit(void);
+void		built_export(t_varenv **env, t_token **token);
+void		built_unset(t_varenv **env, t_token **token);
+void		call_cmd(t_token *token, t_varenv *envp);
 
 /*-- handle errors --*/
-void	*errors_mini(int type_err, char *param);
-void	to_free_token(t_token **token);
-void	to_free_varenv(t_varenv **lst_env);
-void	free_splits(char **split);
+void		*errors_mini(int type_err, char *param);
+void		to_free_token(t_token **token);
+void		to_free_varenv(t_varenv **lst_env);
+void		free_splits(char **split);
+
 
 #endif
