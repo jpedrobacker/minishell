@@ -6,13 +6,13 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:09:39 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/10 17:39:56 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:10:02 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	pre_execute(t_token **head)
+/*int	pre_execute(t_token **head)
 {
 	int	pid;
 
@@ -20,7 +20,7 @@ int	pre_execute(t_token **head)
 	if (pid < 0)
 		return (ft_putstr_fd("Error.\n", 2), 0);
 
-}
+}*/
 
 //criar funcao para trocar o espaco que esta dentro das "" '' por \t
 void	create_node(char *s, t_token **head, char ***paths, char **envp)
@@ -48,7 +48,7 @@ void	create_node(char *s, t_token **head, char ***paths, char **envp)
 	current->next = new;
 }
 
-void	create_list(char *usr_input, char **envp)
+t_token	create_list(char *usr_input, char **envp)
 {
 	t_token	*head;
 	char	**splited;
@@ -70,9 +70,10 @@ void	create_list(char *usr_input, char **envp)
 		i++;
 	}
 	fix_matrix(&head);
-	pre_execute(&head);
+	//pre_execute(&head);
 	print_list(&head);
-	to_free_token(&head);
-	free_splits(splited);
-	free_splits(paths);
+	//to_free_token(&head);
+	//free_splits(splited);
+	//free_splits(paths);
+	return (*head);
 }

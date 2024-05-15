@@ -17,6 +17,7 @@ $(NAME): $(OBJ)
 		make -C lib
 		ar -rcs minishell.a $(OBJ)
 		$(CLANG) $(CFLAGS) src/main.c minishell.a $(LIBFTPRINTF) -lreadline -o $(NAME)
+		clear
 
 val: re
 	make clean
