@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/15 10:59:36 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:25:16 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int ac, char **av, char **envp)
 
 	(void) ac;
 	(void) av;
+	signal(SIGQUIT, SIG_IGN);
 	envp_lst = make_envp_list(envp);
 	while (1)
 	{

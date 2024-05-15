@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/15 11:22:49 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:25:58 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <errno.h>
+# include <signals.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <linux/limits.h>
