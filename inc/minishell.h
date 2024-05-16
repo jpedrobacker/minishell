@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/15 16:05:20 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/16 16:34:06 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct	s_token
 	int			fd_in;
 	int			fd_out;
 	int			flag_expand;
+	char		*expanded_env;
 	char		*real_path;
 	char		*cmd_name;
 	char		*cmd_input;
