@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/15 16:31:56 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/16 16:55:08 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,34 +26,32 @@ int	is_there_var(char *s)
 	return (0);
 }
 
-//echo "$HOME"
 char	*get_env_name(char *s)
 {
+	int		env_len;
+	int		s_len;
 	int		i;
-	int		len;
-	char	*env;
+	char	*name;
 
 	i = 0;
-	len = 0;
+	env_len = 0;
+	s_len = ft_strlen(s);
 	while (s[i] && s[i] != '$')
 		i++;
-	while (s[i] && (s[i] != ' ' || s[i] != 34))
-	{
-		len++;
+	if ((i + 1) < s_len && ft_isalnum(s[i + 1]))
 		i++;
-	}
-	env = malloc(sizeof(char) * (len + 1));
-	if (!env)
+	else
 		return (NULL);
-	env[len] = '\0';
-	len--;
-	while (s[i] != '$')
+	while (s[i] && ft_isalnum(s[i]))
 	{
-		env[len] = s[i];
-		i--;
-		len--;
+		i++;
+		env_len++;
 	}
-	return (env);
+	name = malloc(sizeof(char) * (env_len + 1));
+	name[env_len] = '\0';
+	while (env_len != -1)
+		name[--env_len] = s[--i];
+	return (name);
 }
 
 void	fix_matrix(t_token **head)

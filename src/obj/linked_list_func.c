@@ -6,13 +6,12 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:09:39 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/15 16:15:21 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/16 16:59:05 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//criar funcao para trocar o espaco que esta dentro das "" '' por \t
 void	create_node(char *s, t_token **head, char ***paths, t_varenv *envs)
 {
 	t_token	*new;
@@ -40,6 +39,26 @@ void	create_node(char *s, t_token **head, char ***paths, t_varenv *envs)
 	current->next = new;
 }
 
+//fazer funcao para expandir a var de ambiente!
+/*
+void	get_expanded_env(t_token **head)
+{
+	t_token		*aux;
+	t_varenv	*temp;
+
+	aux = *head;
+	while (aux)
+	{
+		if (aux->env)
+		{
+			
+		}
+		aux = aux->next;
+	}
+	temp = get_t_varenv_pointer(head);
+}
+*/
+
 t_token	create_list(char *usr_input, char **envp, t_varenv *envs)
 {
 	t_token	*head;
@@ -61,7 +80,7 @@ t_token	create_list(char *usr_input, char **envp, t_varenv *envs)
 		i++;
 	}
 	fix_matrix(&head);
-	//pre_execute(&head);
+	get_expanded_env(&head);
 	print_list(&head);
 	//to_free_token(&head);
 	//free_splits(splited);
