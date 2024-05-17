@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/16 16:55:08 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/17 17:16:31 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,38 +20,46 @@ int	is_there_var(char *s)
 	while (s[i])
 	{
 		if (s[i] == '$')
-			return (1);
+			if (s[i + 1] && ft_isalnum(s[i + 1]))
+				return (1);
 		i++;
 	}
 	return (0);
 }
 
-char	*get_env_name(char *s)
+char	*get_env_name(char *s, int flag)
 {
-	int		env_len;
-	int		s_len;
+	char	*env;
 	int		i;
-	char	*name;
+	int		len;
 
+	if (!flag)
+		return (NULL);
 	i = 0;
-	env_len = 0;
-	s_len = ft_strlen(s);
+	len = 0;
 	while (s[i] && s[i] != '$')
 		i++;
-	if ((i + 1) < s_len && ft_isalnum(s[i + 1]))
-		i++;
-	else
-		return (NULL);
+	i++;
 	while (s[i] && ft_isalnum(s[i]))
 	{
 		i++;
-		env_len++;
+		len++;
 	}
-	name = malloc(sizeof(char) * (env_len + 1));
-	name[env_len] = '\0';
-	while (env_len != -1)
-		name[--env_len] = s[--i];
-	return (name);
+	env = malloc(sizeof(char) * (len + 1));
+	if (!env)
+		return (NULL);
+	env[len] = '\0';
+	while (len != -1)
+		env[--len] = s[--i];
+	return (env);
+}
+
+void	expand_func(t_token **node)
+{
+	t_token *aux;
+
+	aux = *node;
+	ft_printf("OPAAA :%i:\n", aux->flag_expand);
 }
 
 void	fix_matrix(t_token **head)
@@ -69,6 +77,8 @@ void	fix_matrix(t_token **head)
 			i++;
 		}
 		i = 0;
+		if (aux->flag_expand)
+			expand_func(&aux);
 		aux = aux->next;
 	}
 }
@@ -82,7 +92,7 @@ void	print_list(t_token **head)
 	aux = *head;
 	while (aux)
 	{
-		replace_char(aux->cmd_input, '\v', ' ');
+		//replace_char(aux->cmd_input, '\v', ' ');
 		ft_printf("-------------------------------\n");
 		ft_printf("command input :%s:\n", aux->cmd_input);
 		ft_printf("comand :%s:\n", aux->cmd_name);

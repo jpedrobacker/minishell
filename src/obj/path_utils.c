@@ -6,11 +6,31 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:07:29 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/06 09:03:24 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/17 16:36:27 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+static int	our_builtins(char *s)
+{
+	if (!ft_strncmp("cd", s, ft_strlen(s)))
+		return (1);
+	else if (!ft_strncmp("echo", s, ft_strlen(s)))
+		return (1);
+	else if (!ft_strncmp("env", s, ft_strlen(s)))
+		return (1);
+	else if (!ft_strncmp("exit", s, ft_strlen(s)))
+		return (1);
+	else if (!ft_strncmp("pwd", s, ft_strlen(s)))
+		return (1);
+	else if (!ft_strncmp("export", s, ft_strlen(s)))
+		return (1);
+	else if (!ft_strncmp("unset", s, ft_strlen(s)))
+		return (1);
+	return (0);
+}
+
 
 char	*get_real_path(char ***all_paths, char *command)
 {
@@ -20,6 +40,8 @@ char	*get_real_path(char ***all_paths, char *command)
 	int		i;
 
 	i = 0;
+	if (our_builtins(command))
+		return (NULL);
 	paths = (*all_paths);
 	test_command = ft_strjoin("/", command);
 	while (paths[i])
@@ -28,10 +50,7 @@ char	*get_real_path(char ***all_paths, char *command)
 		if (!test)
 			return (NULL);
 		if (access(test, F_OK & X_OK) == 0)
-		{
-			free(test_command);
-			return (test);
-		}
+			return (free(test_command), test);
 		else
 			free(test);
 		i++;

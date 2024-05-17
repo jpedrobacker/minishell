@@ -6,11 +6,17 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:09:39 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/16 16:59:05 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/17 16:56:36 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	prepare_nodes(t_token **head)
+{
+	fix_matrix(head);
+	print_list(head);
+}
 
 void	create_node(char *s, t_token **head, char ***paths, t_varenv *envs)
 {
@@ -26,7 +32,7 @@ void	create_node(char *s, t_token **head, char ***paths, t_varenv *envs)
 	new->real_path = get_real_path(paths, new->cmd_name);
 	new->envs_lst = envs;
 	new->flag_expand = is_there_var(s);
-	new->env = get_env_name(s);
+	new->env = get_env_name(s, new->flag_expand);
 	new->next = NULL;
 	if (!(*head))
 	{
@@ -38,26 +44,6 @@ void	create_node(char *s, t_token **head, char ***paths, t_varenv *envs)
 		current = current->next;
 	current->next = new;
 }
-
-//fazer funcao para expandir a var de ambiente!
-/*
-void	get_expanded_env(t_token **head)
-{
-	t_token		*aux;
-	t_varenv	*temp;
-
-	aux = *head;
-	while (aux)
-	{
-		if (aux->env)
-		{
-			
-		}
-		aux = aux->next;
-	}
-	temp = get_t_varenv_pointer(head);
-}
-*/
 
 t_token	create_list(char *usr_input, char **envp, t_varenv *envs)
 {
@@ -79,9 +65,10 @@ t_token	create_list(char *usr_input, char **envp, t_varenv *envs)
 		replace_char(splited[i], '\v', ' ');
 		i++;
 	}
-	fix_matrix(&head);
-	get_expanded_env(&head);
-	print_list(&head);
+	prepare_nodes(&head);
+	//colocar a fix_matrix dentro da prepare nodes!
+	//fix_matrix(&head);
+	//print_list(&head);
 	//to_free_token(&head);
 	//free_splits(splited);
 	//free_splits(paths);
