@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/15 14:25:58 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/16 21:25:17 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <errno.h>
-# include <signals.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <linux/limits.h>
@@ -81,6 +81,7 @@ void		replace_char(char *s, char old, char want);
 /*-- utils --*/
 void		fix_matrix(t_token **head);
 void		print_list(t_token **head);
+int			count_cmds(t_token **token);
 
 /*-- builtins --*/
 int			built_cd(t_token **token);
