@@ -6,24 +6,13 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:09:39 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/18 10:41:47 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/18 10:46:31 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*int	pre_execute(t_token **head)
-{
-	int	pid;
-
-	pid = fork();
-	if (pid < 0)
-		return (ft_putstr_fd("Error.\n", 2), 0);
-
-}*/
-
-//criar funcao para trocar o espaco que esta dentro das "" '' por \t
-void	create_node(char *s, t_token **head, char ***paths, char **envp)
+void	create_node(char *s, t_token **head, char ***paths, t_varenv *envs)
 {
 	t_token	*new;
 	t_token	*current;
@@ -37,7 +26,7 @@ void	create_node(char *s, t_token **head, char ***paths, char **envp)
 	new->real_path = get_real_path(paths, new->cmd_name);
 	new->envs_lst = envs;
 	new->flag_expand = is_there_var(s);
-	new->env = get_env_name(s, new->flag_expand);
+	new->env = get_env_name(s);
 	new->next = NULL;
 	if (!(*head))
 	{
@@ -50,7 +39,27 @@ void	create_node(char *s, t_token **head, char ***paths, char **envp)
 	current->next = new;
 }
 
-t_token	create_list(char *usr_input, char **envp)
+//fazer funcao para expandir a var de ambiente!
+/*
+void	get_expanded_env(t_token **head)
+{
+	t_token		*aux;
+	t_varenv	*temp;
+
+	aux = *head;
+	while (aux)
+	{
+		if (aux->env)
+		{
+
+		}
+		aux = aux->next;
+	}
+	temp = get_t_varenv_pointer(head);
+}
+*/
+
+t_token	create_list(char *usr_input, char **envp, t_varenv *envs)
 {
 	t_token	*head;
 	char	**splited;
@@ -65,14 +74,13 @@ t_token	create_list(char *usr_input, char **envp)
 	paths = ft_split((env_path + 5), ':');
 	while (splited[i])
 	{
-		//ft_printf("OPAAA\n");
 		replace_char(splited[i], '\t', '|');
-		create_node(splited[i], &head, &paths, envp);
+		create_node(splited[i], &head, &paths, envs);
 		replace_char(splited[i], '\v', ' ');
 		i++;
 	}
 	fix_matrix(&head);
-	//pre_execute(&head);
+	//get_expanded_env(&head);
 	print_list(&head);
 	//to_free_token(&head);
 	//free_splits(splited);

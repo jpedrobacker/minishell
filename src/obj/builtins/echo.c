@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/18 10:39:22 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/18 14:27:32 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,28 @@ void	built_echo(t_token **token, int flag)
 	t_token	*aux;
 	int		args;
 	int		i;
+	int		j;
 
 	aux = (*(token));
 	args = count_cmds(aux->arr_cmd_input);
 	if (flag == 0)
-		i = 2;
-	else
 		i = 1;
-	while (i < args)
+	else
+		i = 0;
+	while (++i < args)
 	{
-		ft_printf("%s", aux->arr_cmd_input[i]);
-		i++;
+		j = 0;
+		while (aux->arr_cmd_input[i][j])
+		{
+			while (aux->arr_cmd_input[i][j] == ' ' || aux->arr_cmd_input[i][j] == '"')
+				j++;
+			if (aux->arr_cmd_input[i][j - 1] == ' ')
+				write(1, " ", 1);
+			write(1, &aux->arr_cmd_input[i][j], 1);
+			j++;
+		}
+		if (aux->arr_cmd_input[i + 1] != NULL)
+			ft_printf(" ");
 	}
 	if (flag == 0)
 		return ;

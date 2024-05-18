@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/17 10:49:50 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/18 10:47:18 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	built_export(t_varenv **env, t_token **token)
 
 	aux_env = (*(env));
 	aux_token = (*(token));
-	arrs = count_cmds(token);
+	arrs = count_cmds(aux_token->arr_cmd_input);
 	if (arrs == 1)
 		while(aux_env != NULL)
 		{
