@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/16 19:33:14 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/18 10:18:21 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,4 @@ void	print_list(t_token **head)
 		i = 0;
 		aux = aux->next;
 	}
-}
-
-int	count_cmds(t_token **token)
-{
-	t_token	*aux;
-	int		i;
-
-	aux = (*(token));
-	i = 0;
-	while (aux->arr_cmd_input[i])
-		i++;
-	return (i);
 }

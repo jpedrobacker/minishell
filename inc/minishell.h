@@ -6,37 +6,36 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/16 21:25:17 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/18 10:40:06 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../lib/libft/libft.h"
 # include "../lib/ft_printf.h"
 # include "colors.h"
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <errno.h>
-# include <signal.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <linux/limits.h>
+# include <stdio.h>				// para printf
+# include <stdlib.h>			// para malloc, free, exit
+# include <unistd.h>			// para write, access, fork, wait, waitpid, wait3, wait4, execve, dup, dup2, pipe, getcwd, chdir, stat, lstat, fstat, unlink, getpid
+# include <signal.h>			// para signal, sigaction, sigemptyset, sigaddset, kill
+# include <dirent.h>			// para opendir, readdir, closedir
+# include <string.h>			// para strerror, perror
+# include <termios.h>			// para tcsetattr, tcgetattr, tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
+# include <fcntl.h>				// para open
+# include <errno.h>				// para perror
+# include <limits.h>			// para PATH_MAX
+# include <unistd.h>			// para isatty, ttyname, ttyslot
+# include <curses.h>			// para tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
+# include <term.h>				// para tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
+# include <fcntl.h>				// para open, close
+# include <sys/types.h>			// para tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
+# include <sys/stat.h>			// para stat, lstat, fstat
+# include <sys/ioctl.h>			// para ioctl
+# include <sys/wait.h>			// para waitpid
+# include <readline/readline.h>	// para readline
+# include <readline/history.h>	// para add_history, rl_clear_history, rl_on_new_line, rl_replace_line, rl_redisplay
 
-typedef struct	s_token
-{
-	int			fd_in;
-	int			fd_out;
-	char		*real_path;
-	char		*cmd_name;
-	char		*cmd_input;
-	char		**arr_cmd_input;
-	char		**env_path;
-	struct s_token	*next;
-}			t_token;
 
 typedef struct	s_varenv
 {
@@ -45,7 +44,22 @@ typedef struct	s_varenv
 	struct s_varenv	*next;
 }			t_varenv;
 
-enum	typer_of_errors
+typedef struct	s_token
+{
+	int			fd_in;
+	int			fd_out;
+	int			flag_expand;
+	char		*expanded_env;
+	char		*real_path;
+	char		*cmd_name;
+	char		*cmd_input;
+	char		**arr_cmd_input;
+	char		*env;
+	t_varenv	*envs_lst;
+	struct s_token	*next;
+}			t_token;
+
+enum	type_of_errors
 {
 	QUOTE = 1, //Looking for matching quote
 	NDIR = 2, //No such file or dir
@@ -81,16 +95,18 @@ void		replace_char(char *s, char old, char want);
 /*-- utils --*/
 void		fix_matrix(t_token **head);
 void		print_list(t_token **head);
-int			count_cmds(t_token **token);
+int			count_cmds(char **args);
+int			echo_flag(t_token **token);
 
 /*-- builtins --*/
 int			built_cd(t_token **token);
-int			built_echo(t_token **token);
 int			built_pwd(void);
+void		built_echo(t_token **token, int flag);
 void		built_env(t_varenv **envp);
 void		built_exit(void);
 void		built_export(t_varenv **env, t_token **token);
 void		built_unset(t_varenv **env, t_token **token);
+void		built_clear(void);
 void		call_cmd(t_token *token, t_varenv *envp);
 
 /*-- handle errors --*/

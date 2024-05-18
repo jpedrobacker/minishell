@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.h                                           :+:      :+:    :+:   */
+/*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/10 13:54:22 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/17 11:29:27 by jbergfel         ###   ########.fr       */
+/*   Created: 2024/05/18 10:12:36 by jbergfel          #+#    #+#             */
+/*   Updated: 2024/05/18 10:30:46 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLORS_H
-# define COLORS_H
+#include "../inc/minishell.h"
 
-# define DEFAULT "\001\033[0;39m\002"
-# define GRAY "\001\033[1;90m\002"
-# define RED "\001\033[1;91m\002"
-# define GREEN "\001\033[1;92m\002"
-# define YELLOW "\001\033[1;93m\002"
-# define BLUE "\001\033[1;94m\002"
-# define MAGENTA "\001\033[1;95m\002"
-# define CYAN "\001\033[1;96m\002"
-# define WHITE "\001\033[0;97m\002"
-# define CLEAR "\033[H\033[J"
+int	echo_flag(t_token **token)
+{
+	t_token **aux;
+	int		i;
+	int		flag;
 
-#endif
+	aux = (*(token));
+	i = 0;
+	flag = 1;
+	while (aux->arr_cmd_input[i])
+	{
+		if (ft_strncmp(aux->arr_cmd_input[i], "-n", ft_strlen("-n")) == 0)
+			flag = 0;
+		i++;
+	}
+	return (flag);
+}
+
+int	count_cmds(char **args)
+{
+	int		i;
+
+	i = 0;
+	while (args)
+		i++;
+	return (i);
+}

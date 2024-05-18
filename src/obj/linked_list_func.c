@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:09:39 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/15 11:10:02 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/18 10:41:47 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ void	create_node(char *s, t_token **head, char ***paths, char **envp)
 	new->arr_cmd_input = ft_split(s, ' ');
 	new->cmd_name = divide_command_input(s);
 	new->real_path = get_real_path(paths, new->cmd_name);
-	new->env_path = envp;
+	new->envs_lst = envs;
+	new->flag_expand = is_there_var(s);
+	new->env = get_env_name(s, new->flag_expand);
 	new->next = NULL;
 	if (!(*head))
 	{

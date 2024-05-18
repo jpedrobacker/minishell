@@ -6,31 +6,30 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/15 11:25:20 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/18 10:39:22 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	built_echo(t_token **token)
+void	built_echo(t_token **token, int flag)
 {
 	t_token	*aux;
+	int		args;
+	int		i;
 
 	aux = (*(token));
-	if (ft_strncmp(aux->arr_cmd_input[1], "-n", ft_strlen("-n")) == 0)
-	{
-		if (!aux->arr_cmd_input[2])
-		{
-			errors_mini(NCMD, "echo");
-			return (1);
-		}
-		ft_printf("%s", aux->arr_cmd_input[2]);
-		return (0);
-	}
+	args = count_cmds(aux->arr_cmd_input);
+	if (flag == 0)
+		i = 2;
 	else
+		i = 1;
+	while (i < args)
 	{
-		ft_printf("%s\n", aux->arr_cmd_input[1]);
-		return (0);
+		ft_printf("%s", aux->arr_cmd_input[i]);
+		i++;
 	}
-	return (1);
+	if (flag == 0)
+		return ;
+	ft_printf("\n");
 }

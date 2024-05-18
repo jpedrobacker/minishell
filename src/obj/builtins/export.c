@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/16 21:00:53 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/17 10:49:50 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	built_export(t_varenv **env, t_token **token)
 	aux_token = (*(token));
 	arrs = count_cmds(token);
 	if (arrs == 1)
-	{
 		while(aux_env != NULL)
 		{
 			ft_printf("declare -x ");
@@ -44,7 +43,6 @@ void	built_export(t_varenv **env, t_token **token)
 			ft_printf("\"%s\"\n", aux_env->var);
 			aux_env = aux_env->next;
 		}
-	}
 	i = 1;
 	while (aux_token->arr_cmd_input[i])
 	{
