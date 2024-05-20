@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/17 16:05:33 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/20 13:56:18 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	main(int ac, char **av, char **envp)
 		change_input(usr_input);
 		//ft_printf("depois: %s\n", usr_input);
 		token = create_list(usr_input, envp, &envp_lst);
-		//expand_env(&token);
 		call_cmd(&token, &envp_lst);
 		add_history(usr_input);
 		free(usr_input);

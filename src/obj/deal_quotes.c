@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:51:06 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/07 14:29:56 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/20 12:27:53 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ char	*get_quote_pos(char *s)
 	{
 		if (*temp == 34 || *temp == 39)
 			return (temp);
-			//return (ft_strdup(s + i));
 		temp++;
 	}
 	return (NULL);

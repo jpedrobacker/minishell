@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/17 17:16:31 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/20 14:11:12 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,30 @@
 int	is_there_var(char *s)
 {
 	int	i;
+	int	onequote;
+	int	check;
 
 	i = 0;
+	onequote = 0;
+	check = 0;
 	while (s[i])
 	{
-		if (s[i] == '$')
-			if (s[i + 1] && ft_isalnum(s[i + 1]))
-				return (1);
+		if (s[i] == 39)
+			onequote++;
+		else if (s[i] == '$')
+		{
+			if ((onequote % 2) == 1)
+			{
+				if (s[i + 1] && ft_isalnum(s[i + 1]))
+					check = 0;
+			}
+			else if (s[i + 1] && ft_isalnum(s[i + 1]))
+				check = 1;
+		}
 		i++;
 	}
+	if (check)
+		return (1);
 	return (0);
 }
 
@@ -54,12 +69,41 @@ char	*get_env_name(char *s, int flag)
 	return (env);
 }
 
-void	expand_func(t_token **node)
+void	change_env(t_token **node, char *env)
 {
-	t_token *aux;
+	t_token	*aux;
+	int		i;
 
 	aux = *node;
-	ft_printf("OPAAA :%i:\n", aux->flag_expand);
+	i = 0;
+	while (aux->arr_cmd_input[i])
+	{
+		if (is_there_var(aux->arr_cmd_input[i]))
+				break ;
+		i++;
+	}
+	ft_printf("string to change -> :%s:\n", aux->arr_cmd_input[i]);
+	ft_printf("env expanded -> :%s:\n", env);
+}
+
+void	get_env(t_token **node)
+{
+	//ja estou no node que eu preciso expandir...
+	t_varenv	*env_node;
+	t_token		*aux;
+
+	env_node = (*node)->envs_lst;
+	aux = *node;
+	while (env_node)
+	{
+		if (!ft_strncmp(env_node->key, aux->env, ft_strlen(aux->env)))
+		{
+			change_env(node, env_node->var);
+			//ft_printf("env key :%s:\n", env_node->key);
+			//ft_printf("env value :%s:\n", env_node->var);
+		}
+		env_node = env_node->next;
+	}
 }
 
 void	fix_matrix(t_token **head)
@@ -78,7 +122,7 @@ void	fix_matrix(t_token **head)
 		}
 		i = 0;
 		if (aux->flag_expand)
-			expand_func(&aux);
+			get_env(&aux);
 		aux = aux->next;
 	}
 }
