@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/20 14:11:12 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/21 14:31:55 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ char	*get_env_name(char *s, int flag)
 		i++;
 		len++;
 	}
+	if (!len)
+		return (NULL);
 	env = malloc(sizeof(char) * (len + 1));
 	if (!env)
 		return (NULL);
@@ -121,8 +123,8 @@ void	fix_matrix(t_token **head)
 			i++;
 		}
 		i = 0;
-		if (aux->flag_expand)
-			get_env(&aux);
+		//if (aux->flag_expand)
+		//	get_env(&aux);
 		aux = aux->next;
 	}
 }
