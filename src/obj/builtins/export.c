@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/18 10:47:18 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:34:10 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,29 @@ int	check_export(char *var)
 		if (var[i] == '=')
 			return (0);
 	}
+	return (1);
+}
+
+int	check_var_exist(t_varenv **env, char *input)
+{
+	t_varenv	*aux;
+	char		*key;
+	char		*var;
+
+	aux = (*(env));
+	key = get_env_key(input, '=');
+	var = ft_memchr(input, '=', ft_strlen(input));
+	while (aux != NULL)
+	{
+		if (ft_strncmp(key, aux->key, ft_strlen(key)) == 0)
+		{
+			aux->var = var;
+			free(key);
+			return (0);
+		}
+		aux = aux->next;
+	}
+	free(key);
 	return (1);
 }
 
@@ -47,7 +70,12 @@ void	built_export(t_varenv **env, t_token **token)
 	while (aux_token->arr_cmd_input[i])
 	{
 		if (check_export(aux_token->arr_cmd_input[i]) == 0)
-			link_envp(aux_token->arr_cmd_input[i], &aux_env);
+		{
+			if (check_var_exist(&aux_env, aux_token->arr_cmd_input[i]) == 0)
+				break;
+			else
+				link_envp(aux_token->arr_cmd_input[i], &aux_env);
+		}
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 13:58:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/10 17:42:20 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:22:35 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	*errors_mini(int type_err, char *param)
 		ft_putstr_fd("IS_DIR error msg: ", 2);
 	else if (type_err == NO_DIR)
 		ft_putstr_fd("NO_DIR error msg: ", 2);
+	else if (type_err == ARGS)
+		ft_putstr_fd("Too many arguments: ", 2);
 	ft_putendl_fd(param, 2);
 	return (NULL);
 }

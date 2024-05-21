@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/18 14:36:17 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:15:38 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,13 @@ enum	type_of_errors
 	NPERM = 3, //Permission denied
 	NCMD = 4, //Command not found
 	DUPERR = 5, //dup2 failed
-	FORKERR= 6, //for failed
+	FORKERR= 6, //fork failed
 	PIPERR = 7,//error creating pipe
 	PIPENDERR = 8, //syntax error near unexpected toke '|'
 	MEM = 9, //no memory left on device
 	IS_DIR = 10, //Is a dir
 	NO_DIR = 11, //Not a
+	ARGS = 12 //Too many arguments
 };
 
 /*-- path functions --*/
@@ -97,6 +98,7 @@ void		fix_matrix(t_token **head);
 void		print_list(t_token **head);
 int			is_there_var(char *s);
 char		*get_env_name(char *s);
+char		*get_env_key(char *envp, char c);
 int			count_cmds(char **args);
 int			echo_flag(char **args);
 
@@ -104,7 +106,7 @@ int			echo_flag(char **args);
 int			built_cd(t_token **token);
 int			built_pwd(void);
 void		built_echo(t_token **token, int flag);
-void		built_env(t_varenv **envp);
+void		built_env(t_varenv **envp, t_token **token);
 void		built_exit(void);
 void		built_export(t_varenv **env, t_token **token);
 void		built_unset(t_varenv **env, t_token **token);
