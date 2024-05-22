@@ -1,0 +1,7 @@
+##Arquivo para organizar nossas pendencias, isto e, as features que faltam para terminar a MINISHELL##
+
+
+TODO 1- "Atualizar a funcao que pega o caminho correto para a execucao do binario de um comando.
+tem que tirar a parte que usa o envp e subtituir pela linked list que o joao criou"
+
+TODO 2- "Terminar a implementacao da expansao das variaveis de ambiente"
