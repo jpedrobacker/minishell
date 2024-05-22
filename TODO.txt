@@ -4,4 +4,13 @@
 TODO 1- "Atualizar a funcao que pega o caminho correto para a execucao do binario de um comando.
 tem que tirar a parte que usa o envp e subtituir pela linked list que o joao criou"
 
+	*IMPORTANTE* "Talvez seja melhor fazer a expansao da var na main mesmo. Isto e, 
+	expandir o usr_input antes mesmo de mandar para a primeira funcao"
+
 TODO 2- "Terminar a implementacao da expansao das variaveis de ambiente"
+
+TODO 3- "Descobrir o motivo do segfault quando apertamos enter sem ter escrito nenhum input"
+
+TODO 4- "Ver onde e como usar a variavel global"
+
+TODO 5- "Trocar/verificar os caracteres nao imprimiveis que estamos usando para substituicao"
