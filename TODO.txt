@@ -8,6 +8,8 @@ tem que tirar a parte que usa o envp e subtituir pela linked list que o joao cri
 	expandir o usr_input antes mesmo de mandar para a primeira funcao"
 
 TODO 2- "Terminar a implementacao da expansao das variaveis de ambiente"
+	"Essa funcao vai ser chamada na main, e, a principio, vai ser uma split 
+	que vai splitar pelos caracteres '"$ e espaco."
 
 TODO 3- "Descobrir o motivo do segfault quando apertamos enter sem ter escrito nenhum input"
 

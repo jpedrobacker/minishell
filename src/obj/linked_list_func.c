@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:09:39 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/22 18:31:08 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/23 14:53:25 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	prepare_nodes(t_token **head)
 	print_list(head);
 }
 
+/*
 //usar a *ft_substr(string base, onde comecar a copiar a string base, quantos caracteres voce quer copiar)
 void	expand_var_aux(char **s, char *env_name, int i, t_varenv *envs)
 {
@@ -79,6 +80,7 @@ void	expand_var(char **s, t_varenv *envs)
 		i++;
 	}
 }
+*/
 
 void	create_node(char *s, t_token **head, char ***paths, t_varenv *envs)
 {
@@ -88,8 +90,9 @@ void	create_node(char *s, t_token **head, char ***paths, t_varenv *envs)
 	new = malloc(sizeof(t_token));
 	if(!new)
 		return (ft_putstr_fd("Error\n", 2));
-	expand_var(&s, envs);
+	//expand_var(&s, envs);
 	//fazer funcao para expandir a env
+	//vou implementar isso na main mesmo.
 	new->cmd_input = s;
 	//ft_printf("OPAAA :%s:\n", s);
 	//ft_printf("OPAAA :%i:\n", ft_strlen(s));
