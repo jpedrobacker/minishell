@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/23 15:37:05 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/24 15:27:43 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,16 @@ void	expand_var_aux(char *s, char *env_name, int i, t_varenv *envs)
 		}
 		aux = aux->next;
 	}
-	/*
+	
 	if (i == 0 && ((env_len + 1) == s_len))
 	{
 		//temp = s;
 		*s = value;
 		//free(temp);
 	}
-	*/
+	
 }
-*/
+
 
 void	expand_var(char *s, t_varenv *envs)
 {
@@ -75,12 +75,111 @@ void	expand_var(char *s, t_varenv *envs)
 		i++;
 	}
 }
+*/
+
+int	check_char(char *s, int i, int s_len, char *in)
+{
+	int	x;
+
+	x = 0;
+	if ((i + 1) < s_len)
+	{
+		if (s[i] == '$' && ft_isalpha(s[i + 1]))
+			return (0);
+	}
+	while (in[x])
+	{
+		if (s[i] == in[x])
+			return (1);
+		x++;
+	}
+	return (0);
+}
+
+//echo "OLA 42 $USER rio '$HOME' $ MAIL"
+//echo '$ HOME'
+//'a'
+int	line_count(char *s, char *in, int s_len)
+{
+	int	i;
+	int	lines;
+	int	word;
+
+	i = 0;
+	lines = 0;
+	word = 0;
+	while (s[i])
+	{
+		if (check_char(s, i, s_len, in))
+		{
+			if (word != 0)
+			{
+				lines++;
+				word = 0;
+			}
+			lines++;
+		}
+		else
+			word++;
+		i++;
+	}
+	if (word)
+		lines++;
+	return (lines);
+}
+
+//echo '$HOME'
+//
+//usar a *ft_substr(string base, onde comecar a copiar a string base, quantos caracteres voce quer copiar)
+char	**split_in_tokens(char *s, char *in)
+{
+	int		i;
+	int		s_len;
+	int		lines;
+	//int		line_len;
+	char	**new;
+
+	i = 0;
+	//line_len = 0;
+	s_len = ft_strlen(s);
+	lines = line_count(s, in, s_len);
+	ft_printf("lines -> :%i:\n", lines);
+	new = malloc(sizeof(char *) * (lines + 1));
+	if (!new)
+		return (NULL);
+	new[lines] = NULL;
+	int t = 0;
+	int j = 0;
+	while (s[i])
+	{
+		if (!check_char(s, i, s_len, in))
+			t++;
+		else
+		{
+			if (t != 0)
+			{
+				new[j] = ft_substr(s, (i - t), t); //implementar free caso de merda.
+				j++;
+				t = 0;
+				i--;
+			}
+			else
+			{
+				new[j] = ft_substr(s, i, 1);
+				j++;
+			}
+		}
+		i++;
+	}
+	return (new);
+}
 
 int	main(int ac, char **av, char **envp)
 {
 	char	*usr_input;
 	char	*minshell;
 	char	curdir[PATH_MAX];
+	char	**splited_input;
 	t_varenv	envp_lst;
 	t_token		token;
 
@@ -100,8 +199,19 @@ int	main(int ac, char **av, char **envp)
 		}
 		//ft_printf("antes: %s\n", usr_input);
 		change_input(usr_input);
+		splited_input = split_in_tokens(usr_input, "\"'$ \v");
 		//expand_var(usr_input, &envp_lst);
-		//ft_printf("depois: %s\n", usr_input);
+
+		/*
+		int i = 0;
+		while (splited_input[i])
+		{
+			ft_printf("depois :%s:\n", splited_input[i]);
+			i++;
+		}
+		ft_printf("depois :%s:\n", splited_input[i]);
+		*/
+
 		token = create_list(usr_input, envp, &envp_lst);
 		call_cmd(&token, &envp_lst);
 		add_history(usr_input);
