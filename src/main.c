@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/24 15:27:43 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/24 18:23:00 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int	line_count(char *s, char *in, int s_len)
 }
 
 //echo '$HOME'
+//echo
 //
 //usar a *ft_substr(string base, onde comecar a copiar a string base, quantos caracteres voce quer copiar)
 char	**split_in_tokens(char *s, char *in)
@@ -169,6 +170,11 @@ char	**split_in_tokens(char *s, char *in)
 				j++;
 			}
 		}
+		if (t && ((i + 1) == s_len))
+		{
+			new[j] = ft_substr(s, ((i + 1) - t), t);
+			j++;
+		}
 		i++;
 	}
 	return (new);
@@ -197,12 +203,9 @@ int	main(int ac, char **av, char **envp)
 			ft_printf("Apertei cntrlD");
 			exit(EXIT_SUCCESS);
 		}
-		//ft_printf("antes: %s\n", usr_input);
 		change_input(usr_input);
 		splited_input = split_in_tokens(usr_input, "\"'$ \v");
-		//expand_var(usr_input, &envp_lst);
 
-		/*
 		int i = 0;
 		while (splited_input[i])
 		{
@@ -210,9 +213,8 @@ int	main(int ac, char **av, char **envp)
 			i++;
 		}
 		ft_printf("depois :%s:\n", splited_input[i]);
-		*/
 
-		token = create_list(usr_input, envp, &envp_lst);
+		token = create_list(usr_input, &envp_lst);
 		call_cmd(&token, &envp_lst);
 		add_history(usr_input);
 		free(usr_input);

@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:07:29 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/17 16:36:27 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/24 17:55:27 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char	*get_real_path(char ***all_paths, char *command)
 	if (our_builtins(command))
 		return (NULL);
 	paths = (*all_paths);
+	if (!paths)
+		return (NULL);
 	test_command = ft_strjoin("/", command);
 	while (paths[i])
 	{
@@ -87,21 +89,21 @@ char	*divide_command_input(char *s)
 	return (cmd);
 }
 
-char	*find_env_path(char **envp)
+char	*find_env_path(t_varenv *envp)
 {
-	char	*env_path;
-	int		i;
+	char		*env_path;
+	t_varenv	*aux;
 
-	i = 0;
 	env_path = NULL;
-	while (envp[i])
+	aux = envp;
+	while (aux)
 	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+		if (ft_strncmp(aux->key, "PATH", 4) == 0)
 		{
-			env_path = envp[i];
+			env_path = aux->var;
 			break ;
 		}
-		i++;
+		aux = aux->next;
 	}
 	return (env_path);
 }

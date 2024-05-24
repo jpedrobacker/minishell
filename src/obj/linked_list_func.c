@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:09:39 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/24 12:55:40 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/24 17:57:53 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,7 @@ void	create_node(char *s, t_token **head, char ***paths, t_varenv *envs)
 	new = malloc(sizeof(t_token));
 	if(!new)
 		return (ft_putstr_fd("Error\n", 2));
-	//expand_var(&s, envs);
-	//fazer funcao para expandir a env
-	//vou implementar isso na main mesmo.
 	new->cmd_input = s;
-	//ft_printf("OPAAA :%s:\n", s);
-	//ft_printf("OPAAA :%i:\n", ft_strlen(s));
 	new->arr_cmd_input = ft_split(s, ' ');
 	new->cmd_name = divide_command_input(s);
 	new->real_path = get_real_path(paths, new->cmd_name);
@@ -116,7 +111,7 @@ void	create_node(char *s, t_token **head, char ***paths, t_varenv *envs)
 
 
 //t_token	create_list(char *usr_input, char **envp, t_varenv *envs, char **splited_input)
-t_token	create_list(char *usr_input, char **envp, t_varenv *envs)
+t_token	create_list(char *usr_input, t_varenv *envs)
 {
 	t_token	*head;
 	char	**splited;
@@ -124,12 +119,11 @@ t_token	create_list(char *usr_input, char **envp, t_varenv *envs)
 	char	*env_path;
 	int		i;
 
-	//(void)splited_input;
 	i = 0;
 	head = NULL;
 	splited = ft_split(usr_input, '|');
-	env_path = find_env_path(envp);
-	paths = ft_split((env_path + 5), ':');
+	env_path = find_env_path(envs);
+	paths = ft_split(env_path, ':');
 	while (splited[i])
 	{
 		replace_char(splited[i], '\t', '|');
