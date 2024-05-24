@@ -7,7 +7,7 @@ tem que tirar a parte que usa o envp e subtituir pela linked list que o joao cri
 	*IMPORTANTE* "Talvez seja melhor fazer a expansao da var na main mesmo. Isto e, 
 	expandir o usr_input antes mesmo de mandar para a primeira funcao"
 
-TODO 2- "Terminar a implementacao da expansao das variaveis de ambiente"
+-> DONE: TODO 2- "Terminar a implementacao da expansao das variaveis de ambiente"
 	"Essa funcao vai ser chamada na main, e, a principio, vai ser uma split 
 	que vai splitar pelos caracteres '"$ e espaco."
 
@@ -16,3 +16,7 @@ TODO 3- "Descobrir o motivo do segfault quando apertamos enter sem ter escrito n
 TODO 4- "Ver onde e como usar a variavel global"
 
 TODO 5- "Trocar/verificar os caracteres nao imprimiveis que estamos usando para substituicao"
+
+TODO 6- "ACHO QUE EU ACHEI O MOTIVO DO ^K QUANDO TEMOS ESPACO ENTRE '' OU ""
+	Eu mudo isso na string usr_input, e nao troco dps, entao, na hora de colocar na
+	funcao add history, o ^K nao foi trocado por espaco."
