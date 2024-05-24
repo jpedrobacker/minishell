@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/17 16:19:43 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/24 15:56:01 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ enum	typer_of_errors
 };
 
 /*-- path functions --*/
-char	*find_env_path(char **envp);
+char	*find_env_path(t_varenv *envp);
 char	*divide_command_input(char *s);
 char	*get_real_path(char ***all_paths, char *command);
 
 /*-- linked list functions --*/
 void		create_node(char *s, t_token **head, char ***paths, t_varenv *envs);
-t_token		create_list(char *usr_input, char **envp, t_varenv *envs);
+t_token		create_list(char *usr_input, t_varenv *envs);
 t_varenv	make_envp_list(char **envp);
 void		link_envp(char *envp, t_varenv **head);
 
