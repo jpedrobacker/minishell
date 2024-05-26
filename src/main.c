@@ -6,11 +6,13 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/18 10:43:37 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/26 10:12:31 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+unsigned int	g_exit_status;
 
 void	expand_env(t_token *head)
 {
@@ -47,7 +49,6 @@ int	main(int ac, char **av, char **envp)
 
 	(void) ac;
 	(void) av;
-	signal(SIGQUIT, SIG_IGN);
 	envp_lst = make_envp_list(envp);
 	while (1)
 	{

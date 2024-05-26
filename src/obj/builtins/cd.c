@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:14 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/18 14:36:48 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/22 19:34:40 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	built_cd(t_token **token)
 
 	aux = (*(token));
 	args = count_cmds(aux->arr_cmd_input);
-	if (args != 1)
+	if (args != 2)
 	{
 		errors_mini(QUOTE, "cd");
 		return (1);
