@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:16:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/27 11:17:23 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/27 12:56:59 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	line_count(char *s, char *in, int s_len)
 //echo
 //
 //usar a *ft_substr(string base, onde comecar a copiar a string base, quantos caracteres voce quer copiar)
-char	**split_in_tokens(char *s, char *in)
+char	**split_in_tokens(char *s, char *in, t_varenv *envs)
 {
 	int		i;
 	int		s_len;
@@ -112,6 +112,8 @@ char	**split_in_tokens(char *s, char *in)
 		}
 		i++;
 	}
+	//mandar o endereço da minha matriz para uma func que vai expandir, caso precise, as envs.
+	expand_envs(&new, envs);
 	return (new);
 }
 

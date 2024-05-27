@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/27 11:39:17 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/27 12:54:40 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int ac, char **av, char **envp)
 			exit(EXIT_SUCCESS);
 		}
 		change_input(usr_input);
-		splited_input = split_in_tokens(usr_input, "\"'$ \v");
+		splited_input = split_in_tokens(usr_input, "\"'$ \v", &envp_lst);
 
 		int i = 0;
 		while (splited_input[i])

@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/21 14:31:55 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/27 14:13:24 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ char	*get_env_name(char *s, int flag)
 	env = malloc(sizeof(char) * (len + 1));
 	if (!env)
 		return (NULL);
+	env[0] = 'a';
+	env[1] = 'b';
 	env[len] = '\0';
 	while (len != -1)
 		env[--len] = s[--i];
