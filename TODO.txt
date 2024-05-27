@@ -1,22 +1,24 @@
 ##Arquivo para organizar nossas pendencias, isto e, as features que faltam para terminar a MINISHELL##
 
 
-TODO 1: Fazer a expansao das variaveis de ambiente.
-	*IMPORTANTE* "Talvez seja melhor fazer a expansao da var na main mesmo. Isto e, 
-	expandir o usr_input antes mesmo de mandar para a primeira funcao"
-
-TODO 3- "Descobrir o motivo do segfault quando apertamos enter sem ter escrito nenhum input"
+TODO 3- "Descobrir o motivo do segfault quando apertamos enter sem ter escrito 
+	nenhum input"
 
 TODO 4- "Ver onde e como usar a variavel global"
 
-TODO 5- "Trocar/verificar os caracteres nao imprimiveis que estamos usando para substituicao"
+TODO 5- "Trocar/verificar os caracteres nao imprimiveis que estamos usando 
+	para substituicao"
 
 TODO 6- "ACHO QUE EU ACHEI O MOTIVO DO ^K QUANDO TEMOS ESPACO ENTRE '' OU ""
-	Eu mudo isso na string usr_input, e nao troco dps, entao, na hora de colocar na
-	funcao add history, o ^K nao foi trocado por espaco."
+	Eu mudo isso na string usr_input, e nao troco dps, entao, 
+	na hora de colocar na funcao add history, o ^K nao foi 
+	trocado por espaco."
 
 -------------------------- IN PROGRESS -----------------------------------------------------------------------------------------
 
+TODO 1: Fazer a expansao das variaveis de ambiente.
+	*IMPORTANTE* "Talvez seja melhor fazer a expansao da var na main mesmo. 
+	Isto e, expandir o usr_input antes mesmo de mandar para a primeira funcao"
 
 
 -------------------------- DONE ------------------------------------------------------------------------------------------------
