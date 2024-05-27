@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 13:58:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/21 13:22:35 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:09:11 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,15 @@ void	to_free_varenv(t_varenv **lst_env)
 	while (begin != NULL)
 	{
 		temp = begin->next;
+		ft_printf("AAAAAAAAAAAAA\n");
 		free(begin->key);
+		ft_printf("BBBBBBBBBBBBBBBBBBBBBBB\n");
 		free(begin);
-		lst_env = NULL;
+		ft_printf("DDDDDDDDDDDDDDDDDDDDDDD\n");
+		begin = NULL;
 		begin = temp;
 	}
-	begin = NULL;
+	*lst_env = NULL;
 }
 
 void	to_free_token(t_token **token)

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/21 14:15:38 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:07:16 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int			built_cd(t_token **token);
 int			built_pwd(void);
 void		built_echo(t_token **token, int flag);
 void		built_env(t_varenv **envp, t_token **token);
-void		built_exit(void);
+void		built_exit(t_varenv *env, t_token *token);
 void		built_export(t_varenv **env, t_token **token);
 void		built_unset(t_varenv **env, t_token **token);
 void		built_clear(void);
