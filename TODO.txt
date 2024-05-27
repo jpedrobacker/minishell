@@ -1,5 +1,8 @@
 ##Arquivo para organizar nossas pendencias, isto e, as features que faltam para terminar a MINISHELL##
 
+TODO 1- "VERIFICAR OS LEAKS E PROBLEMAS DO VALGRIND"
+
+TODO 2- "APRENDER A USAR OS ARQUIVOS DE SUPRESSAO NO VALGRIND"
 
 TODO 3- "Descobrir o motivo do segfault quando apertamos enter sem ter escrito 
 	nenhum input"
