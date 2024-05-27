@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/24 15:56:01 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/27 11:39:42 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@ void		change_spaces(char *s, int *start, int *end);
 char		*get_quote_pos(char *s);
 void		change_input(char *s);
 void		replace_char(char *s, char old, char want);
+
+/*-- split in tokens --*/
+char		**split_in_tokens(char *s, char *in);
+int			line_count(char *s, char *in, int s_len);
+int			check_char(char *s, int i, int s_len, char *in);
 
 /*-- utils --*/
 void		fix_matrix(t_token **head);
