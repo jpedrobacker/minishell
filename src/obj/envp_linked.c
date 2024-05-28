@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 11:55:58 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/12 12:19:04 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:30:13 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,17 @@ void	link_envp(char *envp, t_varenv **head)
 	aux->next = node;
 }
 
-t_varenv	make_envp_list(char **envp)
+t_varenv	*make_envp_list(char **envp)
 {
 	int			i;
 	t_varenv	*head;
 
-	i = -1;
+	i = 0;
 	head = NULL;
-	while (envp[++i])
+	while (envp[i + 1] != NULL)
+	{
 		link_envp(envp[i], &head);
-	return (*head);
+		i++;
+	}
+	return (head);
 }

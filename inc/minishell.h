@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/27 15:07:16 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:32:06 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,30 +36,29 @@
 # include <readline/readline.h>	// para readline
 # include <readline/history.h>	// para add_history, rl_clear_history, rl_on_new_line, rl_replace_line, rl_redisplay
 
-
-typedef struct	s_varenv
+typedef struct s_varenv
 {
 	char			*key;
 	char			*var;
 	struct s_varenv	*next;
 }			t_varenv;
 
-typedef struct	s_token
+typedef struct s_token
 {
-	int			fd_in;
-	int			fd_out;
-	int			flag_expand;
-	char		*expanded_env;
-	char		*real_path;
-	char		*cmd_name;
-	char		*cmd_input;
-	char		**arr_cmd_input;
-	char		*env;
-	t_varenv	*envs_lst;
+	int				fd_in;
+	int				fd_out;
+	int				flag_expand;
+	char			*expanded_env;
+	char			*real_path;
+	char			*cmd_name;
+	char			*cmd_input;
+	char			**arr_cmd_input;
+	char			*env;
+	t_varenv		*envs_lst;
 	struct s_token	*next;
 }			t_token;
 
-enum	type_of_errors
+enum e_type_of_errors
 {
 	QUOTE = 1, //Looking for matching quote
 	NDIR = 2, //No such file or dir
@@ -76,14 +75,14 @@ enum	type_of_errors
 };
 
 /*-- path functions --*/
-char	*find_env_path(char **envp);
-char	*divide_command_input(char *s);
-char	*get_real_path(char ***all_paths, char *command);
+char		*find_env_path(char **envp);
+char		*divide_command_input(char *s);
+char		*get_real_path(char ***all_paths, char *command);
 
 /*-- linked list functions --*/
 void		create_node(char *s, t_token **head, char ***paths, t_varenv *envs);
-t_token		create_list(char *usr_input, char **envp, t_varenv *envs);
-t_varenv	make_envp_list(char **envp);
+t_token		*create_list(char *usr_input, char **envp, t_varenv *envs);
+t_varenv	*make_envp_list(char **envp);
 void		link_envp(char *envp, t_varenv **head);
 
 /*-- deal quotes functions --*/
@@ -118,6 +117,5 @@ void		*errors_mini(int type_err, char *param);
 void		to_free_token(t_token **token);
 void		to_free_varenv(t_varenv **lst_env);
 void		free_splits(char **split);
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:09:39 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/18 10:46:31 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:39:51 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	create_node(char *s, t_token **head, char ***paths, t_varenv *envs)
 	t_token	*current;
 
 	new = malloc(sizeof(t_token));
-	if(!new)
+	if (!new)
 		return (ft_putstr_fd("Error\n", 2));
 	new->cmd_input = s;
 	new->arr_cmd_input = ft_split(s, ' ');
@@ -59,7 +59,7 @@ void	get_expanded_env(t_token **head)
 }
 */
 
-t_token	create_list(char *usr_input, char **envp, t_varenv *envs)
+t_token	*create_list(char *usr_input, char **envp, t_varenv *envs)
 {
 	t_token	*head;
 	char	**splited;
@@ -83,7 +83,7 @@ t_token	create_list(char *usr_input, char **envp, t_varenv *envs)
 	//get_expanded_env(&head);
 	print_list(&head);
 	//to_free_token(&head);
-	//free_splits(splited);
-	//free_splits(paths);
-	return (*head);
+	free_splits(splited);
+	free_splits(paths);
+	return (head);
 }

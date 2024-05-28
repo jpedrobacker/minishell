@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 13:58:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/27 15:09:11 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:39:47 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,17 @@ void	to_free_varenv(t_varenv **lst_env)
 	t_varenv	*temp;
 
 	begin = (*(lst_env));
-	while (begin != NULL)
+	free(begin->key);
+	temp = begin->next;
+	free(begin);
+	begin = temp;
+	while (begin)
 	{
 		temp = begin->next;
-		ft_printf("AAAAAAAAAAAAA\n");
+		ft_printf("key free: %s\n", begin->key);
+		ft_printf("var : %s\n", begin->var);
 		free(begin->key);
-		ft_printf("BBBBBBBBBBBBBBBBBBBBBBB\n");
+		ft_printf("pointer free: %p\n", begin);
 		free(begin);
 		ft_printf("DDDDDDDDDDDDDDDDDDDDDDD\n");
 		begin = NULL;
@@ -66,13 +71,15 @@ void	to_free_token(t_token **token)
 {
 	t_token	*begin;
 	t_token	*temp;
-
+	//to free (cmd input, divide cmd input, get env name)
 	begin = (*(token));
 	while (begin != NULL)
 	{
 		temp = begin->next;
 		free_splits(begin->arr_cmd_input);
 		free(begin->cmd_name);
+		free(begin->cmd_input);
+		free(begin->env);
 		free(begin);
 		token = NULL;
 		begin = temp;

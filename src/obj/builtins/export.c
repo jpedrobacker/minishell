@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/21 14:34:10 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/28 12:25:55 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_export(char *var)
 	int	i;
 
 	i = -1;
-	while(var[++i])
+	while (var[++i])
 	{
 		if (var[i] == '=')
 			return (0);
@@ -59,7 +59,7 @@ void	built_export(t_varenv **env, t_token **token)
 	aux_token = (*(token));
 	arrs = count_cmds(aux_token->arr_cmd_input);
 	if (arrs == 1)
-		while(aux_env != NULL)
+		while (aux_env != NULL)
 		{
 			ft_printf("declare -x ");
 			ft_printf("%s=", aux_env->key);
@@ -72,7 +72,7 @@ void	built_export(t_varenv **env, t_token **token)
 		if (check_export(aux_token->arr_cmd_input[i]) == 0)
 		{
 			if (check_var_exist(&aux_env, aux_token->arr_cmd_input[i]) == 0)
-				break;
+				break ;
 			else
 				link_envp(aux_token->arr_cmd_input[i], &aux_env);
 		}
