@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/28 13:32:06 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:52:19 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ enum e_type_of_errors
 };
 
 /*-- path functions --*/
-char		*find_env_path(char **envp);
+char		*find_env_path(t_varenv *envp);
 char		*divide_command_input(char *s);
 char		*get_real_path(char ***all_paths, char *command);
 
 /*-- linked list functions --*/
 void		create_node(char *s, t_token **head, char ***paths, t_varenv *envs);
-t_token		*create_list(char *usr_input, char **envp, t_varenv *envs);
+t_token		*create_list(char *usr_input, t_varenv *envs);
 t_varenv	*make_envp_list(char **envp);
 void		link_envp(char *envp, t_varenv **head);
 
@@ -92,11 +92,19 @@ char		*get_quote_pos(char *s);
 void		change_input(char *s);
 void		replace_char(char *s, char old, char want);
 
+/*-- split in tokens --*/
+char		**split_in_tokens(char *s, char *in, t_varenv *envs);
+int			line_count(char *s, char *in, int s_len);
+int			check_char(char *s, int i, int s_len, char *in);
+
+/*-- expand envs --*/
+void		expand_envs(char ***matrix, t_varenv *envs);
+
 /*-- utils --*/
 void		fix_matrix(t_token **head);
 void		print_list(t_token **head);
 int			is_there_var(char *s);
-char		*get_env_name(char *s);
+char		*get_env_name(char *s, int flag);
 char		*get_env_key(char *envp, char c);
 int			count_cmds(char **args);
 int			echo_flag(char **args);

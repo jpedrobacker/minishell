@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/18 10:43:29 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:46:14 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,43 +15,99 @@
 int	is_there_var(char *s)
 {
 	int	i;
+	int	onequote;
+	int	check;
 
 	i = 0;
+	onequote = 0;
+	check = 0;
 	while (s[i])
 	{
-		if (s[i] == '$')
-			return (1);
+		if (s[i] == 39)
+			onequote++;
+		else if (s[i] == '$')
+		{
+			if ((onequote % 2) == 1)
+			{
+				if (s[i + 1] && ft_isalnum(s[i + 1]))
+					check = 0;
+			}
+			else if (s[i + 1] && ft_isalnum(s[i + 1]))
+				check = 1;
+		}
 		i++;
 	}
+	if (check)
+		return (1);
 	return (0);
 }
 
-char	*get_env_name(char *s)
+char	*get_env_name(char *s, int flag)
 {
-	int		env_len;
-	int		s_len;
+	char	*env;
 	int		i;
-	char	*name;
+	int		len;
 
+	if (!flag)
+		return (NULL);
 	i = 0;
-	env_len = 0;
-	s_len = ft_strlen(s);
+	len = 0;
 	while (s[i] && s[i] != '$')
 		i++;
-	if ((i + 1) < s_len && ft_isalnum(s[i + 1]))
-		i++;
-	else
-		return (NULL);
+	i++;
 	while (s[i] && ft_isalnum(s[i]))
 	{
 		i++;
-		env_len++;
+		len++;
 	}
-	name = malloc(sizeof(char) * (env_len + 1));
-	name[env_len] = '\0';
-	while (env_len != -1)
-		name[--env_len] = s[--i];
-	return (name);
+	if (!len)
+		return (NULL);
+	env = malloc(sizeof(char) * (len + 1));
+	if (!env)
+		return (NULL);
+	env[0] = 'a';
+	env[1] = 'b';
+	env[len] = '\0';
+	while (len != -1)
+		env[--len] = s[--i];
+	return (env);
+}
+
+void	change_env(t_token **node, char *env)
+{
+	t_token	*aux;
+	int		i;
+
+	aux = *node;
+	i = 0;
+	while (aux->arr_cmd_input[i])
+	{
+		if (is_there_var(aux->arr_cmd_input[i]))
+				break ;
+		i++;
+	}
+	ft_printf("string to change -> :%s:\n", aux->arr_cmd_input[i]);
+	ft_printf("env expanded -> :%s:\n", env);
+}
+
+void	get_env(t_token **node)
+{
+	//ja estou no node que eu preciso expandir...
+	t_varenv	*env_node;
+	t_token		*aux;
+
+	env_node = (*node)->envs_lst;
+	aux = *node;
+	while (env_node)
+	{
+		if (!ft_strncmp(env_node->key, aux->env, ft_strlen(aux->env)))
+		{
+			change_env(node, env_node->var);
+			//ft_printf("env key :%s:\n", env_node->key);
+			//ft_printf("env value :%s:\n", env_node->var);
+		}
+		env_node = env_node->next;
+	}
 }
 
 void	fix_matrix(t_token **head)
@@ -69,6 +125,8 @@ void	fix_matrix(t_token **head)
 			i++;
 		}
 		i = 0;
+		//if (aux->flag_expand)
+		//	get_env(&aux);
 		aux = aux->next;
 	}
 }
@@ -82,7 +140,7 @@ void	print_list(t_token **head)
 	aux = *head;
 	while (aux)
 	{
-		replace_char(aux->cmd_input, '\v', ' ');
+		//replace_char(aux->cmd_input, '\v', ' ');
 		ft_printf("-------------------------------\n");
 		ft_printf("command input :%s:\n", aux->cmd_input);
 		ft_printf("comand :%s:\n", aux->cmd_name);
