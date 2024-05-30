@@ -17,6 +17,12 @@ TODO 6- "ACHO QUE EU ACHEI O MOTIVO DO ^K QUANDO TEMOS ESPACO ENTRE '' OU ""
 	na hora de colocar na funcao add history, o ^K nao foi 
 	trocado por espaco."
 
+TODO 7- implementar um tratamento para os redirects < > <<
+	Basicamente, o que vem depois desses redirects e o seu parametro.
+	por ex: "echo < teste teste2".
+	teste e parametro do redirect <
+	teste2 e parametro do echo.
+
 -------------------------- IN PROGRESS -----------------------------------------------------------------------------------------
 
 TODO 1: Fazer a expansao das variaveis de ambiente.
