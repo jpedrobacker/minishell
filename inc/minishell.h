@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/28 13:52:19 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/30 18:27:12 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void		expand_envs(char ***matrix, t_varenv *envs);
 void		fix_matrix(t_token **head);
 void		print_list(t_token **head);
 int			is_there_var(char *s);
-char		*get_env_name(char *s, int flag);
+char		*get_env_name(char *s, int flag, int s_len);
 char		*get_env_key(char *envp, char c);
 int			count_cmds(char **args);
 int			echo_flag(char **args);

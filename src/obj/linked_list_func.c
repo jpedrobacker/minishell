@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:09:39 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/28 14:06:31 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/30 18:27:35 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,70 +17,6 @@ void	prepare_nodes(t_token **head)
 	fix_matrix(head);
 	print_list(head);
 }
-
-/*
-//usar a *ft_substr(string base, onde comecar a copiar a string base, quantos caracteres voce quer copiar)
-void	expand_var_aux(char **s, char *env_name, int i, t_varenv *envs)
-{
-	t_varenv	*aux;
-	char		*value;
-	//char		*temp;
-	int			env_len;
-	int			s_len;
-
-	//(void)i; //esta na posicao $ da string
-	//(void)s;
-	aux = envs;
-	env_len = ft_strlen(env_name);
-	s_len = ft_strlen((*s));
-	if (!env_name)
-		return ;
-	ft_printf("OPPAAA -> %i\n", env_len);
-	ft_printf("OPPAAA -> %i\n", s_len);
-	ft_printf("OPPAAA -> %i\n", i);
-	while (aux)
-	{
-		if (!ft_strncmp(env_name, aux->key, ft_strlen(aux->key)))
-		{
-			value = ft_strdup(aux->var);
-			//ft_printf("void s %s\n", s);
-			//ft_printf("VAR NAME :%s:\n", aux->key);
-			//ft_printf("VAR VALUE :%s:\n", value);
-		}
-		aux = aux->next;
-	}
-	if (i == 0 && ((env_len + 1) == s_len))
-	{
-		//temp = s;
-		*s = value;
-		//free(temp);
-	}
-}
-
-void	expand_var(char **s, t_varenv *envs)
-{
-	//t_varenv	*aux;
-	char		*aux;
-	char		*env_name;
-	int			i;
-
-	i = 0;
-	aux = *s;
-	//aux = envs;
-	while (aux[i])
-	{
-		if (aux[i] == '$')
-		{
-			env_name = get_env_name(aux + i, 1);
-			expand_var_aux(s, env_name, i, envs);
-			ft_printf("EXPAND VAR :%s:\n", env_name);
-			//if (env_name)
-			//	free(env_name);
-		}
-		i++;
-	}
-}
-*/
 
 void	create_node(char *s, t_token **head, char ***paths, t_varenv *envs)
 {
@@ -96,7 +32,7 @@ void	create_node(char *s, t_token **head, char ***paths, t_varenv *envs)
 	new->real_path = get_real_path(paths, new->cmd_name);
 	new->envs_lst = envs;
 	new->flag_expand = is_there_var(s);
-	new->env = get_env_name(s, new->flag_expand);
+	new->env = get_env_name(s, new->flag_expand, ft_strlen(s));
 	new->next = NULL;
 	if (!(*head))
 	{
@@ -108,26 +44,6 @@ void	create_node(char *s, t_token **head, char ***paths, t_varenv *envs)
 		current = current->next;
 	current->next = new;
 }
-
-//fazer funcao para expandir a var de ambiente!
-/*
-void	get_expanded_env(t_token **head)
-{
-	t_token		*aux;
-	t_varenv	*temp;
-
-	aux = *head;
-	while (aux)
-	{
-		if (aux->env)
-		{
-
-		}
-		aux = aux->next;
-	}
-	temp = get_t_varenv_pointer(head);
-}
-*/
 
 t_token	*create_list(char *usr_input, t_varenv *envs)
 {

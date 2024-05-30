@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/28 13:54:29 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/30 18:17:18 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,16 @@ int	main(int ac, char **av, char **envp)
 		usr_input = readline(ft_strjoin(getcwd(curdir, sizeof(curdir)), "$ "));
 		change_input(usr_input);
 		splited_input = split_in_tokens(usr_input, "\"'$ \v", envp_lst);
+
+		int i = 0;
+		while (splited_input[i])
+		{
+			ft_printf("-> :%s: \n", splited_input[i]);
+			i++;
+		}
+
 		token = create_list(usr_input, envp_lst);
+		free_splits(splited_input);
 		call_cmd(token, envp_lst);
 		add_history(usr_input);
 		free(usr_input);

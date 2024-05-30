@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/28 13:46:14 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/30 18:38:06 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,14 @@ int	is_there_var(char *s)
 	return (0);
 }
 
-char	*get_env_name(char *s, int flag)
+//echo $HOME
+char	*get_env_name(char *s, int flag, int s_len)
 {
 	char	*env;
 	int		i;
 	int		len;
 
+	(void)s_len;
 	if (!flag)
 		return (NULL);
 	i = 0;
@@ -65,8 +67,6 @@ char	*get_env_name(char *s, int flag)
 	env = malloc(sizeof(char) * (len + 1));
 	if (!env)
 		return (NULL);
-	env[0] = 'a';
-	env[1] = 'b';
 	env[len] = '\0';
 	while (len != -1)
 		env[--len] = s[--i];

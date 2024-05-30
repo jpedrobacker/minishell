@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:45:21 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/27 14:20:34 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/30 18:27:43 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	expand_envs(char ***matrix, t_varenv *envs)
 	s = *matrix;
 	while (s[i])
 	{
-		env = get_env_name(s[i], 1);
+		env = get_env_name(s[i], 1, ft_strlen(s[i]));
 		//ft_printf("env name :%s:\n", env);
 		if (env)
 		{
