@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/30 18:17:18 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/31 17:44:19 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int ac, char **av, char **envp)
 	char		curdir[PATH_MAX];
 	char		**splited_input;
 	t_varenv	*envp_lst;
-	t_token		*token;
+	//t_token		*token;
 
 	(void) ac;
 	(void) av;
@@ -66,10 +66,16 @@ int	main(int ac, char **av, char **envp)
 			ft_printf("-> :%s: \n", splited_input[i]);
 			i++;
 		}
+		ft_printf("-> :%s: \n", splited_input[i]);
+		char *new_input;
+		new_input = rev_split(splited_input);
+		ft_printf("new string :%s: \n", new_input);
+		free(new_input);
 
-		token = create_list(usr_input, envp_lst);
+		//token = create_list(usr_input, envp_lst);
+		ft_printf("OPAA\n");
 		free_splits(splited_input);
-		call_cmd(token, envp_lst);
+		//call_cmd(token, envp_lst);
 		add_history(usr_input);
 		free(usr_input);
 	}

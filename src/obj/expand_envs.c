@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:45:21 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/30 18:27:43 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/31 17:38:30 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,42 @@ t_varenv	*get_value(char *name, t_varenv *envs)
 		aux = aux->next;
 	}
 	return (NULL);
+}
+
+void	new_expand_envs(char ***matrix, t_varenv *envs)
+{
+	t_varenv	*aux;
+//	char		*temp;
+	char		**s;
+	char		*env;
+	int			i;
+	int			one_q;
+	int			two_q;
+
+	i = 0;
+	one_q = 0;
+	two_q = 0;
+	s = *matrix;
+	while (s[i])
+	{
+		if (s[i][0] == 34 && (one_q % 2) == 0)
+			two_q++;
+		else if (s[i][0] == 39 && (two_q % 2) == 0)
+			one_q++;
+		else if (is_there_var(s[i]))
+		{
+			if ((one_q % 2) == 0)
+			{
+				env = get_env_name(s[i], 1, ft_strlen(s[i]));
+				aux = get_value(env, envs);
+				//temp = matrix[i];
+				s[i] = ft_strdup(aux->var);
+				//free(temp);
+				//free(env);
+			}
+		}
+		i++;
+	}
 }
 
 void	expand_envs(char ***matrix, t_varenv *envs)

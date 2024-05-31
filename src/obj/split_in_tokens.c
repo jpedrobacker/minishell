@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:16:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/28 13:53:49 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/05/31 17:59:41 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ char	**split_in_tokens(char *s, char *in, t_varenv *envs)
 		i++;
 	}
 	//mandar o endereço da minha matriz para uma func que vai expandir, caso precise, as envs.
-	expand_envs(&new, envs);
+	new_expand_envs(&new, envs);
+	//expand_envs(&new, envs);
 	return (new);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 13:58:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/30 17:46:30 by aprado           ###   ########.fr       */
+/*   Updated: 2024/05/31 17:52:05 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,11 @@ void	free_splits(char **split)
 	i = 0;
 	while (split[i])
 	{
+		ft_printf("aa :%s:\n", split[i]);
 		free(split[i]);
+		ft_printf("bb\n");
 		i++;
 	}
-	free(split);
-	split = NULL;
+	//free(split);
+	//split = NULL;
 }
