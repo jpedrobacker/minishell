@@ -1,8 +1,9 @@
 ##Arquivo para organizar nossas pendencias, isto e, as features que faltam para terminar a MINISHELL##
 
-TODO 1- "VERIFICAR OS LEAKS E PROBLEMAS DO VALGRIND"
 
-TODO 2- "APRENDER A USAR OS ARQUIVOS DE SUPRESSAO NO VALGRIND"
+
+TODO 1- "Refatorar/modificar a criacao da lista linkada dos nodes e da envp."
+	NAO ESQUECER DE VERIFICAR OS LEAKS DURANTE O DESENVOLVIMENTO.
 
 TODO 3- "Descobrir o motivo do segfault quando apertamos enter sem ter escrito 
 	nenhum input"
@@ -25,12 +26,17 @@ TODO 7- implementar um tratamento para os redirects < > <<
 
 -------------------------- IN PROGRESS -----------------------------------------------------------------------------------------
 
-TODO 1: Fazer a expansao das variaveis de ambiente.
-	*IMPORTANTE* "Talvez seja melhor fazer a expansao da var na main mesmo. 
-	Isto e, expandir o usr_input antes mesmo de mandar para a primeira funcao"
+TODO 1- "VERIFICAR OS LEAKS E PROBLEMAS DO VALGRIND"
+	-> Acredito que o erro na func "change_input()" venha atraves do readline+strjoin.
 
+
+TODO 2- "APRENDER A USAR OS ARQUIVOS DE SUPRESSAO NO VALGRIND"
 
 -------------------------- DONE ------------------------------------------------------------------------------------------------
+
+-> "Fazer a expansao das variaveis de ambiente.
+	*IMPORTANTE* "Talvez seja melhor fazer a expansao da var na main mesmo. 
+	Isto e, expandir o usr_input antes mesmo de mandar para a primeira funcao"
 
 -> "Atualizar a funcao que pega o caminho correto para a execucao do binario de um comando.
 	tem que tirar a parte que usa o envp e subtituir pela linked list que o joao criou"
