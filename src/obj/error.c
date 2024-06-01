@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 13:58:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/31 17:52:05 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/01 11:27:46 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ void	free_splits(char **split)
 		ft_printf("bb\n");
 		i++;
 	}
-	//free(split);
+	free(split);
 	//split = NULL;
 }
