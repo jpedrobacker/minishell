@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/31 17:44:19 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/01 11:24:38 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		usr_input = readline(ft_strjoin(getcwd(curdir, sizeof(curdir)), "$ "));
-		change_input(usr_input);
+		change_input(usr_input); //ACHO que o erro do valgrind vem pela readline+join...
 		splited_input = split_in_tokens(usr_input, "\"'$ \v", envp_lst);
 
 		int i = 0;
