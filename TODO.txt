@@ -2,6 +2,8 @@
 
 
 
+TODO 1- "ARRUMAR O CALL CMD DA MAIN"
+	"ISTO E, ARRUMAR A CHAMADA DOS BUILTINS"
 
 
 TODO 3- "Descobrir o motivo do segfault quando apertamos enter sem ter escrito 
