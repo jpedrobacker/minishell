@@ -6,12 +6,13 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:09:39 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/30 18:27:35 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/03 13:54:59 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+/*
 void	prepare_nodes(t_token **head)
 {
 	fix_matrix(head);
@@ -73,3 +74,4 @@ t_token	*create_list(char *usr_input, t_varenv *envs)
 	free_splits(paths);
 	return (head);
 }
+*/

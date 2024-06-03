@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/30 18:38:06 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/03 14:06:14 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char	*get_env_name(char *s, int flag, int s_len)
 	return (env);
 }
 
+/*
 void	change_env(t_token **node, char *env)
 {
 	t_token	*aux;
@@ -109,6 +110,7 @@ void	get_env(t_token **node)
 		env_node = env_node->next;
 	}
 }
+*/
 
 void	fix_matrix(t_token **head)
 {
@@ -119,18 +121,18 @@ void	fix_matrix(t_token **head)
 	aux = *head;
 	while (aux)
 	{
-		while (aux->arr_cmd_input[i])
+		while (aux->arr[i])
 		{
-			replace_char(aux->arr_cmd_input[i], '\v', ' ');
+			replace_char(aux->arr[i], '\v', ' ');
+			replace_char(aux->arr[i], '\t', '|');
 			i++;
 		}
 		i = 0;
-		//if (aux->flag_expand)
-		//	get_env(&aux);
 		aux = aux->next;
 	}
 }
 
+/*
 void	print_list(t_token **head)
 {
 	t_token	*aux;
@@ -156,3 +158,4 @@ void	print_list(t_token **head)
 		aux = aux->next;
 	}
 }
+*/

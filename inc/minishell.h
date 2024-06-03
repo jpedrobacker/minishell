@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/31 17:31:34 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/03 14:14:42 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_varenv
 	struct s_varenv	*next;
 }			t_varenv;
 
+/*
 typedef struct s_token
 {
 	int				fd_in;
@@ -57,6 +58,29 @@ typedef struct s_token
 	t_varenv		*envs_lst;
 	struct s_token	*next;
 }			t_token;
+*/
+
+typedef struct	s_token
+{
+	int				fd_in;
+	int				fd_out;
+	char			*real_path;
+	char			*token;
+	char			**arr;
+	struct s_token		*next;
+}				t_token;
+
+typedef struct		s_main
+{
+	t_varenv	*envs;
+	t_token		*cmds;
+	char		**splited_pipe;
+	char		**paths;
+	char		**splited_input;
+	char		*dup_usr_input;
+	char		*new_input;
+	char		*envs_path;
+}			t_main;
 
 enum e_type_of_errors
 {
@@ -78,6 +102,9 @@ enum e_type_of_errors
 char		*find_env_path(t_varenv *envp);
 char		*divide_command_input(char *s);
 char		*get_real_path(char ***all_paths, char *command);
+
+/*-- Tokenize funcs --*/
+void	tokenize(t_main *bag);
 
 /*-- linked list functions --*/
 void		create_node(char *s, t_token **head, char ***paths, t_varenv *envs);

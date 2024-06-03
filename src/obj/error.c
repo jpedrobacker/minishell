@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 13:58:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/01 11:27:46 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/03 13:55:56 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	to_free_varenv(t_varenv **lst_env)
 	*lst_env = NULL;
 }
 
+/*
 void	to_free_token(t_token **token)
 {
 	t_token	*begin;
@@ -89,6 +90,7 @@ void	to_free_token(t_token **token)
 	}
 	*token = NULL;
 }
+*/
 
 void	free_splits(char **split)
 {
@@ -97,9 +99,7 @@ void	free_splits(char **split)
 	i = 0;
 	while (split[i])
 	{
-		ft_printf("aa :%s:\n", split[i]);
 		free(split[i]);
-		ft_printf("bb\n");
 		i++;
 	}
 	free(split);

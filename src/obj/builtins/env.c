@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:53 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/21 13:22:47 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:12:30 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	built_env(t_varenv **envp, t_token **token)
 
 	aux_token = (*(token));
 	aux_env = (*(envp));
-	args = aux_token->arr_cmd_input;
+	args = aux_token->arr;
 	if (count_cmds(args) < 2)
 	{
 		while (aux_env)

@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:51:06 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/01 11:20:06 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/03 15:27:52 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ void	change_input(char *s)
 	i = 0;
 	start = 0;
 	end = 0;
-	//len = ft_strlen(s);
-	//ft_printf("OPA -> %i\n", len);
 	while (s[i])
 	{
 		if (s[i] == 34 || s[i] == 39)

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/01 11:24:38 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/03 16:34:39 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,36 +46,26 @@ int	main(int ac, char **av, char **envp)
 {
 	char		*usr_input;
 	char		curdir[PATH_MAX];
-	char		**splited_input;
-	t_varenv	*envp_lst;
-	//t_token		*token;
+	t_main		bag;
 
 	(void) ac;
 	(void) av;
-	envp_lst = make_envp_list(envp);
+	bag.envs = make_envp_list(envp);
 	sigs_handle();
 	while (1)
 	{
 		usr_input = readline(ft_strjoin(getcwd(curdir, sizeof(curdir)), "$ "));
-		change_input(usr_input); //ACHO que o erro do valgrind vem pela readline+join...
-		splited_input = split_in_tokens(usr_input, "\"'$ \v", envp_lst);
-
-		int i = 0;
-		while (splited_input[i])
-		{
-			ft_printf("-> :%s: \n", splited_input[i]);
-			i++;
-		}
-		ft_printf("-> :%s: \n", splited_input[i]);
-		char *new_input;
-		new_input = rev_split(splited_input);
-		ft_printf("new string :%s: \n", new_input);
-		free(new_input);
-
+		if (!usr_input)
+			return (0);
+		bag.dup_usr_input = ft_strdup(usr_input);
+		change_input(bag.dup_usr_input); //ACHO que o erro do valgrind vem pela readline+join...
+		bag.splited_input = split_in_tokens(bag.dup_usr_input, "\"'$ \v", bag.envs);
+		bag.new_input = rev_split(bag.splited_input);
+		tokenize(&bag);
 		//token = create_list(usr_input, envp_lst);
-		ft_printf("OPAA\n");
-		free_splits(splited_input);
-		//call_cmd(token, envp_lst);
+		//free_splits(bag.splited_input);
+		//call_cmd(bag.cmds, bag.envs);
+		//ARRUMAR o call cmd...
 		add_history(usr_input);
 		free(usr_input);
 	}
