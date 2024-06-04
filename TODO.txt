@@ -8,6 +8,7 @@ TODO 2- "Fazer todas as validacoes de input. O que vai ser valido e o que nao?"
 	"ex: echo < | ls = NAO E VALIDO"
 	"ex: echo | = NAO E VALIDO"
 	"ex: echo | < = NAO E VALIDO"
+	"ex: echo | | ls = NAO E VALIDO"
 
 
 -------------------------- IN PROGRESS -----------------------------------------------------------------------------------------
