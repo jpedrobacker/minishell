@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/28 13:54:29 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:39:23 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,53 @@ void	sigs_handle(void)
 	sigaction(SIGINT, &sig, NULL);
 }
 
+void	handle_sigint(int sig)
+{
+	if (sig == SIGINT)
+	{
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+	}
+}
+
+char	*make_prompt(void)
+{
+	char	curdir[PATH_MAX];
+	char	*prompt;
+
+	prompt = getcwd(curdir, sizeof(curdir));
+	prompt = ft_strjoin(prompt, "$>>> ");
+	return (prompt);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char		*usr_input;
-	char		curdir[PATH_MAX];
-	char		**splited_input;
-	t_varenv	*envp_lst;
-	t_token		*token;
+	t_main		bag;
 
 	(void) ac;
 	(void) av;
-	envp_lst = make_envp_list(envp);
+	bag.envs = make_envp_list(envp);
 	sigs_handle();
 	while (1)
 	{
-		usr_input = readline(ft_strjoin(getcwd(curdir, sizeof(curdir)), "$ "));
-		change_input(usr_input);
-		splited_input = split_in_tokens(usr_input, "\"'$ \v", envp_lst);
-		token = create_list(usr_input, envp_lst);
-		call_cmd(token, envp_lst);
+		usr_input = readline(make_prompt());
+		if (!usr_input)
+			return (0);
+		bag.dup_usr_input = ft_strdup(usr_input);
+		change_input(bag.dup_usr_input); //ACHO que o erro do valgrind vem pela readline+join...
+		bag.splited_input = split_in_tokens(bag.dup_usr_input, "\"'$ \v", bag.envs);
+		bag.new_input = rev_split(bag.splited_input);
+		tokenize(&bag);
+		//token = create_list(usr_input, envp_lst);
+		//free_splits(bag.splited_input);
+		call_cmd(&bag);
+		//ARRUMAR o call cmd...
 		add_history(usr_input);
 		free(usr_input);
 	}
+	(void) usr_input;
 	return (0);
 }
 

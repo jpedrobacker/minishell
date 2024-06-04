@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:51:06 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/20 12:27:53 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/03 15:27:52 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	change_input(char *s)
 	int		i;
 	int		start;
 	int		end;
+	//int		len;
 	char	c1;
 
 	i = 0;
@@ -82,6 +83,23 @@ void	change_input(char *s)
 	{
 		if (s[i] == 34 || s[i] == 39)
 		{
+			/*
+			//TESTING
+			c1 = s[i];
+			start = i;
+			while (s[i])
+			{
+				i++;
+				if (s[i] && s[i] == c1)
+					break ;
+			}
+			end = i;
+			if (s[end] != '\0')
+				change_pipe(s, &start, &end);
+			else
+				ft_putstr_fd("ERROR QUOTE>\n", 2);
+			*/
+			// CODIGO FUNCIONANDO, MAS COM UM ERRO NO VALGRIND.
 			c1 = s[i];
 			start = i;
 			i++;
@@ -93,6 +111,9 @@ void	change_input(char *s)
 			else
 				ft_putstr_fd("Error quote", 2);
 		}
+		//ft_printf("OPA I -> %i\n", i);
+		//if (i == (len - 1))
+		//	break ;
 		i++;
 	}
 }

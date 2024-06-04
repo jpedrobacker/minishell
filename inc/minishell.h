@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/28 13:52:19 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:19:17 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ typedef struct s_varenv
 	char			*key;
 	char			*var;
 	struct s_varenv	*next;
+	struct s_varenv	*head;
 }			t_varenv;
 
+/*
 typedef struct s_token
 {
 	int				fd_in;
@@ -57,6 +59,29 @@ typedef struct s_token
 	t_varenv		*envs_lst;
 	struct s_token	*next;
 }			t_token;
+*/
+
+typedef struct	s_token
+{
+	int				fd_in;
+	int				fd_out;
+	char			*real_path;
+	char			*token;
+	char			**arr;
+	struct s_token		*next;
+}				t_token;
+
+typedef struct		s_main
+{
+	t_varenv	*envs;
+	t_token		*cmds;
+	char		**splited_pipe;
+	char		**paths;
+	char		**splited_input;
+	char		*dup_usr_input;
+	char		*new_input;
+	char		*envs_path;
+}			t_main;
 
 enum e_type_of_errors
 {
@@ -79,6 +104,9 @@ char		*find_env_path(t_varenv *envp);
 char		*divide_command_input(char *s);
 char		*get_real_path(char ***all_paths, char *command);
 
+/*-- Tokenize funcs --*/
+void	tokenize(t_main *bag);
+
 /*-- linked list functions --*/
 void		create_node(char *s, t_token **head, char ***paths, t_varenv *envs);
 t_token		*create_list(char *usr_input, t_varenv *envs);
@@ -99,26 +127,29 @@ int			check_char(char *s, int i, int s_len, char *in);
 
 /*-- expand envs --*/
 void		expand_envs(char ***matrix, t_varenv *envs);
+void		new_expand_envs(char ***matrix, t_varenv *envs);
 
 /*-- utils --*/
 void		fix_matrix(t_token **head);
 void		print_list(t_token **head);
 int			is_there_var(char *s);
-char		*get_env_name(char *s, int flag);
+char		*get_env_name(char *s, int flag, int s_len);
 char		*get_env_key(char *envp, char c);
+char		*rev_split(char **matrix);
 int			count_cmds(char **args);
 int			echo_flag(char **args);
+char		*find_var_key(t_varenv **env, char *key_to_find);
 
 /*-- builtins --*/
-int			built_cd(t_token **token);
+int			built_cd(t_main **main);
 int			built_pwd(void);
-void		built_echo(t_token **token, int flag);
-void		built_env(t_varenv **envp, t_token **token);
-void		built_exit(t_varenv *env, t_token *token);
-void		built_export(t_varenv **env, t_token **token);
-void		built_unset(t_varenv **env, t_token **token);
+void		built_echo(t_main **main, int flag);
+void		built_env(t_main **main);
+void		built_exit(t_main *main);
+void		built_export(t_main **main);
+void		built_unset(t_main **main);
 void		built_clear(void);
-void		call_cmd(t_token *token, t_varenv *envp);
+void		call_cmd(t_main *main);
 
 /*-- handle errors --*/
 void		*errors_mini(int type_err, char *param);

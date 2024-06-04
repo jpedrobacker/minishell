@@ -6,28 +6,28 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/22 19:38:28 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:18:24 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	built_unset(t_varenv **env, t_token **token)
+void	built_unset(t_main **main)
 {
 	t_varenv	*temp;
 	t_varenv	*prev;
 	t_token		*aux_token;
 
-	temp = (*(env));
+	temp = (*main)->envs;
 	prev = NULL;
-	aux_token = (*(token));
-	if (temp != NULL && ft_strncmp(temp->key, aux_token->arr_cmd_input[1], ft_strlen(temp->key)) == 0)
+	aux_token = (*main)->cmds;
+	if (temp != NULL && ft_strncmp(temp->key, aux_token->arr[1], ft_strlen(temp->key)) == 0)
 	{
-		*env = temp->next;
+		(*main)->envs = temp->next;
 		free(temp);
 		return ;
 	}
-	while (temp != NULL && ft_strncmp(temp->key, aux_token->arr_cmd_input[1], ft_strlen(temp->key)) != 0)
+	while (temp != NULL && ft_strncmp(temp->key, aux_token->arr[1], ft_strlen(temp->key)) != 0)
 	{
 		prev = temp;
 		temp = temp->next;

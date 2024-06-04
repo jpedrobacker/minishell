@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/04 10:18:22 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:21:09 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,14 @@ int	is_there_var(char *s)
 	return (0);
 }
 
-char	*get_env_name(char *s, int flag)
+//echo $HOME
+char	*get_env_name(char *s, int flag, int s_len)
 {
 	char	*env;
 	int		i;
 	int		len;
 
+	(void)s_len;
 	if (!flag)
 		return (NULL);
 	i = 0;
@@ -65,14 +67,13 @@ char	*get_env_name(char *s, int flag)
 	env = malloc(sizeof(char) * (len + 1));
 	if (!env)
 		return (NULL);
-	env[0] = 'a';
-	env[1] = 'b';
 	env[len] = '\0';
 	while (len != -1)
 		env[--len] = s[--i];
 	return (env);
 }
 
+/*
 void	change_env(t_token **node, char *env)
 {
 	t_token	*aux;
@@ -109,6 +110,7 @@ void	get_env(t_token **node)
 		env_node = env_node->next;
 	}
 }
+*/
 
 void	fix_matrix(t_token **head)
 {
@@ -119,18 +121,18 @@ void	fix_matrix(t_token **head)
 	aux = *head;
 	while (aux)
 	{
-		while (aux->arr_cmd_input[i])
+		while (aux->arr[i])
 		{
-			replace_char(aux->arr_cmd_input[i], '\v', ' ');
+			replace_char(aux->arr[i], '\v', ' ');
+			replace_char(aux->arr[i], '\t', '|');
 			i++;
 		}
 		i = 0;
-		//if (aux->flag_expand)
-		//	get_env(&aux);
 		aux = aux->next;
 	}
 }
 
+/*
 void	print_list(t_token **head)
 {
 	t_token	*aux;
@@ -155,7 +157,7 @@ void	print_list(t_token **head)
 		i = 0;
 		aux = aux->next;
 	}
-}
+}*/
 
 char	*find_var_key(t_varenv **env, char *key_to_find)
 {
