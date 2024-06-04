@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:26:28 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/04 15:05:25 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/04 16:11:21 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,14 @@ static int	check_wspaces(char *s)
 	return (0);
 }
 
+//echo < | cat kkk
+//input invalido...
 int	validate_input(char *s, t_main *bag)
 {
 	if (!s)
 		return (0);
 	if (!check_wspaces(s))
-		return (0);
+		return (ft_putstr_fd("INVALID INPUT\n", 2), 0);
 	if (!end_with_pipe(s))
 		return (ft_putstr_fd("INVALID INPUT\n", 2), 0);
 	ft_printf("VALIDO!\n");

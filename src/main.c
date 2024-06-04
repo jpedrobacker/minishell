@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/04 15:17:43 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/04 16:49:02 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,16 @@ int	main(int ac, char **av, char **envp)
 		}
 		//bag.dup_usr_input = ft_strdup(usr_input);
 		//change_input(bag.dup_usr_input); //ACHO que o erro do valgrind vem pela readline+join...
-		bag.splited_input = split_in_tokens(bag.dup_usr_input, "\"'$ \v", bag.envs);
-		//check_redirects(&bag);
+		if (!check_redirects(&bag))
+		{
+			add_history(usr_input);
+			continue ;
+		}
+		//bag.splited_input = split_in_tokens(bag.dup_usr_input, "\"'$ \v", bag.envs);
+		//A split in tokens vai estar dentro da check_redirects();
 		//function que vai verificar se existe algum redirect, caso tenha, 
 		//vai swapar as strings para seus respectivos parametros
+
 		bag.new_input = rev_split(bag.splited_input);
 		tokenize(&bag);
 		//call_cmd(bag.cmds, bag.envs);

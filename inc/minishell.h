@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/04 15:05:10 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/04 16:05:26 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void		link_envp(char *envp, t_varenv **head);
 
 /*-- Validate Input functions --*/
 int			validate_input(char *s, t_main *bag);
+int			check_redirects(t_main *bag);
 
 /*-- deal quotes functions --*/
 void		change_pipe(char *s, int *start, int *end);

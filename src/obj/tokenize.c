@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/03 15:54:52 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/04 16:01:47 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	print_node(t_main *bag)
 		ft_printf("----- NODE: %i -----\n", i);
 		ft_printf("token :%s: \n", aux->token);
 		while (aux->arr[x])
+
 		{
 			ft_printf("matrix :%s: \n", aux->arr[x]);
 			x++;
