@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/04 11:19:17 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:49:43 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ char		*rev_split(char **matrix);
 int			count_cmds(char **args);
 int			echo_flag(char **args);
 char		*find_var_key(t_varenv **env, char *key_to_find);
+int			check_var_exist(t_varenv **env, char *input);
 
 /*-- builtins --*/
 int			built_cd(t_main **main);

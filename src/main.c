@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/04 11:39:23 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:43:34 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	sigs_handle(void)
 	sigaction(SIGINT, &sig, NULL);
 }
 
-void	handle_sigint(int sig)
+/*void	handle_sigint(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -50,7 +50,7 @@ void	handle_sigint(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 	}
-}
+}*/
 
 char	*make_prompt(void)
 {
@@ -74,10 +74,13 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		usr_input = readline(make_prompt());
-		if (!usr_input)
-			return (0);
+		if (!ft_strlen(usr_input) || !usr_input)
+		{
+			free(usr_input);
+			continue ;
+		}
 		bag.dup_usr_input = ft_strdup(usr_input);
-		change_input(bag.dup_usr_input); //ACHO que o erro do valgrind vem pela readline+join...
+		change_input(bag.dup_usr_input);
 		bag.splited_input = split_in_tokens(bag.dup_usr_input, "\"'$ \v", bag.envs);
 		bag.new_input = rev_split(bag.splited_input);
 		tokenize(&bag);
@@ -88,7 +91,5 @@ int	main(int ac, char **av, char **envp)
 		add_history(usr_input);
 		free(usr_input);
 	}
-	(void) usr_input;
 	return (0);
 }
-
