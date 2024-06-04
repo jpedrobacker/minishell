@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/28 13:46:14 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/02 14:16:12 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	change_env(t_token **node, char *env)
 	ft_printf("env expanded -> :%s:\n", env);
 }
 
-void	get_env(t_token **node)
+/*void	get_env(t_token **node)
 {
 	//ja estou no node que eu preciso expandir...
 	t_varenv	*env_node;
@@ -108,7 +108,7 @@ void	get_env(t_token **node)
 		}
 		env_node = env_node->next;
 	}
-}
+}*/
 
 void	fix_matrix(t_token **head)
 {
@@ -155,4 +155,18 @@ void	print_list(t_token **head)
 		i = 0;
 		aux = aux->next;
 	}
+}
+
+char	*find_var_key(t_varenv **env, char *key_to_find)
+{
+	t_varenv *aux;
+
+	aux = (*(env));
+	while (aux != NULL)
+	{
+		if (ft_strncmp(aux->key, key_to_find, ft_strlen(key_to_find)) == 0)
+			return (aux->var);
+		aux = aux->next;
+	}
+	return ("NONE");
 }

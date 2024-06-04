@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:09:39 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/28 14:06:31 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/02 12:16:39 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	expand_var(char **s, t_varenv *envs)
 }
 */
 
-void	create_node(char *s, t_token **head, char ***paths, t_varenv *envs)
+void	create_node(char *s, t_token **head, char ***paths)
 {
 	t_token	*new;
 	t_token	*current;
@@ -94,7 +94,6 @@ void	create_node(char *s, t_token **head, char ***paths, t_varenv *envs)
 	new->arr_cmd_input = ft_split(s, ' ');
 	new->cmd_name = divide_command_input(s);
 	new->real_path = get_real_path(paths, new->cmd_name);
-	new->envs_lst = envs;
 	new->flag_expand = is_there_var(s);
 	new->env = get_env_name(s, new->flag_expand);
 	new->next = NULL;
@@ -129,7 +128,7 @@ void	get_expanded_env(t_token **head)
 }
 */
 
-t_token	*create_list(char *usr_input, t_varenv *envs)
+t_token	create_list(char *usr_input, t_varenv *envs)
 {
 	t_token	*head;
 	char	**splited;
@@ -145,7 +144,7 @@ t_token	*create_list(char *usr_input, t_varenv *envs)
 	while (splited[i])
 	{
 		replace_char(splited[i], '\t', '|');
-		create_node(splited[i], &head, &paths, envs);
+		create_node(splited[i], &head, &paths);
 		replace_char(splited[i], '\v', ' ');
 		i++;
 	}
@@ -155,5 +154,5 @@ t_token	*create_list(char *usr_input, t_varenv *envs)
 	//to_free_token(&head);
 	free_splits(splited);
 	free_splits(paths);
-	return (head);
+	return (*(head));
 }

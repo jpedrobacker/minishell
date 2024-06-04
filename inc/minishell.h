@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/28 13:52:19 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:37:38 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_varenv
 	char			*key;
 	char			*var;
 	struct s_varenv	*next;
+	struct s_varenv *head;
 }			t_varenv;
 
 typedef struct s_token
@@ -54,6 +55,7 @@ typedef struct s_token
 	char			*cmd_input;
 	char			**arr_cmd_input;
 	char			*env;
+	char			*user;
 	t_varenv		*envs_lst;
 	struct s_token	*next;
 }			t_token;
@@ -80,8 +82,8 @@ char		*divide_command_input(char *s);
 char		*get_real_path(char ***all_paths, char *command);
 
 /*-- linked list functions --*/
-void		create_node(char *s, t_token **head, char ***paths, t_varenv *envs);
-t_token		*create_list(char *usr_input, t_varenv *envs);
+void		create_node(char *s, t_token **head, char ***paths);
+t_token		create_list(char *usr_input, t_varenv *envs);
 t_varenv	*make_envp_list(char **envp);
 void		link_envp(char *envp, t_varenv **head);
 
@@ -108,17 +110,18 @@ char		*get_env_name(char *s, int flag);
 char		*get_env_key(char *envp, char c);
 int			count_cmds(char **args);
 int			echo_flag(char **args);
+char		*find_var_key(t_varenv **env, char *key_to_find);
 
 /*-- builtins --*/
 int			built_cd(t_token **token);
 int			built_pwd(void);
 void		built_echo(t_token **token, int flag);
-void		built_env(t_varenv **envp, t_token **token);
-void		built_exit(t_varenv *env, t_token *token);
+void		built_env(t_token **token, t_varenv **env);
+void		built_exit(t_token *token);
 void		built_export(t_varenv **env, t_token **token);
 void		built_unset(t_varenv **env, t_token **token);
 void		built_clear(void);
-void		call_cmd(t_token *token, t_varenv *envp);
+void		call_cmd(t_token *token);
 
 /*-- handle errors --*/
 void		*errors_mini(int type_err, char *param);
