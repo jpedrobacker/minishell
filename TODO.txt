@@ -2,19 +2,15 @@
 
 
 
-TODO 1- "ARRUMAR O CALL CMD DA MAIN"
-	"ISTO E, ARRUMAR A CHAMADA DOS BUILTINS"
+TODO 1- "Ver onde e como usar a variavel global"
+
+TODO 2- "Fazer todas as validacoes de input. O que vai ser valido e o que nao?"
+	"ex: echo < | ls = NAO E VALIDO"
+	"ex: echo | = NAO E VALIDO"
+	"ex: echo | < = NAO E VALIDO"
 
 
-TODO 3- "Descobrir o motivo do segfault quando apertamos enter sem ter escrito 
-	nenhum input"
-
-TODO 4- "Ver onde e como usar a variavel global"
-
-TODO 5- "Trocar/verificar os caracteres nao imprimiveis que estamos usando 
-	para substituicao"
-
-
+-------------------------- IN PROGRESS -----------------------------------------------------------------------------------------
 
 TODO 7- implementar um tratamento para os redirects < > <<
 	Basicamente, o que vem depois desses redirects e o seu parametro.
@@ -22,15 +18,22 @@ TODO 7- implementar um tratamento para os redirects < > <<
 	teste e parametro do redirect <
 	teste2 e parametro do echo.
 
--------------------------- IN PROGRESS -----------------------------------------------------------------------------------------
 
-TODO 1- "Refatorar/modificar a criacao da lista linkada dos nodes e da envp."
-	NAO ESQUECER DE VERIFICAR OS LEAKS DURANTE O DESENVOLVIMENTO.
 
-TODO 2- "VERIFICAR OS LEAKS E PROBLEMAS DO VALGRIND"
-	-> Acredito que o erro na func "change_input()" venha atraves do readline+strjoin.
 
 -------------------------- DONE ------------------------------------------------------------------------------------------------
+
+-> "VERIFICAR OS LEAKS E PROBLEMAS DO VALGRIND"
+	-> Acredito que o erro na func "change_input()" venha atraves do readline+strjoin.
+
+-> "Refatorar/modificar a criacao da lista linkada dos nodes e da envp."
+	NAO ESQUECER DE VERIFICAR OS LEAKS DURANTE O DESENVOLVIMENTO.
+
+-> "Descobrir o motivo do segfault quando apertamos enter sem ter escrito 
+	nenhum input"
+
+-> "ARRUMAR O CALL CMD DA MAIN"
+	"ISTO E, ARRUMAR A CHAMADA DOS BUILTINS"
 
 -> "ACHO QUE EU ACHEI O MOTIVO DO ^K QUANDO TEMOS ESPACO ENTRE '' OU ""
 	Eu mudo isso na string usr_input, e nao troco dps, entao, 
