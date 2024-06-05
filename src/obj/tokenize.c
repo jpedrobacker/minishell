@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/04 16:01:47 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/05 16:01:44 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void	tokenize(t_main *bag)
 
 	i = 0;
 	init_bag(bag);
+
 	while (bag->splited_pipe[i])
 	{
 		create_token(bag->splited_pipe[i], &bag->cmds, bag);

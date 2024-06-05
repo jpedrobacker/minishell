@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_redirects.c                                  :+:      :+:    :+:   */
+/*   deal_redirects.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:02:14 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/04 16:48:59 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/05 17:42:06 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //echo << a hahah | cat kkkk
 //cmd1 heredoc heredoc_arg cmd1_arg | cmd2 cmd2_arg
-int	check_redirects(t_main *bag)
+int	deal_redirects(t_main *bag)
 {
 	int		i;
 	char	**s;
@@ -22,7 +22,7 @@ int	check_redirects(t_main *bag)
 	i = 0;
 	if (!bag->dup_usr_input)
 		return (0);
-	bag->splited_input = split_in_tokens(bag->dup_usr_input, "\"' $\v", bag->envs);
+	bag->splited_input = split_in_tokens(bag->dup_usr_input, "\"' $\v<>", bag->envs);
 	s = bag->splited_input;
 
 	//Need to implement this func.

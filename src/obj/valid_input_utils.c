@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 16:11:54 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/05 17:32:48 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/05 17:50:30 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,3 +58,14 @@ int	check_invalid_pipe(char *s)
 	}
 	return (1);
 }
+
+/*
+//echo << asdd echo_arg
+//echo < file echo_arg
+//echo > file echo_arg
+//echo >> adad echo_arg
+int	check_redirects(char *s)
+{
+	return (1);
+}
+*/

@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:45:21 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/05 11:31:05 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/05 16:11:25 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	new_expand_envs(char ***matrix, t_varenv *envs)
 		i++;
 	}
 }
+
 
 void	expand_envs(char ***matrix, t_varenv *envs)
 {

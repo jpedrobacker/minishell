@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:07:29 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/24 17:55:27 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/05 17:45:13 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	*get_real_path(char ***all_paths, char *command)
 	int		i;
 
 	i = 0;
+
 	if (our_builtins(command))
 		return (NULL);
 	paths = (*all_paths);
