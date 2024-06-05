@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:45:21 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/01 10:49:36 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/05 11:31:05 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ t_varenv	*get_value(char *name, t_varenv *envs)
 	t_varenv	*aux;
 
 	aux = envs;
+
 	while (aux)
 	{
+
 		if (!ft_strncmp(aux->key, name, ft_strlen(name)))
 				return (aux);
 		aux = aux->next;
@@ -29,10 +31,24 @@ t_varenv	*get_value(char *name, t_varenv *envs)
 	return (NULL);
 }
 
-void	new_expand_envs(char ***matrix, t_varenv *envs)
+static char	*get_value_test(char *name, t_varenv *envs)
 {
 	t_varenv	*aux;
-//	char		*temp;
+
+	aux = envs;
+	while (aux)
+	{
+		if (!ft_strncmp(aux->key, name, ft_strlen(name)))
+			return (aux->var);
+		aux = aux->next;
+	}
+	return (NULL);
+}
+
+void	new_expand_envs(char ***matrix, t_varenv *envs)
+{
+	//t_varenv	*aux;
+	char		*temp;
 	char		**s;
 //	char		*env;
 	int			i;
@@ -53,15 +69,13 @@ void	new_expand_envs(char ***matrix, t_varenv *envs)
 		{
 			if ((one_q % 2) == 0)
 			{
-				//env = get_env_name(s[i], 1, ft_strlen(s[i]));
-				//aux = get_value(env, envs);
-				aux = get_value(s[i] + 1, envs);
-				free(s[i]);
-				s[i] = NULL;
-				//temp = matrix[i];
-				s[i] = ft_strdup(aux->var);
-				//free(temp);
-				//free(env);
+				temp = get_value_test(s[i] + 1, envs);
+				if (temp)
+				{
+					free(s[i]);
+					s[i] = NULL;
+					s[i] = ft_strdup(temp);
+				}
 			}
 		}
 		i++;
