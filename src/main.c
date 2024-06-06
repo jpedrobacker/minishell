@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/04 12:43:34 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:54:44 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,10 @@ void	sig_int_handle(int sig)
 
 	if (sig == SIGINT)
 	{
-		if (RL_ISSTATE(RL_STATE_READCMD))
-			ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		else
-			write(STDIN_FILENO, "\n", 1);
-		rl_replace_line("", 1);
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		rl_replace_line("", 0);
 		rl_on_new_line();
 	}
-	return ;
 }
 
 void	sigs_handle(void)
@@ -41,16 +37,6 @@ void	sigs_handle(void)
 	sig.sa_flags = 0;
 	sigaction(SIGINT, &sig, NULL);
 }
-
-/*void	handle_sigint(int sig)
-{
-	if (sig == SIGINT)
-	{
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-	}
-}*/
 
 char	*make_prompt(void)
 {

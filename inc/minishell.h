@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/04 12:49:43 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:02:35 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,17 +108,17 @@ char		*get_real_path(char ***all_paths, char *command);
 void	tokenize(t_main *bag);
 
 /*-- linked list functions --*/
-void		create_node(char *s, t_token **head, char ***paths, t_varenv *envs);
 t_token		*create_list(char *usr_input, t_varenv *envs);
 t_varenv	*make_envp_list(char **envp);
+void		create_node(char *s, t_token **head, char ***paths, t_varenv *envs);
 void		link_envp(char *envp, t_varenv **head);
 
 /*-- deal quotes functions --*/
 void		change_pipe(char *s, int *start, int *end);
 void		change_spaces(char *s, int *start, int *end);
-char		*get_quote_pos(char *s);
 void		change_input(char *s);
 void		replace_char(char *s, char old, char want);
+char		*get_quote_pos(char *s);
 
 /*-- split in tokens --*/
 char		**split_in_tokens(char *s, char *in, t_varenv *envs);
@@ -128,18 +128,6 @@ int			check_char(char *s, int i, int s_len, char *in);
 /*-- expand envs --*/
 void		expand_envs(char ***matrix, t_varenv *envs);
 void		new_expand_envs(char ***matrix, t_varenv *envs);
-
-/*-- utils --*/
-void		fix_matrix(t_token **head);
-void		print_list(t_token **head);
-int			is_there_var(char *s);
-char		*get_env_name(char *s, int flag, int s_len);
-char		*get_env_key(char *envp, char c);
-char		*rev_split(char **matrix);
-int			count_cmds(char **args);
-int			echo_flag(char **args);
-char		*find_var_key(t_varenv **env, char *key_to_find);
-int			check_var_exist(t_varenv **env, char *input);
 
 /*-- builtins --*/
 int			built_cd(t_main **main);
@@ -151,6 +139,20 @@ void		built_export(t_main **main);
 void		built_unset(t_main **main);
 void		built_clear(void);
 void		call_cmd(t_main *main);
+
+/*-- utils --*/
+void		fix_matrix(t_token **head);
+void		print_list(t_token **head);
+char		*get_env_name(char *s, int flag, int s_len);
+char		*get_env_key(char *envp, char c);
+char		*rev_split(char **matrix);
+char		*find_var_key(t_varenv **env, char *key_to_find);
+int			is_there_var(char *s);
+int			count_cmds(char **args);
+int			echo_flag(char **args);
+int			check_var_exist(t_varenv **env, char *input);
+int			update_new_pwd(t_main **main);
+int			update_old_pwd(t_varenv **env);
 
 /*-- handle errors --*/
 void		*errors_mini(int type_err, char *param);
