@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/05 10:54:44 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:22:24 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	main(int ac, char **av, char **envp)
 		//token = create_list(usr_input, envp_lst);
 		//free_splits(bag.splited_input);
 		call_cmd(&bag);
-		//ARRUMAR o call cmd...
 		add_history(usr_input);
 		free(usr_input);
 	}

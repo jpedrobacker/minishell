@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/05 12:02:35 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:51:22 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,8 +151,9 @@ int			is_there_var(char *s);
 int			count_cmds(char **args);
 int			echo_flag(char **args);
 int			check_var_exist(t_varenv **env, char *input);
-int			update_new_pwd(t_main **main);
+int			update_new_pwd(t_varenv **env);
 int			update_old_pwd(t_varenv **env);
+int			ft_strcmp(const char *s1, const char *s2);
 
 /*-- handle errors --*/
 void		*errors_mini(int type_err, char *param);

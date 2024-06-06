@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 11:55:58 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/04 10:44:35 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:48:01 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_varenv	*make_envp_list(char **envp)
 	int			i;
 	t_varenv	*node;
 	t_varenv	*head;
+	t_varenv	*temp;
 
 	i = 0;
 	head = NULL;
@@ -79,7 +80,7 @@ t_varenv	*make_envp_list(char **envp)
 		}
 		else
 		{
-			t_varenv *temp = head;
+			temp = head;
 			while (temp->next)
 				temp = temp->next;
 			temp->next = node;

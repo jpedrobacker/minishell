@@ -6,18 +6,18 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/05 13:44:24 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:48:53 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	check_quotes(char *str)
+int	check_quotes(char *s)
 {
 	int	len;
 
-	len = ft_strlen(str) - 1;
-	if ((str[0] == '"' && str[len] == '"') || (str[0] == '\'' && str[len] == '\''))
+	len = ft_strlen(s) - 1;
+	if ((s[0] == '"' && s[len] == '"') || (s[0] == '\'' && s[len] == '\''))
 		return (0);
 	return (1);
 }
