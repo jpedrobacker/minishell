@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/06 11:51:22 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/07 12:00:59 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 typedef struct s_varenv
 {
 	char			*key;
-	char			*var;
+	char			*var; //malloc
 	struct s_varenv	*next;
 	struct s_varenv	*head;
 }			t_varenv;

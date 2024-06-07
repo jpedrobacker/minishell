@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/06 14:08:00 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/07 13:59:57 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,12 @@ void	built_unset(t_main **main)
 	i = 1;
 	while (aux_token->arr[i])
 	{
-		while (temp != NULL && ft_strcmp(temp->key, aux_token->arr[i]) != 0)
+		while (temp != NULL)
 		{
+			if (temp != NULL && ft_strcmp(temp->key, aux_token->arr[i]) == 0)
+				free(temp);
 			prev = temp;
 			temp = temp->next;
-		}
-		if (temp != NULL && ft_strcmp(temp->key, aux_token->arr[i]) == 0)
-		{
-			(*main)->envs = temp->next;
-			free(temp);
 		}
 		i++;
 	}

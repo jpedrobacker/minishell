@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/04 11:16:11 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/07 12:23:04 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	check_export(char *var)
 	int	i;
 
 	i = -1;
+	if (!ft_isalpha(var[0]))
+		return (1);
 	while (var[++i])
 	{
 		if (var[i] == '=')
