@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 16:11:54 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/05 17:50:30 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/07 14:59:03 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,63 @@ static int	check_middle(char *s, int b, int e)
 
 int	check_invalid_pipe(char *s)
 {
-	int	i;
-	int	x;
+	int		i;
+	int		x;
+	char	*dup;
 
 	i = 0;
-	while (s[i])
+	dup = ft_strdup(s);
+	change_input(dup);
+	while (dup[i])
 	{
 		x = 0;
-		if (s[i] == '|')
+		if (dup[i] == '|')
 		{
 			x = i + 1;
-			while (s[x])
+			while (dup[x])
 			{
-				if (s[x] == '|')
+				if (dup[x] == '|')
 					break ;
 				x++;
 			}
-			if (s[x] == '\0')
-				return (1);
-			else if (!check_middle(s, i, x))
-				return (0);
+			if (dup[x] == '\0')
+				return (free(dup), 1);
+			else if (!check_middle(dup, i, x))
+				return (free(dup), 0);
 		}
 		i++;
 	}
+	free(dup);
 	return (1);
+}
+
+int	check_invalid_redirects(char *s)
+{
+	int		i;
+	char	*dup;
+
+	i = 0;
+	dup = ft_strdup(s);
+	change_input(dup);
+	while (dup[i])
+	{
+		x = 0;
+		if (dup[i] == '<')
+		{
+			x = i + 1;
+			if 
+			while (dup[x])
+			{
+				if (dup[x] 
+			}
+		}
+		else if (dup[i] == '>')
+		{
+		}
+		i++;
+	}
+	ft_printf("redirects :%s: \n", dup);
+	return (free(dup), 1);
 }
 
 /*

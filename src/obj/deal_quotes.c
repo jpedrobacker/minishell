@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:51:06 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/04 14:57:45 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/07 14:09:39 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,21 @@ void	replace_char(char *s, char old, char want)
 	{
 		if (s[i] == old)
 			s[i] = want;
+		i++;
+	}
+}
+
+void	change_reds(char *s, int *start, int *end)
+{
+	int	i;
+
+	i = *start;
+	while (i <= *end)
+	{
+		if (s[i] == '<')
+			s[i] = '\n';
+		else if (s[i] == '>')
+			s[i] = '\a';
 		i++;
 	}
 }
@@ -50,6 +65,7 @@ void	change_pipe(char *s, int *start, int *end)
 		i++;
 	}
 	change_spaces(s, start, end);
+	change_reds(s, start, end);
 	*start = 0;
 	*end = 0;
 }
