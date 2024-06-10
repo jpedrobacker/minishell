@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/05 16:01:44 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/10 14:54:46 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ void	tokenize(t_main *bag)
 		create_token(bag->splited_pipe[i], &bag->cmds, bag);
 		replace_char(bag->splited_pipe[i], '\t', '|');
 		replace_char(bag->splited_pipe[i], '\v', ' ');
+		replace_char(bag->splited_pipe[i], '\a', '>');
+		replace_char(bag->splited_pipe[i], '\n', '<');
 		i++;
 	}
 	fix_matrix(&bag->cmds);

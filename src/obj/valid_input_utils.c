@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 16:11:54 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/07 14:59:03 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/10 15:34:30 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,26 +65,43 @@ int	check_invalid_pipe(char *s)
 
 int	check_invalid_redirects(char *s)
 {
+	int		x;
 	int		i;
 	char	*dup;
 
-	i = 0;
 	dup = ft_strdup(s);
 	change_input(dup);
+	i = 0;
 	while (dup[i])
 	{
 		x = 0;
 		if (dup[i] == '<')
 		{
 			x = i + 1;
-			if 
 			while (dup[x])
 			{
-				if (dup[x] 
+				if (dup[x] == '|' || dup[x] == '<' || dup[x] == '>')
+					break ;
+				x++;
 			}
+			if (dup[x] == '\0')
+				return (free(dup), 1);
+			else if (!check_middle(dup, i, x))
+				return (free(dup), 0);
 		}
 		else if (dup[i] == '>')
 		{
+			x = i + 1;
+			while (dup[x])
+			{
+				if (dup[x] == '|' || dup[x] == '<' || dup[x] == '>')
+					break ;
+				x++;
+			}
+			if (dup[x] == '\0')
+				return (free(dup), 1);
+			else if (!check_middle(dup, i, x))
+				return (free(dup), 0);
 		}
 		i++;
 	}
