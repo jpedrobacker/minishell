@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/07 12:00:59 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:40:55 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void		built_echo(t_main **main, int flag);
 void		built_env(t_main **main);
 void		built_exit(t_main *main);
 void		built_export(t_main **main);
-void		built_unset(t_main **main);
+void		built_unset(t_main *main);
 void		built_clear(void);
 void		call_cmd(t_main *main);
 

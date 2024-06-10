@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:14 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/06 11:52:51 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/10 14:52:14 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	built_cd(t_main **main)
 		chdir(find_var_key(&aux_env, "HOME"));
 		return (update_old_pwd(&aux_env), update_new_pwd(&aux_env));
 	}
-	if (ft_strncmp(aux_cmds->arr[1], "~", ft_strlen("~")) == 0)
+	if (ft_strcmp(aux_cmds->arr[1], "~") == 0)
 	{
 		chdir(find_var_key(&aux_env, "HOME"));
 		return (update_old_pwd(&aux_env), update_new_pwd(&aux_env));

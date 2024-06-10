@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:00:52 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/06 11:52:23 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:40:59 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	call_cmd(t_main *main)
 	if (ft_strcmp("export", main->cmds->arr[0]) == 0)
 		built_export(&main);
 	if (ft_strcmp("unset", main->cmds->arr[0]) == 0)
-		built_unset(&main);
+		built_unset(main);
 	if (ft_strcmp("clear", main->cmds->arr[0]) == 0)
 		built_clear();
 }
