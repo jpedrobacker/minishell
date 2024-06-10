@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
+/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/10 14:54:46 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/10 15:56:12 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	tokenize(t_main *bag)
 	fix_matrix(&bag->cmds);
 	print_node(bag);
 	free_all(bag);
-	token_free(&bag->cmds);
+	//token_free(&bag->cmds);
 	//so damos free na linked list envp apenas quando encerramos o programa!
 	//envs_free(&bag->envs);
 }

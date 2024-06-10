@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
+/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:07:29 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/05 17:45:13 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/10 15:54:42 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static int	our_builtins(char *s)
 		return (1);
 	return (0);
 }
-
 
 char	*get_real_path(char ***all_paths, char *command)
 {
@@ -99,7 +98,7 @@ char	*find_env_path(t_varenv *envp)
 	aux = envp;
 	while (aux)
 	{
-		if (ft_strncmp(aux->key, "PATH", 4) == 0)
+		if (ft_strcmp(aux->key, "PATH") == 0)
 		{
 			env_path = aux->var;
 			break ;

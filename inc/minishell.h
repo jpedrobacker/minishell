@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/07 14:12:59 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/10 15:55:56 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@
 typedef struct s_varenv
 {
 	char			*key;
-	char			*var;
+	char			*var; //malloc
 	struct s_varenv	*next;
+	struct s_varenv	*head;
 }			t_varenv;
 
 /*
@@ -107,9 +108,9 @@ char		*get_real_path(char ***all_paths, char *command);
 void	tokenize(t_main *bag);
 
 /*-- linked list functions --*/
-void		create_node(char *s, t_token **head, char ***paths, t_varenv *envs);
 t_token		*create_list(char *usr_input, t_varenv *envs);
 t_varenv	*make_envp_list(char **envp);
+void		create_node(char *s, t_token **head, char ***paths, t_varenv *envs);
 void		link_envp(char *envp, t_varenv **head);
 
 /*-- Validate Input functions --*/
@@ -121,9 +122,9 @@ int			deal_redirects(t_main *bag);
 /*-- deal quotes functions --*/
 void		change_pipe(char *s, int *start, int *end);
 void		change_spaces(char *s, int *start, int *end);
-char		*get_quote_pos(char *s);
 void		change_input(char *s);
 void		replace_char(char *s, char old, char want);
+char		*get_quote_pos(char *s);
 
 /*-- split in tokens --*/
 char		**split_in_tokens(char *s, char *in, t_varenv *envs);
@@ -134,26 +135,31 @@ int			check_char(char *s, int i, int s_len, char *in);
 void		expand_envs(char ***matrix, t_varenv *envs);
 void		new_expand_envs(char ***matrix, t_varenv *envs);
 
+/*-- builtins --*/
+int			built_cd(t_main **main);
+int			built_pwd(void);
+void		built_echo(t_main **main, int flag);
+void		built_env(t_main **main);
+void		built_exit(t_main *main);
+void		built_export(t_main **main);
+void		built_unset(t_main *main);
+void		built_clear(void);
+void		call_cmd(t_main *main);
+
 /*-- utils --*/
 void		fix_matrix(t_token **head);
 void		print_list(t_token **head);
-int			is_there_var(char *s);
 char		*get_env_name(char *s, int flag, int s_len);
 char		*get_env_key(char *envp, char c);
 char		*rev_split(char **matrix);
+char		*find_var_key(t_varenv **env, char *key_to_find);
+int			is_there_var(char *s);
 int			count_cmds(char **args);
 int			echo_flag(char **args);
-
-/*-- builtins --*/
-int			built_cd(t_token **token);
-int			built_pwd(void);
-void		built_echo(t_token **token, int flag);
-void		built_env(t_varenv **envp, t_token **token);
-void		built_exit(t_varenv *env, t_token *token);
-void		built_export(t_varenv **env, t_token **token);
-void		built_unset(t_varenv **env, t_token **token);
-void		built_clear(void);
-void		call_cmd(t_token *token, t_varenv *envp);
+int			check_var_exist(t_varenv **env, char *input);
+int			update_new_pwd(t_varenv **env);
+int			update_old_pwd(t_varenv **env);
+int			ft_strcmp(const char *s1, const char *s2);
 
 /*-- handle errors --*/
 void		*errors_mini(int type_err, char *param);

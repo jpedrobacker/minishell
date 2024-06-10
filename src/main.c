@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/05 17:41:33 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/10 16:11:10 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,10 @@ void	sig_int_handle(int sig)
 
 	if (sig == SIGINT)
 	{
-		if (RL_ISSTATE(RL_STATE_READCMD))
-			ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		else
-			write(STDIN_FILENO, "\n", 1);
-		rl_replace_line("", 1);
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		rl_replace_line("", 0);
 		rl_on_new_line();
 	}
-	return ;
 }
 
 void	sigs_handle(void)
@@ -42,10 +38,19 @@ void	sigs_handle(void)
 	sigaction(SIGINT, &sig, NULL);
 }
 
+char	*make_prompt(void)
+{
+	char	curdir[PATH_MAX];
+	char	*prompt;
+
+	prompt = getcwd(curdir, sizeof(curdir));
+	prompt = ft_strjoin(prompt, "$>>> ");
+	return (prompt);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char		*usr_input;
-	char		curdir[PATH_MAX];
 	t_main		bag;
 
 	(void) ac;
@@ -54,33 +59,27 @@ int	main(int ac, char **av, char **envp)
 	sigs_handle();
 	while (1)
 	{
-		usr_input = readline(ft_strjoin(getcwd(curdir, sizeof(curdir)), "$ "));
-		if (!usr_input)
-			return (0);
+		usr_input = readline(make_prompt());
+		if (!usr_input || !ft_strlen(usr_input))
+		{
+			free(usr_input);
+			continue ;
+		}
 		if (!validate_input(usr_input, &bag))
 		{
 			add_history(usr_input);
 			continue ;
 		}
-		//bag.dup_usr_input = ft_strdup(usr_input);
-		//change_input(bag.dup_usr_input); //ACHO que o erro do valgrind vem pela readline+join...
 		if (!deal_redirects(&bag))
 		{
 			add_history(usr_input);
 			continue ;
 		}
-		//bag.splited_input = split_in_tokens(bag.dup_usr_input, "\"'$ \v", bag.envs);
-		//A split in tokens vai estar dentro da check_redirects();
-		//function que vai verificar se existe algum redirect, caso tenha, 
-		//vai swapar as strings para seus respectivos parametros
-		//
 		bag.new_input = rev_split(bag.splited_input);
 		tokenize(&bag);
-		//call_cmd(bag.cmds, bag.envs);
-		//ARRUMAR o call cmd...
+		call_cmd(&bag);
 		add_history(usr_input);
 		free(usr_input);
 	}
 	return (0);
 }
-

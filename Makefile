@@ -22,7 +22,7 @@ $(NAME): $(OBJ)
 
 val: re
 	make clean
-	valgrind --leak-check=full --suppressions=/nfs/homes/aprado/minishell/suppression/rline.supp ./minishell
+	valgrind --leak-check=full ./minishell
 
 clean:
 		make -C lib clean

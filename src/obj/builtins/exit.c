@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:39:02 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/03 14:00:56 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/04 11:19:23 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,12 @@ void	teste(t_token **token)
 }
 */
 
-void	built_exit(t_varenv *env, t_token *token)
+void	built_exit(t_main *main)
 {
 	//extern int	g_status;
 	//fazer exit em caso de ser chamado sem ser pelo comando exit no prompt
 	//to_free_token(&token);
 	//teste(&token);
-	(void)token;
-	to_free_varenv(&env);
+	(void) main;
 	exit(EXIT_SUCCESS);
 }

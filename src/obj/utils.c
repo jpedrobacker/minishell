@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/03 14:06:14 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/06 11:55:14 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,29 @@ void	print_list(t_token **head)
 		i = 0;
 		aux = aux->next;
 	}
+}*/
+
+char	*find_var_key(t_varenv **env, char *key_to_find)
+{
+	t_varenv	*aux;
+
+	aux = (*(env));
+	while (aux != NULL)
+	{
+		if (ft_strcmp(aux->key, key_to_find) == 0)
+			return (aux->var);
+		aux = aux->next;
+	}
+	return ("NONE");
 }
-*/
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = -1;
+	while (s1[++i] || s2[i])
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
