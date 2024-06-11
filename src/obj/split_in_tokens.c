@@ -6,11 +6,123 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:16:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/31 17:59:41 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/11 17:23:03 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+//echo "$HOME$USER" -> 6 lines
+//echo "$HOME '$USER'" -> 9 lines
+//echo askdjhasdkjhad -> 3 lines
+
+static int	check_chars(char c, char *in)
+{
+	int	i;
+
+	i = 0;
+	while (in[i])
+	{
+		if (c == in[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+/*
+static int	line_helper(char *s, int i, int len)
+{
+	if ((i + 1) < s_len)
+	{
+		if (i > 0 && ft_isalnum(s[i - 1]) && ft_isalnum(s[i + 1]))
+	}
+}
+
+static int	dolar_helper(char *s, int *i, int *word, int *lines)
+{
+	int	len;
+	int	x;
+
+	len = ft_strlen(s);
+	x = *i;
+	while (s[x])
+	{
+		//se e $
+		//se e alnum
+		//se e in
+
+		if ((x + 1) < len)
+		{
+
+		}
+		x++;
+	}
+}
+*/
+
+static void	count_helper(char *s, int i, int *word, int *line)
+{
+	int	s_len;
+	int	w;
+	int	l;
+
+	w = *word;
+	l = *line;
+	s_len = ft_strlen(s);
+	if (w != 0)
+	{
+		l++;
+		w = 0;
+	}
+	if ((i + 1) < s_len && (s[i + 1] == '$' || ft_isalnum(s[i + 1])))
+		w++;
+	else
+		l++;
+	*word = w;
+	*line = l;
+}
+
+static int	new_line_count(char *s, char *in)
+{
+	int	i;
+	int	word;
+	int	l;
+
+	i = 0;
+	l = 0;
+	word = 0;
+	while (s[i])
+	{
+		if (s[i] == '$')
+			count_helper(s, i, &word, &l);
+		else if (check_chars(s[i], in))
+		{
+			if (word != 0)
+			{
+				l++;
+				word = 0;
+			}
+			l++;
+		}
+		else
+			word++;
+		i++;
+	}
+	if (word)
+		l++;
+	return (l);
+}
+
+/*
+char	**split_in_tokens(char *s, char *in, t_varenv *envs)
+{
+	//quantas linhas preciso mallocar pra maatrix?
+	//mallocar a matrix
+	//splitar o que eu quero
+	//retornar
+}
+*/
+
 
 int	check_char(char *s, int i, int s_len, char *in)
 {
@@ -80,6 +192,7 @@ char	**split_in_tokens(char *s, char *in, t_varenv *envs)
 	s_len = ft_strlen(s);
 	lines_s = line_count(s, in, s_len);
 	ft_printf("lines_s -> :%i:\n", lines_s);
+	ft_printf("new lines count -> :%i: \n", new_line_count(s, in));
 	new = malloc(sizeof(char *) * (lines_s + 1));
 	if (!new)
 		return (NULL);
@@ -117,4 +230,3 @@ char	**split_in_tokens(char *s, char *in, t_varenv *envs)
 	//expand_envs(&new, envs);
 	return (new);
 }
-
