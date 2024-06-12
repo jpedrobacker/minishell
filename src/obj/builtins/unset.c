@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/10 13:57:12 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:49:49 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ int		real_unset(t_varenv **env, char **cmds)
 	return (0);
 }
 
-void	built_unset(t_main *main)
+int	built_unset(t_main *main)
 {
-	real_unset(&main->envs, main->cmds->arr);
+	extern int	g_status;
+	g_status = real_unset(&main->envs, main->cmds->arr);
+	return (g_status);
 }

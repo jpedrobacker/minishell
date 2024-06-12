@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/10 15:56:12 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:57:34 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,56 +68,6 @@ void	print_node(t_main *bag)
 		ft_printf("path :%s: \n", aux->real_path);
 		aux = aux->next;
 		i++;
-	}
-}
-
-void	token_free(t_token **head)
-{
-	t_token		*aux;
-	t_token		*temp;
-
-	aux = (*head);
-	while (aux)
-	{
-		temp = aux;
-		free_splits(aux->arr);
-		free(aux->real_path);
-		aux->arr = NULL;
-		aux->real_path = NULL;
-		aux = aux->next;
-		free(temp);
-	}
-}
-
-void	free_all(t_main *bag)
-{
-	free(bag->new_input);
-	free(bag->dup_usr_input);
-	free_splits(bag->splited_input);
-	free_splits(bag->splited_pipe);
-	free_splits(bag->paths);
-	bag->new_input = NULL;
-	bag->dup_usr_input = NULL;
-	bag->splited_input = NULL;
-	bag->splited_pipe = NULL;
-	bag->paths = NULL;
-}
-
-void	envs_free(t_varenv **head)
-{
-	t_varenv	*aux;
-	t_varenv	*temp;
-
-	aux = (*head);
-	while (aux)
-	{
-		temp = aux;
-		free(aux->key);
-		//free(aux->var); o valor nao e dupado.
-		aux->key = NULL;
-		aux->var = NULL;
-		aux = aux->next;
-		free(temp);
 	}
 }
 

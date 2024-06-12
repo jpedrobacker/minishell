@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/10 15:55:56 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:46:31 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,13 +138,13 @@ void		new_expand_envs(char ***matrix, t_varenv *envs);
 /*-- builtins --*/
 int			built_cd(t_main **main);
 int			built_pwd(void);
-void		built_echo(t_main **main, int flag);
-void		built_env(t_main **main);
+int			built_echo(t_main **main, int flag);
+int			built_env(t_main **main);
 void		built_exit(t_main *main);
-void		built_export(t_main **main);
-void		built_unset(t_main *main);
-void		built_clear(void);
-void		call_cmd(t_main *main);
+int			built_export(t_main **main);
+int			built_unset(t_main *main);
+int			built_clear(void);
+int			call_cmd(t_main *main);
 
 /*-- utils --*/
 void		fix_matrix(t_token **head);
@@ -166,5 +166,11 @@ void		*errors_mini(int type_err, char *param);
 void		to_free_token(t_token **token);
 void		to_free_varenv(t_varenv **lst_env);
 void		free_splits(char **split);
+void		free_all(t_main *bag);
+void		envs_free(t_varenv **head);
+void		token_free(t_token **head);
+
+void		start_execution(char *usr_input, t_main *main);
+
 
 #endif

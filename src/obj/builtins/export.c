@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/07 12:23:04 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:52:08 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ int	check_var_exist(t_varenv **env, char *input)
 	return (1);
 }
 
-void	built_export(t_main **main)
+int	built_export(t_main **main)
 {
+	extern int	g_status;
 	t_varenv	*aux_env;
 	t_token		*aux_token;
 	int			arrs;
@@ -78,6 +79,9 @@ void	built_export(t_main **main)
 			else
 				link_envp(aux_token->arr[i], &aux_env);
 		}
+		else
+			errors_mini(QUOTE, "export");
 		i++;
 	}
+	return (g_status = 127);
 }

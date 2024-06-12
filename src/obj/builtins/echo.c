@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/06 11:48:53 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:50:30 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ void	print_with_no_quotes(char **arr, int i)
 		ft_printf(" ");
 }
 
-void	built_echo(t_main **main, int flag)
+int	built_echo(t_main **main, int flag)
 {
+	extern int	g_status;
 	t_token	*aux;
 	int		args;
 	int		i;
@@ -64,6 +65,13 @@ void	built_echo(t_main **main, int flag)
 			print_with_no_quotes(aux->arr, i);
 	}
 	if (flag == 0)
-		return ;
+		return (g_status = 0);
 	ft_printf("\n");
+	return (g_status = 0);
 }
+
+//Return de erros do echo
+
+/*
+	Caso passe por exemplo echo (teste) $? = 2
+*/

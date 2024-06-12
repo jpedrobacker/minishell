@@ -6,28 +6,32 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:00:52 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/10 13:40:59 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:51:41 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	call_cmd(t_main *main)
+int	call_cmd(t_main *main)
 {
+	int	status;
+
+	status = 0;
 	if (ft_strcmp("cd", main->cmds->arr[0]) == 0)
-		built_cd(&main);
+		status = built_cd(&main);
 	if (ft_strcmp("echo", main->cmds->arr[0]) == 0)
-		built_echo(&main, echo_flag(main->cmds->arr));
+		status = built_echo(&main, echo_flag(main->cmds->arr));
 	if (ft_strcmp("env", main->cmds->arr[0]) == 0)
-		built_env(&main);
+		status = built_env(&main);
 	if (ft_strcmp("exit", main->cmds->arr[0]) == 0)
 		built_exit(main);
 	if (ft_strcmp("pwd", main->cmds->arr[0]) == 0)
-		built_pwd();
+		status = built_pwd();
 	if (ft_strcmp("export", main->cmds->arr[0]) == 0)
-		built_export(&main);
+		status = built_export(&main);
 	if (ft_strcmp("unset", main->cmds->arr[0]) == 0)
-		built_unset(main);
+		status = built_unset(main);
 	if (ft_strcmp("clear", main->cmds->arr[0]) == 0)
-		built_clear();
+		status = built_clear();
+	return (status);
 }
