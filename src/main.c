@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/12 17:47:37 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:11:29 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	sig_int_handle(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 	}
+	g_status = 130;
 }
 
 void	sigs_handle(void)
@@ -52,7 +53,9 @@ int	validate_prompt(char *usr_input, t_main *main)
 {
 	(void) main;
 	if (!ft_strlen(usr_input) || !usr_input)
-		return (-1);
+		return (0);
+	if (!validate_input(usr_input, main) || !deal_redirects(main))
+		return (add_history(usr_input), 0);
 	return (1);
 }
 
@@ -74,17 +77,6 @@ int	main(int ac, char **av, char **envp)
 			free(usr_input);
 			continue ;
 		}
-		if (!validate_input(usr_input, &bag))
-		{
-			add_history(usr_input);
-			continue ;
-		}
-		if (!deal_redirects(&bag))
-		{
-			add_history(usr_input);
-			continue ;
-		}
-		bag.new_input = rev_split(bag.splited_input);
 		start_execution(usr_input, &bag);
 		ft_printf("g_status: %d\n", g_status);
 		add_history(usr_input);

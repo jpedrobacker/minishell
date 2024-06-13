@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/11 14:49:49 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:45:15 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		real_unset(t_varenv **env, char **cmds)
 			temp = *env;
 			*env = (*env)->next;
 			free(temp->key);
+			free(temp->full_env);
 			free(temp);
 		}
 		prev = *env;
@@ -37,7 +38,7 @@ int		real_unset(t_varenv **env, char **cmds)
 			{
 				prev->next = cur->next;
 				free(cur->key);
-				free(cur);
+				free(cur->full_env);
 			}
 			prev = cur;
 			cur = cur->next;

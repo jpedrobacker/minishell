@@ -6,13 +6,13 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:00:52 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/11 14:51:41 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:42:54 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	call_cmd(t_main *main)
+int	check_builtins(t_main *main)
 {
 	int	status;
 
@@ -34,4 +34,29 @@ int	call_cmd(t_main *main)
 	if (ft_strcmp("clear", main->cmds->arr[0]) == 0)
 		status = built_clear();
 	return (status);
+}
+
+void	exec_non_builtin_cmd(t_token *token, char **env)
+{
+	char	**cmds;
+
+	(void) main;
+	//cmds = transformar token em lista para tacar no execve(comandos)
+	if (token->fd_out != STDOUT_FILENO)
+		dup2(token->fd_out, STDOUT_FILENO);
+	if (token->fd_in != STDIN_FILENO)
+		dup2(token->fd_in, STDIN_FILENO);
+	token_fds_close(token->head);
+	if (execve(token->real_path, cmds, env) == -1)
+	{
+		if (errno == ENOENT)
+			ft_printf("Command not found!\n");
+		free_splits(cmds);
+		exit(127);
+	}
+	else
+	{
+		free_splits(cmds);
+		exit(EXIT_SUCCESS);
+	}
 }

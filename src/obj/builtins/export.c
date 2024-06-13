@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/11 14:52:08 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:37:40 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	check_var_exist(t_varenv **env, char *input)
 		if (ft_strncmp(key, aux->key, ft_strlen(key)) == 0)
 		{
 			aux->var = var;
+			free(aux->full_env);
+			aux->full_env = ft_strdup(input);
 			free(key);
 			return (0);
 		}
@@ -85,3 +87,4 @@ int	built_export(t_main **main)
 	}
 	return (g_status = 127);
 }
+

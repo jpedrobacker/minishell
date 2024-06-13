@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:53 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/11 14:52:25 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:38:11 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int	built_env(t_main **main)
 			ft_printf("MERDA DE PROJETO\n");
 		while (aux_env)
 		{
-			ft_printf("%s=", aux_env->key);
-			ft_printf("%s\n", aux_env->var);
+			ft_printf("%s\n", aux_env->full_env);
 			aux_env = aux_env->next;
 		}
 	}

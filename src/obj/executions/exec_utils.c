@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.c                                             :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/27 11:11:49 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/12 21:57:40 by jbergfel         ###   ########.fr       */
+/*   Created: 2024/06/12 21:44:10 by jbergfel          #+#    #+#             */
+/*   Updated: 2024/06/12 21:57:23 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*int	make_pipe(t_token *token)
+void	token_fds_close(t_token *head)
 {
-	int		fd[2];
-	t_token *cmds;
-
-	while(token)
+	while (head)
 	{
-		cmds = token;
-
+		if (head->fd_in != STDIN_FILENO)
+			close(head->fd_in);
+		else if (head->fd_out != STDOUT_FILENO)
+			close(head->fd_out);
+		head = head->next;
 	}
+	return ;
 }
-*/

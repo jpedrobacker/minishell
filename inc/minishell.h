@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/12 17:46:31 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:21:55 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,28 +38,12 @@
 
 typedef struct s_varenv
 {
+	char			*full_env; //malloc
 	char			*key;
 	char			*var; //malloc
 	struct s_varenv	*next;
 	struct s_varenv	*head;
 }			t_varenv;
-
-/*
-typedef struct s_token
-{
-	int				fd_in;
-	int				fd_out;
-	int				flag_expand;
-	char			*expanded_env;
-	char			*real_path;
-	char			*cmd_name;
-	char			*cmd_input;
-	char			**arr_cmd_input;
-	char			*env;
-	t_varenv		*envs_lst;
-	struct s_token	*next;
-}			t_token;
-*/
 
 typedef struct	s_token
 {
@@ -68,13 +52,16 @@ typedef struct	s_token
 	char			*real_path;
 	char			*token;
 	char			**arr;
-	struct s_token		*next;
+	pid_t			pid;
+	struct s_token	*next;
+	struct s_token	*head;
 }				t_token;
 
 typedef struct		s_main
 {
 	t_varenv	*envs;
 	t_token		*cmds;
+	char		**envp; //malloc
 	char		**splited_pipe;
 	char		**paths;
 	char		**splited_input;
@@ -144,7 +131,7 @@ void		built_exit(t_main *main);
 int			built_export(t_main **main);
 int			built_unset(t_main *main);
 int			built_clear(void);
-int			call_cmd(t_main *main);
+int			check_builtins(t_main *main);
 
 /*-- utils --*/
 void		fix_matrix(t_token **head);
@@ -170,7 +157,11 @@ void		free_all(t_main *bag);
 void		envs_free(t_varenv **head);
 void		token_free(t_token **head);
 
+/*-- exec functions --*/
 void		start_execution(char *usr_input, t_main *main);
+void		token_fds_close(t_token *head);
+void		exec_non_builtin_cmd(t_token *token, t_main *main);
 
+char		**update_envp(t_varenv *env);
 
 #endif

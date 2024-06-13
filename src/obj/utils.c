@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/06 11:55:14 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:50:15 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,4 +182,27 @@ int	ft_strcmp(const char *s1, const char *s2)
 		if (s1[i] != s2[i])
 			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+char	**update_envp(t_varenv *env)
+{
+	int		i;
+	int		len;
+	char	**arr;
+
+	i = 0;
+	len = env_lstsize(env);
+	arr = (char **)malloc(sizeof(char *) * (len + 1));
+	while (env)
+	{
+		arr[i] = ft_strdup(env->full_env);
+		env = env->next;
+		i++;
+	}
+	arr[i] = NULL;
+
+	i = -1;
+	while(arr[++i])
+		ft_printf("%s\n", arr[i]);
+	return (arr);
 }

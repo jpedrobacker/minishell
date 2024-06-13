@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 11:55:58 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/06 11:48:01 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:36:58 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ char	*get_env_key(char *envp, char c)
 	return (result);
 }
 
+char	**refill_envp(t_main *main)
+{
+	while (main->envs)
+}
+
 void	link_envp(char *envp, t_varenv **head)
 {
 	t_varenv	*node;
@@ -44,6 +49,7 @@ void	link_envp(char *envp, t_varenv **head)
 		return ;
 	node->key = get_env_key(envp, '=');
 	node->var = ft_memchr(envp, '=', ft_strlen(envp));
+	node->full_env = ft_strdup(envp);
 	node->next = NULL;
 	if (!(*head))
 	{
@@ -72,6 +78,7 @@ t_varenv	*make_envp_list(char **envp)
 			return (NULL);
 		node->key = get_env_key(envp[i], '=');
 		node->var = ft_memchr(envp[i], '=', ft_strlen(envp[i]));
+		node->full_env = ft_strdup(envp[i]);
 		node->next = NULL;
 		if (head == NULL)
 		{
