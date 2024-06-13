@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:02:14 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/05 17:42:06 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/11 17:16:16 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	deal_redirects(t_main *bag)
 	i = 0;
 	if (!bag->dup_usr_input)
 		return (0);
-	bag->splited_input = split_in_tokens(bag->dup_usr_input, "\"' $\v<>", bag->envs);
+	bag->splited_input = split_in_tokens(bag->dup_usr_input, "\"' $\v\t\n\a<>|", bag->envs);
 	s = bag->splited_input;
 
 	//Need to implement this func.
