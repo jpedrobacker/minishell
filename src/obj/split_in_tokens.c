@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:16:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/11 17:23:03 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/13 14:58:18 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,36 +29,6 @@ static int	check_chars(char c, char *in)
 	}
 	return (0);
 }
-/*
-static int	line_helper(char *s, int i, int len)
-{
-	if ((i + 1) < s_len)
-	{
-		if (i > 0 && ft_isalnum(s[i - 1]) && ft_isalnum(s[i + 1]))
-	}
-}
-
-static int	dolar_helper(char *s, int *i, int *word, int *lines)
-{
-	int	len;
-	int	x;
-
-	len = ft_strlen(s);
-	x = *i;
-	while (s[x])
-	{
-		//se e $
-		//se e alnum
-		//se e in
-
-		if ((x + 1) < len)
-		{
-
-		}
-		x++;
-	}
-}
-*/
 
 static void	count_helper(char *s, int i, int *word, int *line)
 {
@@ -113,15 +83,80 @@ static int	new_line_count(char *s, char *in)
 	return (l);
 }
 
-/*
+static int	check_special(char *s, int i, int t, char *in)
+{
+	int	x;
+	int	s_len;
+
+	x = 0;
+	s_len = ft_strlen(s);
+	if ((i + 1) < s_len)
+	{
+		if (s[i] == '$' && ft_isalpha(s[i + 1]) && t == 0)
+			return (0);
+	}
+	while (in[x])
+	{
+		if (s[i] == in[x])
+			return (1);
+		x++;
+	}
+	return (0);
+}
+
+//echo "$HOME$USER" -> 6 lines
+//echo "$HOME '$USER'" -> 9 lines
+//echo askdjhasdkjhad -> 3 lines
+
 char	**split_in_tokens(char *s, char *in, t_varenv *envs)
 {
-	//quantas linhas preciso mallocar pra maatrix?
-	//mallocar a matrix
-	//splitar o que eu quero
-	//retornar
+	int		i;
+	int		lines_s;
+	int		len;
+	char	**new;
+
+	i = 0;
+	len = ft_strlen(s);
+	lines_s = new_line_count(s, in);
+	ft_printf("lines_s -> :%i:\n", lines_s);
+	new = malloc(sizeof(char *) * (lines_s + 1));
+	if (!new)
+		return (NULL);
+	new[lines_s] = NULL;
+	int t = 0;
+	int j = 0;
+	while (s[i])
+	{
+		if (!check_special(s, i, t, in))
+			t++;
+		else
+		{
+			if (t != 0)
+			{
+				new[j] = ft_substr(s, (i - t), t); //implementar free caso de merda.
+				j++;
+				t = 0;
+				i--;
+			}
+			else
+			{
+				new[j] = ft_substr(s, i, 1);
+				j++;
+			}
+		}
+		if (t && ((i + 1) == len))
+		{
+			new[j] = ft_substr(s, ((i + 1) - t), t);
+			j++;
+		}
+		i++;
+	}
+	//mandar o endereço da minha matriz para uma func que vai expandir, caso precise, as envs.
+	new_expand_envs(&new, envs);
+	//expand_envs(&new, envs);
+	return (new);
 }
-*/
+/*
 
 
 int	check_char(char *s, int i, int s_len, char *in)
@@ -142,6 +177,7 @@ int	check_char(char *s, int i, int s_len, char *in)
 	}
 	return (0);
 }
+
 
 //echo "OLA 42 $USER rio '$HOME' $ MAIL"
 //echo '$ HOME'
@@ -230,3 +266,4 @@ char	**split_in_tokens(char *s, char *in, t_varenv *envs)
 	//expand_envs(&new, envs);
 	return (new);
 }
+*/
