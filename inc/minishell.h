@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/13 14:21:55 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:30:53 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct	s_token
 	char			*real_path;
 	char			*token;
 	char			**arr;
+	char			**envs;
 	pid_t			pid;
 	struct s_token	*next;
 	struct s_token	*head;
@@ -136,17 +137,12 @@ int			check_builtins(t_main *main);
 /*-- utils --*/
 void		fix_matrix(t_token **head);
 void		print_list(t_token **head);
-char		*get_env_name(char *s, int flag, int s_len);
-char		*get_env_key(char *envp, char c);
 char		*rev_split(char **matrix);
-char		*find_var_key(t_varenv **env, char *key_to_find);
 int			is_there_var(char *s);
 int			count_cmds(char **args);
 int			echo_flag(char **args);
-int			check_var_exist(t_varenv **env, char *input);
-int			update_new_pwd(t_varenv **env);
-int			update_old_pwd(t_varenv **env);
 int			ft_strcmp(const char *s1, const char *s2);
+void		copy_char_pointer(char ***dest, char **src);
 
 /*-- handle errors --*/
 void		*errors_mini(int type_err, char *param);
@@ -160,8 +156,17 @@ void		token_free(t_token **head);
 /*-- exec functions --*/
 void		start_execution(char *usr_input, t_main *main);
 void		token_fds_close(t_token *head);
-void		exec_non_builtin_cmd(t_token *token, t_main *main);
+void		exec_non_builtin_cmd(t_token *token, char **env);
+int			call_cmd(t_main *main);
 
+/*-- env utils --*/
+char		*get_env_key(char *envp, char c);
+char		*get_env_name(char *s, int flag, int s_len);
 char		**update_envp(t_varenv *env);
+char		*find_var_key(t_varenv **env, char *key_to_find);
+int			update_new_pwd(t_varenv **env);
+int			update_old_pwd(t_varenv **env);
+int			check_var_exist(t_varenv **env, char *input);
+int			env_lst_size(t_varenv *env);
 
 #endif

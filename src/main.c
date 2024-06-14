@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/13 11:11:29 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:10:56 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@ void	sigs_handle(void)
 	struct sigaction	sig;
 
 	signal(SIGQUIT, SIG_IGN);
+	ft_memset(&sig, 0, sizeof(sig));
+	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+		exit(EXIT_FAILURE);
 	sig.sa_handler = sig_int_handle;
-	sigemptyset(&sig.sa_mask);
-	sigaddset(&sig.sa_mask, SIGINT);
-	sig.sa_flags = 0;
-	sigaction(SIGINT, &sig, NULL);
+	if (sigemptyset(&sig.sa_mask) < 0 || sigaddset(&sig.sa_mask, SIGINT) < 0)
+		exit(EXIT_FAILURE);
+	if (sigaction(SIGINT, &sig, NULL) < 0)
+		exit(EXIT_FAILURE);
 }
 
 char	*make_prompt(void)

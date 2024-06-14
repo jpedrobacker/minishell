@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/11 14:50:30 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:17:42 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int	built_echo(t_main **main, int flag)
 			print_with_no_quotes(aux->arr, i);
 	}
 	if (flag == 0)
-		return (g_status = 0);
+		return (g_status = 1);
 	ft_printf("\n");
-	return (g_status = 0);
+	return (g_status = 1);
 }
 
 //Return de erros do echo

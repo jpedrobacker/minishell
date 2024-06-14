@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:53 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/13 11:38:11 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:17:48 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	built_env(t_main **main)
 		errors_mini(ARGS, "env");
 		return (g_status = 127);
 	}
-	return (g_status = 0);
+	return (g_status = 1);
 }
 
 //return de erros da env

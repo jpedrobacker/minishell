@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/13 13:50:15 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:31:17 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,37 +40,6 @@ int	is_there_var(char *s)
 	if (check)
 		return (1);
 	return (0);
-}
-
-//echo $HOME
-char	*get_env_name(char *s, int flag, int s_len)
-{
-	char	*env;
-	int		i;
-	int		len;
-
-	(void)s_len;
-	if (!flag)
-		return (NULL);
-	i = 0;
-	len = 0;
-	while (s[i] && s[i] != '$')
-		i++;
-	i++;
-	while (s[i] && ft_isalnum(s[i]))
-	{
-		i++;
-		len++;
-	}
-	if (!len)
-		return (NULL);
-	env = malloc(sizeof(char) * (len + 1));
-	if (!env)
-		return (NULL);
-	env[len] = '\0';
-	while (len != -1)
-		env[--len] = s[--i];
-	return (env);
 }
 
 /*
@@ -159,20 +128,6 @@ void	print_list(t_token **head)
 	}
 }*/
 
-char	*find_var_key(t_varenv **env, char *key_to_find)
-{
-	t_varenv	*aux;
-
-	aux = (*(env));
-	while (aux != NULL)
-	{
-		if (ft_strcmp(aux->key, key_to_find) == 0)
-			return (aux->var);
-		aux = aux->next;
-	}
-	return ("NONE");
-}
-
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;
@@ -184,25 +139,12 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-char	**update_envp(t_varenv *env)
+void	copy_char_pointer(char ***dest, char **src)
 {
-	int		i;
-	int		len;
-	char	**arr;
-
-	i = 0;
-	len = env_lstsize(env);
-	arr = (char **)malloc(sizeof(char *) * (len + 1));
-	while (env)
-	{
-		arr[i] = ft_strdup(env->full_env);
-		env = env->next;
-		i++;
-	}
-	arr[i] = NULL;
+	int i;
 
 	i = -1;
-	while(arr[++i])
-		ft_printf("%s\n", arr[i]);
-	return (arr);
+	while (src[++i])
+		(*dest)[i] = ft_strdup(src[i]);
+	(*dest)[i] = NULL;
 }
