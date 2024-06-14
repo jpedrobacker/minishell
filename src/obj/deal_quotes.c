@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deal_quotes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
+/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:51:06 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/20 12:27:53 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/14 19:51:15 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,21 @@ void	replace_char(char *s, char old, char want)
 	{
 		if (s[i] == old)
 			s[i] = want;
+		i++;
+	}
+}
+
+void	change_reds(char *s, int *start, int *end)
+{
+	int	i;
+
+	i = *start;
+	while (i <= *end)
+	{
+		if (s[i] == '<')
+			s[i] = '\n';
+		else if (s[i] == '>')
+			s[i] = '\a';
 		i++;
 	}
 }
@@ -50,6 +65,7 @@ void	change_pipe(char *s, int *start, int *end)
 		i++;
 	}
 	change_spaces(s, start, end);
+	change_reds(s, start, end);
 	*start = 0;
 	*end = 0;
 }
@@ -91,7 +107,7 @@ void	change_input(char *s)
 			if (s[end] != '\0')
 				change_pipe(s, &start, &end);
 			else
-				ft_putstr_fd("Error quote", 2);
+				ft_putstr_fd("Error quote>\n", 2);
 		}
 		i++;
 	}

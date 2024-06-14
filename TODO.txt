@@ -1,30 +1,54 @@
 ##Arquivo para organizar nossas pendencias, isto e, as features que faltam para terminar a MINISHELL##
 
-TODO 1- "VERIFICAR OS LEAKS E PROBLEMAS DO VALGRIND"
 
-TODO 2- "APRENDER A USAR OS ARQUIVOS DE SUPRESSAO NO VALGRIND"
 
-TODO 3- "Descobrir o motivo do segfault quando apertamos enter sem ter escrito 
+TODO 1- "Ver onde e como usar a variavel global"
+
+
+
+
+-------------------------- IN PROGRESS -----------------------------------------------------------------------------------------
+
+TODO 2- "Fazer todas as validacoes de input. O que vai ser valido e o que nao?"
+	"ex: echo < | ls = NAO E VALIDO"
+	"ex: echo | = NAO E VALIDO"
+	"ex: echo | < = NAO E VALIDO"
+	"ex: echo | | ls = NAO E VALIDO"
+	"ex: echo " | | " | cat = E VALIDO
+
+TODO 7- implementar um tratamento para os redirects < > <<
+	Basicamente, o que vem depois desses redirects e o seu parametro.
+	por ex: "echo < teste teste2".
+	teste e parametro do redirect <
+	teste2 e parametro do echo.
+
+
+
+
+-------------------------- DONE ------------------------------------------------------------------------------------------------
+
+-> "VERIFICAR OS LEAKS E PROBLEMAS DO VALGRIND"
+	-> Acredito que o erro na func "change_input()" venha atraves do readline+strjoin.
+
+-> "Refatorar/modificar a criacao da lista linkada dos nodes e da envp."
+	NAO ESQUECER DE VERIFICAR OS LEAKS DURANTE O DESENVOLVIMENTO.
+
+-> "Descobrir o motivo do segfault quando apertamos enter sem ter escrito 
 	nenhum input"
 
-TODO 4- "Ver onde e como usar a variavel global"
+-> "ARRUMAR O CALL CMD DA MAIN"
+	"ISTO E, ARRUMAR A CHAMADA DOS BUILTINS"
 
-TODO 5- "Trocar/verificar os caracteres nao imprimiveis que estamos usando 
-	para substituicao"
-
-TODO 6- "ACHO QUE EU ACHEI O MOTIVO DO ^K QUANDO TEMOS ESPACO ENTRE '' OU ""
+-> "ACHO QUE EU ACHEI O MOTIVO DO ^K QUANDO TEMOS ESPACO ENTRE '' OU ""
 	Eu mudo isso na string usr_input, e nao troco dps, entao, 
 	na hora de colocar na funcao add history, o ^K nao foi 
 	trocado por espaco."
 
--------------------------- IN PROGRESS -----------------------------------------------------------------------------------------
+-> "APRENDER A USAR OS ARQUIVOS DE SUPRESSAO NO VALGRIND"
 
-TODO 1: Fazer a expansao das variaveis de ambiente.
+-> "Fazer a expansao das variaveis de ambiente.
 	*IMPORTANTE* "Talvez seja melhor fazer a expansao da var na main mesmo. 
 	Isto e, expandir o usr_input antes mesmo de mandar para a primeira funcao"
-
-
--------------------------- DONE ------------------------------------------------------------------------------------------------
 
 -> "Atualizar a funcao que pega o caminho correto para a execucao do binario de um comando.
 	tem que tirar a parte que usa o envp e subtituir pela linked list que o joao criou"

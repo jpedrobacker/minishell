@@ -6,17 +6,14 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:39:02 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/02 11:54:59 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:41:01 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*void	built_exit(t_token *token)
+void	built_exit(t_main *main)
 {
-	//extern int	g_status;
-	//fazer exit em caso de ser chamado sem ser pelo comando exit no prompt
-	to_free_token(&token);
-	//to_free_varenv(&env);
+	free_all(main);
 	exit(EXIT_SUCCESS);
-}*/
+}

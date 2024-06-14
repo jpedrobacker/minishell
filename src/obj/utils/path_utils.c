@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   path_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
+/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:07:29 by aprado            #+#    #+#             */
-/*   Updated: 2024/05/24 17:55:27 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/14 19:49:59 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../inc/minishell.h"
 
 #include "../inc/minishell.h"
 
@@ -31,7 +33,6 @@ static int	our_builtins(char *s)
 	return (0);
 }
 
-
 char	*get_real_path(char ***all_paths, char *command)
 {
 	char	*test;
@@ -40,6 +41,7 @@ char	*get_real_path(char ***all_paths, char *command)
 	int		i;
 
 	i = 0;
+
 	if (our_builtins(command))
 		return (NULL);
 	paths = (*all_paths);
@@ -98,7 +100,7 @@ char	*find_env_path(t_varenv *envp)
 	aux = envp;
 	while (aux)
 	{
-		if (ft_strncmp(aux->key, "PATH", 4) == 0)
+		if (ft_strcmp(aux->key, "PATH") == 0)
 		{
 			env_path = aux->var;
 			break ;

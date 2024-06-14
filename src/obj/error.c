@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 13:58:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/28 14:05:50 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:57:38 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	to_free_varenv(t_varenv **lst_env)
 	*lst_env = NULL;
 }
 
+/*
 void	to_free_token(t_token **token)
 {
 	t_token	*begin;
@@ -89,13 +90,70 @@ void	to_free_token(t_token **token)
 	}
 	*token = NULL;
 }
+*/
 
 void	free_splits(char **split)
 {
 	int	i;
 
-	i = -1;
-	while (split[++i])
+	i = 0;
+	while (split[i])
+	{
 		free(split[i]);
+		i++;
+	}
 	free(split);
+	//split = NULL;
+}
+
+void	envs_free(t_varenv **head)
+{
+	t_varenv	*aux;
+	t_varenv	*temp;
+
+	aux = (*head);
+	while (aux)
+	{
+		temp = aux;
+		free(aux->key);
+		//free(aux->var); o valor nao e dupado.
+		aux->key = NULL;
+		aux->var = NULL;
+		aux = aux->next;
+		free(temp);
+	}
+}
+
+void	free_all(t_main *bag)
+{
+	free(bag->new_input);
+	free(bag->dup_usr_input);
+	free_splits(bag->splited_input);
+	free_splits(bag->splited_pipe);
+	free_splits(bag->paths);
+//	token_free(&bag->cmds);
+//	envs_free(&bag->envs);
+	bag->new_input = NULL;
+	bag->dup_usr_input = NULL;
+	bag->splited_input = NULL;
+	bag->splited_pipe = NULL;
+	bag->paths = NULL;
+}
+
+void	token_free(t_token **head)
+{
+	t_token		*aux;
+	t_token		*temp;
+
+	aux = (*head);
+	while (aux)
+	{
+		temp = aux;
+		free_splits(aux->arr);
+		free(aux->real_path);
+		aux->arr = NULL;
+		aux->real_path = NULL;
+		aux = aux->next;
+		free(temp);
+	}
 }

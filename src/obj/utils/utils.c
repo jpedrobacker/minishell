@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/02 14:16:12 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:50:29 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,37 +42,7 @@ int	is_there_var(char *s)
 	return (0);
 }
 
-char	*get_env_name(char *s, int flag)
-{
-	char	*env;
-	int		i;
-	int		len;
-
-	if (!flag)
-		return (NULL);
-	i = 0;
-	len = 0;
-	while (s[i] && s[i] != '$')
-		i++;
-	i++;
-	while (s[i] && ft_isalnum(s[i]))
-	{
-		i++;
-		len++;
-	}
-	if (!len)
-		return (NULL);
-	env = malloc(sizeof(char) * (len + 1));
-	if (!env)
-		return (NULL);
-	env[0] = 'a';
-	env[1] = 'b';
-	env[len] = '\0';
-	while (len != -1)
-		env[--len] = s[--i];
-	return (env);
-}
-
+/*
 void	change_env(t_token **node, char *env)
 {
 	t_token	*aux;
@@ -90,7 +60,7 @@ void	change_env(t_token **node, char *env)
 	ft_printf("env expanded -> :%s:\n", env);
 }
 
-/*void	get_env(t_token **node)
+void	get_env(t_token **node)
 {
 	//ja estou no node que eu preciso expandir...
 	t_varenv	*env_node;
@@ -108,7 +78,8 @@ void	change_env(t_token **node, char *env)
 		}
 		env_node = env_node->next;
 	}
-}*/
+}
+*/
 
 void	fix_matrix(t_token **head)
 {
@@ -119,18 +90,18 @@ void	fix_matrix(t_token **head)
 	aux = *head;
 	while (aux)
 	{
-		while (aux->arr_cmd_input[i])
+		while (aux->arr[i])
 		{
-			replace_char(aux->arr_cmd_input[i], '\v', ' ');
+			replace_char(aux->arr[i], '\v', ' ');
+			replace_char(aux->arr[i], '\t', '|');
 			i++;
 		}
 		i = 0;
-		//if (aux->flag_expand)
-		//	get_env(&aux);
 		aux = aux->next;
 	}
 }
 
+/*
 void	print_list(t_token **head)
 {
 	t_token	*aux;
@@ -155,18 +126,25 @@ void	print_list(t_token **head)
 		i = 0;
 		aux = aux->next;
 	}
+}*/
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = -1;
+	while (s1[++i] || s2[i])
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-char	*find_var_key(t_varenv **env, char *key_to_find)
+void	copy_char_pointer(char ***dest, char **src)
 {
-	t_varenv *aux;
+	int i;
 
-	aux = (*(env));
-	while (aux != NULL)
-	{
-		if (ft_strncmp(aux->key, key_to_find, ft_strlen(key_to_find)) == 0)
-			return (aux->var);
-		aux = aux->next;
-	}
-	return ("NONE");
+	i = -1;
+	while (src[++i])
+		(*dest)[i] = ft_strdup(src[i]);
+	(*dest)[i] = NULL;
 }

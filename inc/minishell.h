@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/03 15:37:38 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:38:04 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,38 @@
 
 typedef struct s_varenv
 {
+	char			*full_env; //malloc
 	char			*key;
-	char			*var;
+	char			*var; //malloc
 	struct s_varenv	*next;
-	struct s_varenv *head;
+	struct s_varenv	*head;
 }			t_varenv;
 
-typedef struct s_token
+typedef struct	s_token
 {
 	int				fd_in;
 	int				fd_out;
-	int				flag_expand;
-	char			*expanded_env;
 	char			*real_path;
-	char			*cmd_name;
-	char			*cmd_input;
-	char			**arr_cmd_input;
-	char			*env;
-	char			*user;
-	t_varenv		*envs_lst;
+	char			*token;
+	char			**arr;
+	char			**envs;
+	pid_t			pid;
 	struct s_token	*next;
-}			t_token;
+	struct s_token	*head;
+}				t_token;
+
+typedef struct		s_main
+{
+	t_varenv	*envs;
+	t_token		*cmds;
+	char		**envp; //malloc
+	char		**splited_pipe;
+	char		**paths;
+	char		**splited_input;
+	char		*dup_usr_input;
+	char		*new_input;
+	char		*envs_path;
+}			t_main;
 
 enum e_type_of_errors
 {
@@ -81,18 +92,27 @@ char		*find_env_path(t_varenv *envp);
 char		*divide_command_input(char *s);
 char		*get_real_path(char ***all_paths, char *command);
 
+/*-- Tokenize funcs --*/
+void	tokenize(t_main *bag);
+
 /*-- linked list functions --*/
-void		create_node(char *s, t_token **head, char ***paths);
-t_token		create_list(char *usr_input, t_varenv *envs);
+t_token		*create_list(char *usr_input, t_varenv *envs);
 t_varenv	*make_envp_list(char **envp);
+void		create_node(char *s, t_token **head, char ***paths, t_varenv *envs);
 void		link_envp(char *envp, t_varenv **head);
+
+/*-- Validate Input functions --*/
+int			validate_input(char *s, t_main *bag);
+int			check_invalid_pipe(char *s);
+int			check_invalid_redirects(char *s);
+int			deal_redirects(t_main *bag);
 
 /*-- deal quotes functions --*/
 void		change_pipe(char *s, int *start, int *end);
 void		change_spaces(char *s, int *start, int *end);
-char		*get_quote_pos(char *s);
 void		change_input(char *s);
 void		replace_char(char *s, char old, char want);
+char		*get_quote_pos(char *s);
 
 /*-- split in tokens --*/
 char		**split_in_tokens(char *s, char *in, t_varenv *envs);
@@ -101,32 +121,52 @@ int			check_char(char *s, int i, int s_len, char *in);
 
 /*-- expand envs --*/
 void		expand_envs(char ***matrix, t_varenv *envs);
+void		new_expand_envs(char ***matrix, t_varenv *envs);
+
+/*-- builtins --*/
+int			built_cd(t_main **main);
+int			built_pwd(void);
+int			built_echo(t_main **main, int flag);
+int			built_env(t_main **main);
+void		built_exit(t_main *main);
+int			built_export(t_main **main);
+int			built_unset(t_main *main);
+int			built_clear(void);
+int			check_builtins(t_main *main);
 
 /*-- utils --*/
 void		fix_matrix(t_token **head);
 void		print_list(t_token **head);
+char		*rev_split(char **matrix);
 int			is_there_var(char *s);
-char		*get_env_name(char *s, int flag);
-char		*get_env_key(char *envp, char c);
 int			count_cmds(char **args);
 int			echo_flag(char **args);
-char		*find_var_key(t_varenv **env, char *key_to_find);
-
-/*-- builtins --*/
-int			built_cd(t_token **token);
-int			built_pwd(void);
-void		built_echo(t_token **token, int flag);
-void		built_env(t_token **token, t_varenv **env);
-void		built_exit(t_token *token);
-void		built_export(t_varenv **env, t_token **token);
-void		built_unset(t_varenv **env, t_token **token);
-void		built_clear(void);
-void		call_cmd(t_token *token);
+int			ft_strcmp(const char *s1, const char *s2);
+void		copy_char_pointer(char ***dest, char **src);
 
 /*-- handle errors --*/
 void		*errors_mini(int type_err, char *param);
 void		to_free_token(t_token **token);
 void		to_free_varenv(t_varenv **lst_env);
 void		free_splits(char **split);
+void		free_all(t_main *bag);
+void		envs_free(t_varenv **head);
+void		token_free(t_token **head);
+
+/*-- exec functions --*/
+void		start_execution(char *usr_input, t_main *main);
+void		token_fds_close(t_token *head);
+void		exec_non_builtin_cmd(t_token *token, char **env);
+int			call_cmd(t_main *main);
+
+/*-- env utils --*/
+char		*get_env_key(char *envp, char c);
+char		*get_env_name(char *s, int flag, int s_len);
+char		**update_envp(t_varenv *env);
+char		*find_var_key(t_varenv **env, char *key_to_find);
+int			update_new_pwd(t_varenv **env);
+int			update_old_pwd(t_varenv **env);
+int			check_var_exist(t_varenv **env, char *input);
+int			env_lst_size(t_varenv *env);
 
 #endif

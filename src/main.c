@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/03 15:45:47 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:43:14 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,32 @@
 
 int	g_status;
 
-void	handle_sigint(int sig)
+void	sig_int_handle(int sig)
 {
+	extern int	g_status;
+
 	if (sig == SIGINT)
 	{
 		ioctl(STDIN_FILENO, TIOCSTI, "\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 	}
+	g_status = 130;
+}
+
+void	sigs_handle(void)
+{
+	struct sigaction	sig;
+
+	signal(SIGQUIT, SIG_IGN);
+	ft_memset(&sig, 0, sizeof(sig));
+	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+		exit(EXIT_FAILURE);
+	sig.sa_handler = sig_int_handle;
+	if (sigemptyset(&sig.sa_mask) < 0 || sigaddset(&sig.sa_mask, SIGINT) < 0)
+		exit(EXIT_FAILURE);
+	if (sigaction(SIGINT, &sig, NULL) < 0)
+		exit(EXIT_FAILURE);
 }
 
 char	*make_prompt(void)
@@ -34,26 +52,38 @@ char	*make_prompt(void)
 	return (prompt);
 }
 
+int	validate_prompt(char *usr_input, t_main *main)
+{
+	(void) main;
+	if (!ft_strlen(usr_input) || !usr_input)
+		return (0);
+	if (!validate_input(usr_input, main) || !deal_redirects(main))
+		return (add_history(usr_input), 0);
+	return (1);
+}
+
 int	main(int ac, char **av, char **envp)
 {
-	char	*usr_input;
-	//char	**splited_input;
-	t_token	token;
+	char		*usr_input;
+	t_main		bag;
+	extern int	g_status;
 
-	(void) ac, (void) av;
-	token.envs_lst = make_envp_list(envp);
+	(void) ac;
+	(void) av;
+	bag.envs = make_envp_list(envp);
+	sigs_handle();
 	while (1)
 	{
 		usr_input = readline(make_prompt());
-		if (ft_strncmp(usr_input, "", ft_strlen(usr_input)) == 0)
+		if (!validate_prompt(usr_input, &bag))
+		{
+			free(usr_input);
 			continue ;
-		change_input(usr_input);
-		//splited_input = split_in_tokens(usr_input, "\"'$ \v");
-		token = create_list(usr_input, token.envs_lst);
-		call_cmd(&token);
+		}
+		start_execution(usr_input, &bag);
+		ft_printf("g_status: %d\n", g_status);
 		add_history(usr_input);
 		free(usr_input);
 	}
-	//(void) usr_input;
 	return (0);
 }
