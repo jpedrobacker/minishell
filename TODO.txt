@@ -1,6 +1,9 @@
 ##Arquivo para organizar nossas pendencias, isto e, as features que faltam para terminar a MINISHELL##
 
 
+TODO - "Fazer func para flags de redirects"
+
+TODO - "fazer func para contagem de pipes"
 
 TODO 1- "Ver onde e como usar a variavel global"
 
@@ -10,11 +13,7 @@ TODO 1- "Ver onde e como usar a variavel global"
 -------------------------- IN PROGRESS -----------------------------------------------------------------------------------------
 
 TODO 2- "Fazer todas as validacoes de input. O que vai ser valido e o que nao?"
-	"ex: echo < | ls = NAO E VALIDO"
-	"ex: echo | = NAO E VALIDO"
-	"ex: echo | < = NAO E VALIDO"
-	"ex: echo | | ls = NAO E VALIDO"
-	"ex: echo " | | " | cat = E VALIDO
+	ESTA NO DISCORD O QUE É VALIDO.
 
 TODO 7- implementar um tratamento para os redirects < > <<
 	Basicamente, o que vem depois desses redirects e o seu parametro.

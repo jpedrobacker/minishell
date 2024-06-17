@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/14 19:43:14 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:43:51 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	validate_prompt(char *usr_input, t_main *main)
 		return (0);
 	if (!validate_input(usr_input, main) || !deal_redirects(main))
 		return (add_history(usr_input), 0);
+//	if (!validate_input(usr_input, main) || !deal_redirects(main))
+//		return (add_history(usr_input), 0);
 	return (1);
 }
 

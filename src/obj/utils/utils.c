@@ -6,11 +6,38 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/14 19:50:29 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:42:47 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	is_appendoc(char *s, char c, int *i)
+{
+	int	len;
+
+	len = ft_strlen(s);
+	if ((*i + 1) < len)
+	{
+		if (s[*i + 1] == c)
+		{
+			(*i)++;
+			while (s[*i])
+			{
+				if (s[*i] == ' ' || s[*i] == '\t')
+					(*i)++;
+				else
+					break ;
+			}
+			if (s[*i] == '\0' || !check_special(s[*i], "<>|"))
+				return (0);
+			else
+				return (1);
+		}
+			return (1);
+	}
+	return (0);
+}
 
 int	is_there_var(char *s)
 {

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/14 19:38:04 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:23:01 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ typedef struct	s_token
 {
 	int				fd_in;
 	int				fd_out;
-	char			*real_path;
-	char			*token;
-	char			**arr;
-	char			**envs;
+	char			*real_path; //malloc 
+	char			*token; //
+	char			**arr; //malloc
+	char			**envs; //malloc
 	pid_t			pid;
 	struct s_token	*next;
 	struct s_token	*head;
@@ -60,15 +60,15 @@ typedef struct	s_token
 
 typedef struct		s_main
 {
-	t_varenv	*envs;
-	t_token		*cmds;
+	t_varenv	*envs; //malloc
+	t_token		*cmds; //malloc
 	char		**envp; //malloc
-	char		**splited_pipe;
-	char		**paths;
-	char		**splited_input;
-	char		*dup_usr_input;
-	char		*new_input;
-	char		*envs_path;
+	char		**splited_pipe; //malloc
+	char		**paths; //
+	char		**splited_input; //malloc
+	char		*dup_usr_input; //malloc
+	char		*new_input; //malloc
+	char		*envs_path; //
 }			t_main;
 
 enum e_type_of_errors
@@ -142,6 +142,8 @@ int			is_there_var(char *s);
 int			count_cmds(char **args);
 int			echo_flag(char **args);
 int			ft_strcmp(const char *s1, const char *s2);
+int			is_appendoc(char *s, char c, int *i);
+int			check_special(char c, char *s); 
 void		copy_char_pointer(char ***dest, char **src);
 
 /*-- handle errors --*/
