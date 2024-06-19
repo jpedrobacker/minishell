@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/14 16:19:01 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:12:04 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,19 @@
 
 int	execution(t_main *main)
 {
-//	t_token	*token;
-	//int		have_pipe;
-	///int		have_redir;
+	t_token	*token;
 
-//	token = main->cmds;
-	//função para prepara o pipe
-	//have_pipe = 0;
-
-	if (!check_builtins(main))
-		call_cmd(main);
-	else
-		return (-1);
+	token = main->cmds;
+	make_pipe(token);
+	while (token)
+	{
+		if (1)
+			exec_pipe(token)
+		else if (!check_builtins(main))
+			call_cmd(main);
 		//função para fechar fds abrangendo o pipe
 		//função para chamar o proximo pipe
+	}
 	return (0);
 }
 

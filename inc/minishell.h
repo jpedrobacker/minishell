@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/14 16:30:53 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:13:23 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,5 +168,7 @@ int			update_new_pwd(t_varenv **env);
 int			update_old_pwd(t_varenv **env);
 int			check_var_exist(t_varenv **env, char *input);
 int			env_lst_size(t_varenv *env);
+
+void		make_pipe(t_token *token);
 
 #endif

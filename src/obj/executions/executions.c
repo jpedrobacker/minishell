@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:00:52 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/14 16:30:40 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:08:58 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	exec_non_builtin_cmd(t_token *token, char **env)
 	if (token->fd_in != STDIN_FILENO)
 		dup2(token->fd_in, STDIN_FILENO);
 	token_fds_close(token->head);
-	ft_printf("TESTE\n");
 	if (execve(token->real_path, cmds, env) == -1)
 	{
 		if (errno == ENOENT)
