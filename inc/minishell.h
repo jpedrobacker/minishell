@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/20 12:55:37 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:58:33 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,22 @@ enum e_type_of_errors
 	NO_DIR = 11, //Not a
 	ARGS = 12 //Too many arguments
 };
+
+/*
+enum e_flags
+{
+	C = 1, // Command
+	P = 2, // Command + Pipe
+	H = 3, // Heredoc
+	A = 4, // Append
+	I = 5, // Redirect input
+	O = 6, // Redirect output
+}
+*/
+
+/*-- redirects functions --*/
+void	check_redirects(t_main *bag);
+void	exec_redirects(t_token *node);
 
 /*-- path functions --*/
 char		*find_env_path(t_varenv *envp);

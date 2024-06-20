@@ -4,6 +4,15 @@
 
 TODO 1- "Ver onde e como usar a variavel global"
 
+EM ABERTO 2- "Fazer uma funcao para flagear a matrix de cada nó"
+	Isto e, verificar se tem redirects "< > << >>" e por em uma variavel
+	da struct, sua respectiva flag.
+
+TODO 3- "Fazer uma funcao para abrir/criar os arquivos de redirect"
+	Essa func vai alterar o stdin e o stdout. 
+	< vai alterar o stdin.
+	> vai alterar o stdout.
+
 
 
 

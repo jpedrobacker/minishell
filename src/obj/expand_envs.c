@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expand_envs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
+/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:45:21 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/05 16:11:25 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/20 12:59:49 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
 
 //Podemos fazer essa func retornar o ponteiro pro valor da env.
 //dessa forma, nos poupa linha na new_expand_env();
