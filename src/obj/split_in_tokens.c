@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:16:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/13 14:58:18 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/20 10:56:41 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //echo "$HOME '$USER'" -> 9 lines
 //echo askdjhasdkjhad -> 3 lines
 
-static int	check_chars(char c, char *in)
+int	check_chars(char c, char *in)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ static int	check_chars(char c, char *in)
 	return (0);
 }
 
-static void	count_helper(char *s, int i, int *word, int *line)
+void	count_helper(char *s, int i, int *word, int *line)
 {
 	int	s_len;
 	int	w;
@@ -52,7 +52,7 @@ static void	count_helper(char *s, int i, int *word, int *line)
 	*line = l;
 }
 
-static int	new_line_count(char *s, char *in)
+int	new_line_count(char *s, char *in)
 {
 	int	i;
 	int	word;
@@ -83,7 +83,7 @@ static int	new_line_count(char *s, char *in)
 	return (l);
 }
 
-static int	check_special(char *s, int i, int t, char *in)
+int	check_specials(char *s, int i, int t, char *in)
 {
 	int	x;
 	int	s_len;
@@ -127,7 +127,7 @@ char	**split_in_tokens(char *s, char *in, t_varenv *envs)
 	int j = 0;
 	while (s[i])
 	{
-		if (!check_special(s, i, t, in))
+		if (!check_specials(s, i, t, in))
 			t++;
 		else
 		{

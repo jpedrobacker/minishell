@@ -6,13 +6,13 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 16:11:54 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/14 19:50:55 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:50:41 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static int	check_middle(char *s, int b, int e)
+int	check_middle(char *s, int b, int e)
 {
 	int	c;
 
@@ -65,7 +65,7 @@ int	check_invalid_pipe(char *s)
 
 int	check_invalid_redirects(char *s)
 {
-	int		x;
+	//int		x;
 	int		i;
 	char	*dup;
 
@@ -74,13 +74,16 @@ int	check_invalid_redirects(char *s)
 	i = 0;
 	while (dup[i])
 	{
-		x = 0;
+		//x = 0;
 		if (dup[i] == '<')
 		{
+			if (!is_appendoc(dup, &i, dup[i]))
+				return (free(dup), 0);
+			/*
 			x = i + 1;
 			while (dup[x])
 			{
-				if (dup[x] == '|' || dup[x] == '<' || dup[x] == '>')
+				if (dup[x] == '|' || dup[x] == '>')
 					break ;
 				x++;
 			}
@@ -88,13 +91,17 @@ int	check_invalid_redirects(char *s)
 				return (free(dup), 1);
 			else if (!check_middle(dup, i, x))
 				return (free(dup), 0);
+			*/
 		}
 		else if (dup[i] == '>')
 		{
+			if (!is_appendoc(dup, &i, dup[i]))
+				return (free(dup), 0);
+			/*
 			x = i + 1;
 			while (dup[x])
 			{
-				if (dup[x] == '|' || dup[x] == '<' || dup[x] == '>')
+				if (dup[x] == '|' || dup[x] == '>')
 					break ;
 				x++;
 			}
@@ -102,6 +109,7 @@ int	check_invalid_redirects(char *s)
 				return (free(dup), 1);
 			else if (!check_middle(dup, i, x))
 				return (free(dup), 0);
+			*/
 		}
 		i++;
 	}
@@ -109,6 +117,52 @@ int	check_invalid_redirects(char *s)
 	return (free(dup), 1);
 }
 
+/*
+char	**split_to_validate(char *s, char *in)
+{
+	int		i;
+	int		lines_s;
+	int		len;
+	char	**new;
+
+	i = 0;
+	len = ft_strlen(s);
+	lines_s = new_line_count(s, in);
+	new = malloc(sizeof(char *) * (lines_s + 1));
+	if (!new)
+		return (NULL);
+	new[lines_s] = NULL;
+	int t = 0;
+	int j = 0;
+	while (s[i])
+	{
+		if (!check_specials(s, i, t, in))
+			t++;
+		else
+		{
+			if (t != 0)
+			{
+				new[j] = ft_substr(s, (i - t), t); //implementar free caso de merda.
+				j++;
+				t = 0;
+				i--;
+			}
+			else
+			{
+				new[j] = ft_substr(s, i, 1);
+				j++;
+			}
+		}
+		if (t && ((i + 1) == len))
+		{
+			new[j] = ft_substr(s, ((i + 1) - t), t);
+			j++;
+		}
+		i++;
+	}
+	return (new);
+}
+*/
 /*
 //echo << asdd echo_arg
 //echo < file echo_arg
