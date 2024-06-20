@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/18 20:13:23 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:55:37 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,16 @@ typedef struct		s_main
 	char		*new_input;
 	char		*envs_path;
 }			t_main;
+
+enum e_type_of_flags
+{
+	C = 1, // Command
+	P = 2, // Command + Pipe
+	H = 3, // Heredoc
+	A = 4, // Append
+	I = 5, // Redirect input
+	O = 6, // Redirect output
+}
 
 enum e_type_of_errors
 {
