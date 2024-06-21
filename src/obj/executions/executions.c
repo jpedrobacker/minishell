@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:00:52 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/18 20:08:58 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:29:23 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,18 @@ int	check_builtins(t_main *main)
 
 void	exec_non_builtin_cmd(t_token *token, char **env)
 {
-	char	**cmds;
-
-	copy_char_pointer(&cmds, token->arr);
 	if (token->fd_out != STDOUT_FILENO)
 		dup2(token->fd_out, STDOUT_FILENO);
 	if (token->fd_in != STDIN_FILENO)
 		dup2(token->fd_in, STDIN_FILENO);
 	token_fds_close(token->head);
-	if (execve(token->real_path, cmds, env) == -1)
+	if (execve(token->real_path, token->arr, env) == -1)
 	{
-		if (errno == ENOENT)
-			ft_printf("Command not found!\n");
-		free_splits(cmds);
+		ft_printf("Command not found!\n");
 		exit(127);
 	}
 	else
-	{
-		free_splits(cmds);
 		exit(EXIT_SUCCESS);
-	}
 }
 
 int	call_cmd(t_main *main)

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/20 12:58:33 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:47:59 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct	s_token
 	char			*token;
 	char			**arr;
 	char			**envs;
+	int				flag;
 	pid_t			pid;
 	struct s_token	*next;
 	struct s_token	*head;
@@ -79,7 +80,7 @@ enum e_type_of_flags
 	A = 4, // Append
 	I = 5, // Redirect input
 	O = 6, // Redirect output
-}
+};
 
 enum e_type_of_errors
 {
@@ -96,18 +97,6 @@ enum e_type_of_errors
 	NO_DIR = 11, //Not a
 	ARGS = 12 //Too many arguments
 };
-
-/*
-enum e_flags
-{
-	C = 1, // Command
-	P = 2, // Command + Pipe
-	H = 3, // Heredoc
-	A = 4, // Append
-	I = 5, // Redirect input
-	O = 6, // Redirect output
-}
-*/
 
 /*-- redirects functions --*/
 void	check_redirects(t_main *bag);
@@ -195,6 +184,7 @@ int			update_old_pwd(t_varenv **env);
 int			check_var_exist(t_varenv **env, char *input);
 int			env_lst_size(t_varenv *env);
 
-void		make_pipe(t_token *token);
+int		make_pipe(t_token *token);
+void	exec_cmds_pipe(t_token *token, char **env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:14 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/20 12:58:43 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:40:47 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,3 +82,5 @@ int	built_cd(t_main **main)
 	errors_mini(NDIR, "cd");
 	return (g_status = 1);
 }
+
+//adicionar o cd - (ele volta pra o OLDPWD)
