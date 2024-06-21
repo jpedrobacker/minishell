@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:03:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/20 13:58:28 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:56:41 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	special(char c, char *in)
 	return (0);
 }
 
-static int	is_appendoc(char *s, int *i, char c)
+int	is_appendoc(char *s, int *i, char c)
 {
 	int	len;
 
