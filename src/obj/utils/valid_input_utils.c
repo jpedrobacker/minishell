@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 16:11:54 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/20 13:50:41 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/21 10:00:41 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,58 @@ int	check_invalid_pipe(char *s)
 	return (1);
 }
 
+static int	valid_rin_rout(char *s, int i)
+{
+	int	len;
+
+	len = ft_strlen(s);
+	if ((i + 1) < len)
+	{
+		i++;
+		while (s[i])
+		{
+			if (s[i] == ' ' || s[i] == '\t')
+				i++;
+			else
+				break ;
+		}
+		if (s[i] == '|' || s[i] == '<' || s[i] == '>')
+			return (0);
+		else
+			return (1);
+	}
+	return (0);
+}
+
+
+static int	valid_appendoc(char *s, int i, char c)
+{
+	int	len;
+
+	len = ft_strlen(s);
+	if ((i + 1) < len)
+	{
+		if (s[i + 1] == c)
+		{
+			i++;
+			i++;
+			while (s[i])
+			{
+				if (s[i] == ' ')
+					i++;
+				else
+					break ;
+			}
+			if (s[i] == '|' || s[i] == '<' || s[i] == '>')
+				return (0);
+			else
+				return (1);
+		}
+			return (0);
+	}
+	return (0);
+}
+
 int	check_invalid_redirects(char *s)
 {
 	//int		x;
@@ -77,39 +129,25 @@ int	check_invalid_redirects(char *s)
 		//x = 0;
 		if (dup[i] == '<')
 		{
-			if (!is_appendoc(dup, &i, dup[i]))
-				return (free(dup), 0);
-			/*
-			x = i + 1;
-			while (dup[x])
+			if (dup[i + 1] && dup[i + 1] == '<')
 			{
-				if (dup[x] == '|' || dup[x] == '>')
-					break ;
-				x++;
+				if (!valid_appendoc(dup, i, dup[i]))
+					return (free(dup), 0);
 			}
-			if (dup[x] == '\0')
-				return (free(dup), 1);
-			else if (!check_middle(dup, i, x))
-				return (free(dup), 0);
-			*/
+			else
+				if (!valid_rin_rout(dup, i))
+					return (free(dup), 0);
 		}
 		else if (dup[i] == '>')
 		{
-			if (!is_appendoc(dup, &i, dup[i]))
-				return (free(dup), 0);
-			/*
-			x = i + 1;
-			while (dup[x])
+			if (dup[i + 1] && dup[i + 1] == '>')
 			{
-				if (dup[x] == '|' || dup[x] == '>')
-					break ;
-				x++;
+				if (!valid_appendoc(dup, i, dup[i]))
+					return (free(dup), 0);
 			}
-			if (dup[x] == '\0')
-				return (free(dup), 1);
-			else if (!check_middle(dup, i, x))
-				return (free(dup), 0);
-			*/
+			else
+				if (!valid_rin_rout(dup, i))
+					return (free(dup), 0);
 		}
 		i++;
 	}
