@@ -6,11 +6,9 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/19 21:43:33 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/22 18:38:36 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../inc/minishell.h"
 
 #include "../inc/minishell.h"
 
@@ -61,7 +59,7 @@ void	print_node(t_main *bag)
 		x = 0;
 		ft_printf("----- NODE: %i -----\n", i);
 		ft_printf("token :%s: \n", aux->token);
-		exec_redirects(aux);
+		//exec_redirects(aux);
 		while (aux->arr[x])
 		{
 			ft_printf("matrix :%s: \n", aux->arr[x]);
@@ -71,6 +69,20 @@ void	print_node(t_main *bag)
 		aux = aux->next;
 		i++;
 	}
+}
+
+int	ordering_fds(t_main *bag)
+{
+	t_token	*aux;
+
+	aux = bag->cmds;
+	while (aux)
+	{
+		ft_printf("----- changing FDs -----\n");
+		exec_redirects(aux, bag);
+		aux = aux->next;
+	}
+	return (1);
 }
 
 void	tokenize(t_main *bag)
@@ -91,7 +103,7 @@ void	tokenize(t_main *bag)
 	}
 	fix_matrix(&bag->cmds);
 	print_node(bag);
-	//check_redirects(bag);
+	ordering_fds(bag);
 	free_all(bag);
 	//token_free(&bag->cmds);
 	//so damos free na linked list envp apenas quando encerramos o programa!

@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:02:14 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/11 17:16:16 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/22 18:00:50 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 //cmd1 heredoc heredoc_arg cmd1_arg | cmd2 cmd2_arg
 int	deal_redirects(t_main *bag)
 {
-	int		i;
-	char	**s;
+	//int		i;
+	//char	**s;
 
-	i = 0;
+	//i = 0;
 	if (!bag->dup_usr_input)
 		return (0);
 	bag->splited_input = split_in_tokens(bag->dup_usr_input, "\"' $\v\t\n\a<>|", bag->envs);
-	s = bag->splited_input;
+	//s = bag->splited_input;
 
 	//Need to implement this func.
 	/*
@@ -43,10 +43,13 @@ int	deal_redirects(t_main *bag)
 		i++;
 	}
 	*/
+	//PRINT DA SPLIT IN TOKENS!!!
+	/*
 	while (s[i])
 	{
 		ft_printf("splited :%s: \n", s[i]);
 		i++;
 	}
+	*/
 	return (1);
 }
