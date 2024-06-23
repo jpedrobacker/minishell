@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/21 09:42:44 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/23 16:45:44 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@
 # include <sys/wait.h>			// para waitpid
 # include <readline/readline.h>	// para readline
 # include <readline/history.h>	// para add_history, rl_clear_history, rl_on_new_line, rl_replace_line, rl_redisplay
+
+# define WRITE_END 1
+# define READ_END 0
 
 typedef struct s_varenv
 {
@@ -100,8 +103,11 @@ enum e_flags
 */
 
 /*-- redirects functions --*/
-void	check_redirects(t_main *bag);
-void	exec_redirects(t_token *node);
+void	exec_redirects(t_token *node, t_main *bag);
+void	heredoc_func(t_token *node, t_main *bag, int i);
+void	append_func(t_token *node, t_main *bag, int i);
+void	redirect_in(t_token *node, t_main *bag, int i);
+void	redirect_out(t_token *node, t_main *bag, int i);
 
 /*-- path functions --*/
 char		*find_env_path(t_varenv *envp);
@@ -137,7 +143,6 @@ int			line_count(char *s, char *in, int s_len);
 int			check_char(char *s, int i, int s_len, char *in);
 
 /*-- expand envs --*/
-void		expand_envs(char ***matrix, t_varenv *envs);
 void		new_expand_envs(char ***matrix, t_varenv *envs);
 
 /*-- builtins --*/
