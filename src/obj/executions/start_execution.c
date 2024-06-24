@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/20 15:50:27 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/21 20:06:11 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ int	execution(t_main *main)
 	make_pipe(token);
 	while (token)
 	{
-		/*if (1)
-			call_cmds_pipe(token);*/
+		if (1)
+			call_cmds_pipe(token);
 		if (!check_builtins(main))
 			call_cmd(main);
-		//close_all(token);
+		close_all(token);
 		token = token->next;
 	}
 	return (0);
