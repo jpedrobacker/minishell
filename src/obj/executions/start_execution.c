@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/21 20:06:11 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/23 22:40:39 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,3 +76,11 @@ void	start_execution(char *usr_input, t_main *main)
 	//free do token
 }
 
+/*
+	A FAZER
+	FUNÇÃO PARA PREPARAR OS BUILT INS COM OS NOVOS FDS
+	FUNÇÃO PARA FECHAR OS BUILT INS PÓS FDS
+	FUNÇÃO EXCLUSIVA PARA REDIRECT DOS BUILT INS
+	EXIT STATUS DE TODOS OS BUILT INS
+	MELHORAR E BOTAR PRA FUNCIONAR A FUNÇÃO DE FDS IN E OUT
+*/
