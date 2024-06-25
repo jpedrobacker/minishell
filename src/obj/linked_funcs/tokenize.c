@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/25 10:37:55 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/25 17:58:04 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	create_token(char *s, t_token **head, t_main *bag)
 	if (!new)
 		return (ft_putstr_fd("ERROR\n", 2));
 	new->arr = ft_split(s, ' ');
-	new->cmd = get_cmd(new->arr);
+	new->cmd = get_cmd(new->arr); // << ola "seg fault" 
 	new->args = get_args(new->arr);
 	new->token = s;
 	new->real_path = get_real_path(&bag->paths, new->cmd);
@@ -89,6 +89,7 @@ int	ordering_fds(t_main *bag)
 	{
 		ft_printf("----- changing FDs -----\n");
 		exec_redirects(aux, bag);
+		//close(aux->fd_out);
 		aux = aux->next;
 	}
 	return (1);

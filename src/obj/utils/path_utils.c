@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:07:29 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/14 19:49:59 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:43:37 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 static int	our_builtins(char *s)
 {
+	if (!s)
+		return (0);
 	if (!ft_strncmp("cd", s, ft_strlen(s)))
 		return (1);
 	else if (!ft_strncmp("echo", s, ft_strlen(s)))
@@ -41,7 +43,8 @@ char	*get_real_path(char ***all_paths, char *command)
 	int		i;
 
 	i = 0;
-
+	if (!command)
+		return (NULL);
 	if (our_builtins(command))
 		return (NULL);
 	paths = (*all_paths);

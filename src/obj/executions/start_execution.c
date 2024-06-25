@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/24 14:45:41 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/25 17:49:07 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	test_execution(t_main *bag)
 	}
 	else
 		waitpid(pid, NULL, 0);
-	close(bag->cmds->fd_in);
-	close(bag->cmds->fd_out);
+	//close(bag->cmds->fd_in);
+	//close(bag->cmds->fd_out);
 }
 */
 
