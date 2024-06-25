@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/23 22:28:26 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/25 10:38:44 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,13 @@ typedef struct s_varenv
 
 typedef struct	s_token
 {
-	int				fd_in;
-	int				fd_out;
-	char			*real_path;
-	char			*token;
-	char			**arr;
+	int				fd_in; // input fd
+	int				fd_out; // output fd
+	char			*cmd; // string with only the command
+	char			*real_path; // bin path of the command
+	char			*token; // the string node
+	char			**arr; // array with all the params divided by space
+	char			**args; // array with the command and its args
 	char			**envs;
 	int				flag;
 	pid_t			pid;
@@ -159,6 +161,8 @@ int			check_builtins(t_main *main);
 void		fix_matrix(t_token **head);
 void		print_list(t_token **head);
 char		*rev_split(char **matrix);
+char		*get_cmd(char **arr);
+char		**get_args(char **arr);
 int			is_there_var(char *s);
 int			count_cmds(char **args);
 int			echo_flag(char **args);

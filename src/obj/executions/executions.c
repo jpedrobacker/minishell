@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:00:52 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/23 22:39:58 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/25 10:39:12 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,24 @@ int	check_builtins(t_main *main)
 
 void	exec_non_builtin_cmd(t_token *token, char **env)
 {
+	char	**cmds;
+//	char	*test[] = {"cat", NULL};
+//	char	*pathtest = "/usr/bin/cat"
+
+	copy_char_pointer(&cmds, token->arr);
+	/*
 	if (token->fd_out != STDOUT_FILENO)
 		dup2(token->fd_out, STDOUT_FILENO);
 	if (token->fd_in != STDIN_FILENO)
 		dup2(token->fd_in, STDIN_FILENO);
 	token_fds_close(token->head);
-	if (execve(token->real_path, token->arr, env) == -1)
+	ft_printf("TESTE\n");
+	*/
+	if (execve(token->real_path, cmds, env) == -1)
 	{
-		ft_printf("Command not found!\n");
+		if (errno == ENOENT)
+			ft_printf("Commoutand not found!\n");
+		free_splits(cmds);
 		exit(127);
 	}
 	else
