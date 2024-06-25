@@ -6,11 +6,31 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/14 19:50:29 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/25 09:34:49 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+char	*get_cmd(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i][0] == '<' || arr[i][0] == '>')
+		i += 2;
+	return (ft_strdup(arr[i]));
+}
+
+char	**get_args(char **arr)
+{
+	int i = 0;
+
+	while (arr[i])
+		ft_printf("OPAA 2 -> :%s: \n", arr[i++]);
+	return (NULL);
+}
+
 
 int	is_there_var(char *s)
 {
@@ -42,45 +62,6 @@ int	is_there_var(char *s)
 	return (0);
 }
 
-/*
-void	change_env(t_token **node, char *env)
-{
-	t_token	*aux;
-	int		i;
-
-	aux = *node;
-	i = 0;
-	while (aux->arr_cmd_input[i])
-	{
-		if (is_there_var(aux->arr_cmd_input[i]))
-				break ;
-		i++;
-	}
-	ft_printf("string to change -> :%s:\n", aux->arr_cmd_input[i]);
-	ft_printf("env expanded -> :%s:\n", env);
-}
-
-void	get_env(t_token **node)
-{
-	//ja estou no node que eu preciso expandir...
-	t_varenv	*env_node;
-	t_token		*aux;
-
-	env_node = (*node)->envs_lst;
-	aux = *node;
-	while (env_node)
-	{
-		if (!ft_strncmp(env_node->key, aux->env, ft_strlen(aux->env)))
-		{
-			change_env(node, env_node->var);
-			//ft_printf("env key :%s:\n", env_node->key);
-			//ft_printf("env value :%s:\n", env_node->var);
-		}
-		env_node = env_node->next;
-	}
-}
-*/
-
 void	fix_matrix(t_token **head)
 {
 	t_token	*aux;
@@ -100,33 +81,6 @@ void	fix_matrix(t_token **head)
 		aux = aux->next;
 	}
 }
-
-/*
-void	print_list(t_token **head)
-{
-	t_token	*aux;
-	int		i;
-
-	i = 0;
-	aux = *head;
-	while (aux)
-	{
-		//replace_char(aux->cmd_input, '\v', ' ');
-		ft_printf("-------------------------------\n");
-		ft_printf("command input :%s:\n", aux->cmd_input);
-		ft_printf("comand :%s:\n", aux->cmd_name);
-		ft_printf("path :%s:\n", aux->real_path);
-		ft_printf("env name :%s:\n", aux->env);
-		ft_printf("expand flag %i\n", aux->flag_expand);
-		while (aux->arr_cmd_input[i])
-		{
-			ft_printf("matrix: :%s:\n", aux->arr_cmd_input[i]);
-			i++;
-		}
-		i = 0;
-		aux = aux->next;
-	}
-}*/
 
 int	ft_strcmp(const char *s1, const char *s2)
 {

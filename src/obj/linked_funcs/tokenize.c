@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/24 13:35:03 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/25 09:36:57 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ void	create_token(char *s, t_token **head, t_main *bag)
 	if (!new)
 		return (ft_putstr_fd("ERROR\n", 2));
 	new->arr = ft_split(s, ' ');
+	new->cmd = get_cmd(new->arr);
+	new->args = get_args(new->arr);
 	new->token = s;
-	new->real_path = get_real_path(&bag->paths, new->arr[0]);
+	new->real_path = get_real_path(&bag->paths, new->cmd);
 	new->next = NULL;
 	if (!(*head))
 	{
@@ -59,6 +61,7 @@ void	print_node(t_main *bag)
 		x = 0;
 		ft_printf("----- NODE: %i -----\n", i);
 		ft_printf("token :%s: \n", aux->token);
+		ft_printf("COMANDO :%s: \n", aux->cmd);
 		//exec_redirects(aux);
 		while (aux->arr[x])
 		{
@@ -91,7 +94,6 @@ void	tokenize(t_main *bag)
 
 	i = 0;
 	init_bag(bag);
-
 	while (bag->splited_pipe[i])
 	{
 		create_token(bag->splited_pipe[i], &bag->cmds, bag);
