@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/24 14:45:41 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/25 10:57:56 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ void	start_execution(char *usr_input, t_main *main)
 	main->new_input = rev_split(main->splited_input);
 	tokenize(main);
 
-	
+
 	//testing redirecting FDs
 	//test_execution(main);
 
 	//execution(main);
-	//waitpid dos comandos
+		//waitpid dos comandos
 	//free do token
 }
