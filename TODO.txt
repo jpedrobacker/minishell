@@ -18,23 +18,30 @@ TODO 3- "Fazer uma funcao para abrir/criar os arquivos de redirect"
 
 -------------------------- IN PROGRESS -----------------------------------------------------------------------------------------
 
-TODO 2- "Fazer todas as validacoes de input. O que vai ser valido e o que nao?"
-	"ex: echo < | ls = NAO E VALIDO"
-	"ex: echo | = NAO E VALIDO"
-	"ex: echo | < = NAO E VALIDO"
-	"ex: echo | | ls = NAO E VALIDO"
-	"ex: echo " | | " | cat = E VALIDO
 
-TODO 7- implementar um tratamento para os redirects < > <<
-	Basicamente, o que vem depois desses redirects e o seu parametro.
-	por ex: "echo < teste teste2".
-	teste e parametro do redirect <
-	teste2 e parametro do echo.
+
+Esse input funciona, mas ele troca os fds e eu nao to conseguindo retrocar....
+Preciso de ajuda!!!!
+
+< haha < hisi echo /home/aprado > out "ALLAN"
 
 
 
 
 -------------------------- DONE ------------------------------------------------------------------------------------------------
+
+-> implementar um tratamento para os redirects < > <<
+	Basicamente, o que vem depois desses redirects e o seu parametro.
+	por ex: "echo < teste teste2".
+	teste e parametro do redirect <
+	teste2 e parametro do echo.
+
+-> "Fazer todas as validacoes de input. O que vai ser valido e o que nao?"
+	"ex: echo < | ls = NAO E VALIDO"
+	"ex: echo | = NAO E VALIDO"
+	"ex: echo | < = NAO E VALIDO"
+	"ex: echo | | ls = NAO E VALIDO"
+	"ex: echo " | | " | cat = E VALIDO
 
 -> "VERIFICAR OS LEAKS E PROBLEMAS DO VALGRIND"
 	-> Acredito que o erro na func "change_input()" venha atraves do readline+strjoin.
