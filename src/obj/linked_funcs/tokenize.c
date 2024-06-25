@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/25 09:36:57 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/25 10:37:55 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ void	print_node(t_main *bag)
 		while (aux->arr[x])
 		{
 			ft_printf("matrix :%s: \n", aux->arr[x]);
+			x++;
+		}
+		x = 0;
+		while (aux->args[x])
+		{
+			ft_printf("ARGS :%s: \n", aux->args[x]);
 			x++;
 		}
 		ft_printf("path :%s: \n", aux->real_path);
