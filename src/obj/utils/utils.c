@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/25 09:34:49 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/25 10:36:27 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,52 @@ char	*get_cmd(char **arr)
 	return (ft_strdup(arr[i]));
 }
 
+static int	count_args(char **arr)
+{
+	int	i;
+	int	word;
+
+	i = 0;
+	word = 0;
+	while (arr[i])
+	{
+		if (arr[i][0] == '<' || arr[i][0] == '>')
+			i += 2;
+		if (arr[i] && arr[i][0] != '<' && arr[i][0] != '>')
+		{
+			word++;
+			i++;
+		}
+	}
+	return (word);
+}
+
 char	**get_args(char **arr)
 {
-	int i = 0;
+	int		i;
+	int		x;
+	int		words;
+	char	**new;
 
+	i = 0;
+	x = 0;
+	words = count_args(arr);
+	new = malloc(sizeof(char *) * (words + 1));
+	if (!new)
+		return (NULL);
+	new[words] = NULL;
 	while (arr[i])
-		ft_printf("OPAA 2 -> :%s: \n", arr[i++]);
-	return (NULL);
+	{
+		if (arr[i][0] == '<' || arr[i][0] == '>')
+			i += 2;
+		if (arr[i] && arr[i][0] != '<' && arr[i][0] != '>')
+		{
+			new[x] = ft_strdup(arr[i]);
+			x++;
+			i++;
+		}
+	}
+	return (new);
 }
 
 

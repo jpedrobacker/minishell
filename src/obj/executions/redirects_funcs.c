@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:03:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/23 22:30:02 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:46:25 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	r_in_fd(t_token *node, t_main *bag)
 */
 
 //VAI PRECISAR PERCORRER A MATRIZ DO NODE!!
-void	exec_redirects(t_token *node, t_main *bag)
+int	exec_redirects(t_token *node, t_main *bag)
 {
 	int		i;
 	char	**temp;
@@ -91,11 +91,13 @@ void	exec_redirects(t_token *node, t_main *bag)
 			{
 				heredoc_func(node, bag, i);
 				ft_printf("Exec heredoc!\n");
+				return (1);
 			}
 			else
 			{
 				redirect_in(node, bag, i);
 				ft_printf("Exec infile!\n");
+				return (1);
 			}
 		}
 		else if (temp[i][0] == '>')
@@ -104,15 +106,18 @@ void	exec_redirects(t_token *node, t_main *bag)
 			{
 				append_func(node, bag, i);
 				ft_printf("Exec append!\n"); // Func to open/create file and change FDS
+				return (1);
 			}
 			else
 			{
 				redirect_out(node, bag, i);
 				ft_printf("Exec outfile!\n"); // Func to open/create file and change FDS
+				return (1);
 			}
 		}
 		i++;
 	}
+	return (1);
 }
 
 /*

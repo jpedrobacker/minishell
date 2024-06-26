@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/14 19:47:00 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:58:56 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,24 +62,26 @@ int	built_export(t_main **main)
 
 	aux_env = (*main)->envs;
 	aux_token = (*main)->cmds;
-	arrs = count_cmds(aux_token->arr);
+	arrs = count_cmds(aux_token->args);
 	if (arrs == 1)
 		while (aux_env != NULL)
 		{
-			ft_printf("declare -x ");
-			ft_printf("%s=", aux_env->key);
-			ft_printf("\"%s\"\n", aux_env->var);
+			ft_putstr_fd("declare -x ", aux_token->fd_out);
+			ft_putstr_fd(aux_env->key, aux_token->fd_out);
+			ft_putstr_fd("=\"", aux_token->fd_out);
+			ft_putstr_fd(aux_env->var,aux_token->fd_out);
+			ft_putendl_fd("\"", aux_token->fd_out);
 			aux_env = aux_env->next;
 		}
 	i = 1;
-	while (aux_token->arr[i])
+	while (aux_token->args[i])
 	{
-		if (check_export(aux_token->arr[i]) == 0)
+		if (check_export(aux_token->args[i]) == 0)
 		{
-			if (check_var_exist(&aux_env, aux_token->arr[i]) == 0)
+			if (check_var_exist(&aux_env, aux_token->args[i]) == 0)
 				break ;
 			else
-				link_envp(aux_token->arr[i], &aux_env);
+				link_envp(aux_token->args[i], &aux_env);
 		}
 		else
 			errors_mini(QUOTE, "export");

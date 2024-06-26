@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/20 15:59:05 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:35:04 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_quotes(char *s)
 	return (1);
 }
 
-void	print_with_no_quotes(char **arr, int i)
+void	print_with_no_quotes(char **arr, int i, t_token *token)
 {
 	int	j;
 
@@ -32,9 +32,9 @@ void	print_with_no_quotes(char **arr, int i)
 		while (arr[i][j] == ' ' || arr[i][j] == '"' || arr[i][j] == '\'')
 			j++;
 		if (arr[i][j - 1] == ' ')
-			write(1, " ", 1);
+			ft_putchar_fd(' ', token->fd_out);
 		if (arr[i][j] != '\0' )
-			write(1, &arr[i][j], 1);
+			ft_putchar_fd(arr[i][j], token->fd_out);
 	}
 	if (arr[i + 1] != NULL)
 		ft_printf(" ");
@@ -59,10 +59,10 @@ int	built_echo(t_main **main, int flag)
 		if (check_quotes(aux->arr[i]) == 0)
 		{
 			while (aux->arr[i][++j])
-				write(1, &aux->arr[i][j], 1);
+				ft_putchar_fd(aux->arr[i][j], aux->fd_out);
 		}
 		else
-			print_with_no_quotes(aux->arr, i);
+			print_with_no_quotes(aux->arr, i, aux);
 	}
 	if (flag == 0)
 		return (g_status = 1);

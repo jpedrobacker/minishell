@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/25 10:39:19 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:37:50 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ void	print_node(t_main *bag)
 			ft_printf("matrix :%s: \n", aux->arr[x]);
 			x++;
 		}
+		x = 0;
+		while (aux->args[x])
+		{
+			ft_printf("ARGS :%s: \n", aux->args[x]);
+			x++;
+		}
 		ft_printf("path :%s: \n", aux->real_path);
 		aux = aux->next;
 		i++;
@@ -105,9 +111,22 @@ void	tokenize(t_main *bag)
 	}
 	fix_matrix(&bag->cmds);
 	print_node(bag);
-	ordering_fds(bag);
+	//ordering_fds(bag);
 //	free_all(bag);
 	//token_free(&bag->cmds);
 	//so damos free na linked list envp apenas quando encerramos o programa!
 	//envs_free(&bag->envs);
+}
+
+int	flag_type(char	*str)
+{
+	if (!str)
+		return (0);
+	if (ft_strcmp(str, "|"))
+		return (P);
+	else if (ft_strcmp(str , ">"))
+		return (O);
+	else if (ft_strcmp(str, "<"))
+		return (I);
+	return (C);
 }
