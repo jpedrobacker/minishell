@@ -6,11 +6,9 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 11:55:58 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/14 19:48:34 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:59:15 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../inc/minishell.h"
 
 #include "../inc/minishell.h"
 

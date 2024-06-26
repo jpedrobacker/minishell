@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirects_funcs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
+/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:03:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/23 16:59:40 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/25 20:46:25 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	is_appendoc(char *s, int *i, char c)
 	return (0);
 }
 
-
 /*
 //FUNCAO QUE VAI ABRIR/CRIAR OS ARQUIVOS E TROCAR OS FDS NECESSARIOS
 //CASO DE MERDA, VAI DAR FREE NA LINKED LIST DA ENVP E DOS CMDS
@@ -61,7 +60,7 @@ void	r_in_fd(t_token *node, t_main *bag)
 {
 	//abrir/criar o arquivo especifico
 	//caso de certo, pegue esse novo fd, e troque pelo stdin ou stdout
-	
+
 	int	i;
 
 	i = 0;
@@ -75,7 +74,7 @@ void	r_in_fd(t_token *node, t_main *bag)
 */
 
 //VAI PRECISAR PERCORRER A MATRIZ DO NODE!!
-void	exec_redirects(t_token *node, t_main *bag)
+int	exec_redirects(t_token *node, t_main *bag)
 {
 	int		i;
 	char	**temp;
@@ -92,11 +91,13 @@ void	exec_redirects(t_token *node, t_main *bag)
 			{
 				heredoc_func(node, bag, i);
 				ft_printf("Exec heredoc!\n");
+				return (1);
 			}
 			else
 			{
 				redirect_in(node, bag, i);
 				ft_printf("Exec infile!\n");
+				return (1);
 			}
 		}
 		else if (temp[i][0] == '>')
@@ -105,15 +106,18 @@ void	exec_redirects(t_token *node, t_main *bag)
 			{
 				append_func(node, bag, i);
 				ft_printf("Exec append!\n"); // Func to open/create file and change FDS
+				return (1);
 			}
 			else
 			{
 				redirect_out(node, bag, i);
 				ft_printf("Exec outfile!\n"); // Func to open/create file and change FDS
+				return (1);
 			}
 		}
 		i++;
 	}
+	return (1);
 }
 
 /*

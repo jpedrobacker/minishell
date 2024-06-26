@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/25 09:28:19 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/25 21:11:43 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct	s_token
 	char			**arr; // array with all the params divided by space
 	char			**args; // array with the command and its args
 	char			**envs;
+	int				flag;
 	pid_t			pid;
 	struct s_token	*next;
 	struct s_token	*head;
@@ -76,6 +77,16 @@ typedef struct		s_main
 	char		*envs_path;
 }			t_main;
 
+enum e_type_of_flags
+{
+	C = 1, // Command
+	P = 2, // Command + Pipe
+	H = 3, // Heredoc
+	A = 4, // Append
+	I = 5, // Redirect input
+	O = 6, // Redirect output
+};
+
 enum e_type_of_errors
 {
 	QUOTE = 1, //Looking for matching quote
@@ -92,20 +103,8 @@ enum e_type_of_errors
 	ARGS = 12 //Too many arguments
 };
 
-/*
-enum e_flags
-{
-	C = 1, // Command
-	P = 2, // Command + Pipe
-	H = 3, // Heredoc
-	A = 4, // Append
-	I = 5, // Redirect input
-	O = 6, // Redirect output
-}
-*/
-
 /*-- redirects functions --*/
-void	exec_redirects(t_token *node, t_main *bag);
+int		exec_redirects(t_token *node, t_main *bag);
 void	heredoc_func(t_token *node, t_main *bag, int i);
 void	append_func(t_token *node, t_main *bag, int i);
 void	redirect_in(t_token *node, t_main *bag, int i);
@@ -149,7 +148,7 @@ void		new_expand_envs(char ***matrix, t_varenv *envs);
 
 /*-- builtins --*/
 int			built_cd(t_main **main);
-int			built_pwd(void);
+int			built_pwd(t_main *main);
 int			built_echo(t_main **main, int flag);
 int			built_env(t_main **main);
 void		built_exit(t_main *main);
@@ -194,5 +193,10 @@ int			update_new_pwd(t_varenv **env);
 int			update_old_pwd(t_varenv **env);
 int			check_var_exist(t_varenv **env, char *input);
 int			env_lst_size(t_varenv *env);
+
+/*-- pipes --*/
+int		make_pipe(t_token *token);
+void	exec_cmds_pipe(t_token *token, char **envp);
+void	call_cmds_pipe(t_token *token);
 
 #endif
