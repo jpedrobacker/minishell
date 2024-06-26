@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/25 17:49:07 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/26 14:18:41 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	execution(t_main *main)
 	return (0);
 }
 
-/*
 void	test_execution(t_main *bag)
 {
 	(void)bag;
@@ -44,6 +43,12 @@ void	test_execution(t_main *bag)
 	if (pid == 0)
 	{
 		ft_printf("processo forkado\n");
+		bag->cmds->fd_in = open(bag->cmds->arr[1], O_RDONLY);
+		bag->cmds->fd_out = open(bag->cmds->arr[4], O_CREAT | O_RDWR | O_TRUNC, 00700);
+		if (dup2(bag->cmds->fd_in, 0) == -1)
+			ft_putstr_fd("TESTE\n", 2);
+		if (dup2(bag->cmds->fd_out, 1) == -1)
+			ft_putstr_fd("TESTE\n", 2);
 		execve("/usr/bin/cat", s, NULL);
 	}
 	else
@@ -51,7 +56,6 @@ void	test_execution(t_main *bag)
 	//close(bag->cmds->fd_in);
 	//close(bag->cmds->fd_out);
 }
-*/
 
 void	start_execution(char *usr_input, t_main *main)
 {
@@ -61,7 +65,7 @@ void	start_execution(char *usr_input, t_main *main)
 
 	
 	//testing redirecting FDs
-	//test_execution(main);
+	test_execution(main);
 
 	//execution(main);
 	//waitpid dos comandos

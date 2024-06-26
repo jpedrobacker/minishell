@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:03:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/23 16:59:40 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/26 13:57:31 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,12 @@ void	exec_redirects(t_token *node, t_main *bag)
 		{
 			if (!ft_strncmp(temp[i], "<<", 2))
 			{
-				heredoc_func(node, bag, i);
+				//heredoc_func(node, bag, i);
 				ft_printf("Exec heredoc!\n");
 			}
 			else
 			{
-				redirect_in(node, bag, i);
+				//redirect_in(node, bag, i);
 				ft_printf("Exec infile!\n");
 			}
 		}
@@ -103,12 +103,12 @@ void	exec_redirects(t_token *node, t_main *bag)
 		{
 			if (!ft_strncmp(temp[i], ">>", 2))
 			{
-				append_func(node, bag, i);
+				//append_func(node, bag, i);
 				ft_printf("Exec append!\n"); // Func to open/create file and change FDS
 			}
 			else
 			{
-				redirect_out(node, bag, i);
+				//redirect_out(node, bag, i);
 				ft_printf("Exec outfile!\n"); // Func to open/create file and change FDS
 			}
 		}
