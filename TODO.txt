@@ -1,5 +1,6 @@
 ##Arquivo para organizar nossas pendencias, isto e, as features que faltam para terminar a MINISHELL##
 
+OBS: A BRANCH SAFEPLACE FOI CRIADA POIS EU ACHO QUE FIZ MERDA AO DAR MERGE NA FEAT_REDIS COM A APRADO...
 
 
 TODO 1- "Ver onde e como usar a variavel global"
