@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/27 10:54:38 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/27 16:34:33 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,31 @@ static void	init_bag(t_main *bag)
 	bag->paths = ft_split(bag->envs_path, ':');
 	replace_char(bag->new_input, '\t', '|');
 	replace_char(bag->new_input, '\v', ' ');
+}
+
+static int	flag_heredoc(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i][0] == '<')
+		{
+			if (ft_strlen(s[i]) == 2)
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+static void	populate_nodes(t_token **node)
+{
+	(*node)->fd_in = 0;
+	(*node)->fd_out = 0;
+	(*node)->hd_fd = 0;
+	(*node)->hd = flag_heredoc((*node)->arr);
 }
 
 void	create_token(char *s, t_token **head, t_main *bag)
@@ -36,6 +61,7 @@ void	create_token(char *s, t_token **head, t_main *bag)
 	new->token = s;
 	new->real_path = get_real_path(&bag->paths, new->cmd);
 	new->next = NULL;
+	populate_nodes(&new);
 	if (!(*head))
 	{
 		(*head) = new;
@@ -62,6 +88,8 @@ void	print_node(t_main *bag)
 		ft_printf("----- NODE: %i -----\n", i);
 		ft_printf("token :%s: \n", aux->token);
 		ft_printf("COMANDO :%s: \n", aux->cmd);
+		ft_printf("FDs-> in:%i, out:%i, hd:%i\n", aux->fd_in, aux->fd_out, aux->hd_fd);
+		ft_printf("FLAGS-> heredoc:%i\n", aux->hd);
 		//exec_redirects(aux);
 		while (aux->arr[x])
 		{

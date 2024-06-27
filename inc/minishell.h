@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/27 10:44:57 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/27 15:41:05 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct	s_token
 	int				fd_in; // input fd
 	int				fd_out; // output fd
 	int				hd_fd; // read from heredoc pipe
+	int				hd; // flag to inform is the node has an heredoc
 	char			*cmd; // string with only the command
 	char			*real_path; // bin path of the command
 	char			*token; // the string node
@@ -109,9 +110,9 @@ enum e_flags
 int			ordering_fds(t_main *bag);
 int			heredoc_func(t_token *node, t_main *bag, int i);
 void	exec_redirects(t_token *node, t_main *bag);
-void	append_func(t_token *node, t_main *bag, int i);
-void	redirect_in(t_token *node, t_main *bag, int i);
-void	redirect_out(t_token *node, t_main *bag, int i);
+int			append_func(t_token *node, t_main *bag, int i);
+int			redirect_in(t_token *node, t_main *bag, int i);
+int			redirect_out(t_token *node, t_main *bag, int i);
 
 /*-- path functions --*/
 char		*find_env_path(t_varenv *envp);
@@ -196,5 +197,8 @@ int			update_new_pwd(t_varenv **env);
 int			update_old_pwd(t_varenv **env);
 int			check_var_exist(t_varenv **env, char *input);
 int			env_lst_size(t_varenv *env);
+
+/*-- need to delete --*/
+void	print_node(t_main *bag);
 
 #endif

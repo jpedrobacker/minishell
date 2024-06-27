@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/27 10:47:18 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/27 17:59:37 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,84 @@ void	test_execution(t_main *bag)
 }
 */
 
+void	begin_exec(t_main *bag)
+{
+	t_token	*aux;
+	pid_t		pid;
+	int			fd[2];
+	int			node;
+
+	aux = bag->cmds;
+	node = 0;
+	while (aux)
+	{
+		if (!aux->next && node == 0)
+		{
+			pid = fork();
+			if (pid < 0)
+				break ; // ERROR, preciso dar free em tudo
+			if (pid == 0)
+			{
+				if (aux->fd_in != 0)
+					if (dup2(aux->fd_in, READ_END) == -1)
+						ft_putstr_fd("TESTE\n", 2);
+				if (aux->fd_out != 0)
+					if (dup2(aux->fd_out, WRITE_END) == -1)
+						ft_putstr_fd("TESTE\n", 2);
+				//if (for nossos builtins) = manda pra eles
+				//else = manda pro execve
+				execve(aux->real_path, aux->args, NULL);
+			}
+			else
+				waitpid(pid, NULL, 0);
+		}
+		else
+		{
+			if (pipe(fd) == -1)
+				break ; // ERROR, PRECISO DAR FREE EM TUDO
+			if ((pid = fork()) < 0)
+				break ; // ERROR, PRECISO DAR FREE EM TUDO
+			if (pid == 0) //CHILD PROCESS
+			{
+				if (aux->fd_in != 0)
+				{
+					if (dup2(aux->fd_in, READ_END) == -1)
+						ft_putstr_fd("TESTE\n", 2);
+				}
+				else if (node != 0)
+					if (dup2(fd[0], READ_END) == -1)
+						ft_putstr_fd("Error\n", 2);
+				if (aux->fd_out != 0)
+				{
+					if (dup2(aux->fd_out, WRITE_END) == -1)
+						ft_putstr_fd("TESTE\n", 2);
+				}
+				else if (node != 0)
+					if (dup2(fd[1], WRITE_END) == -1)
+						ft_putstr_fd("TESTE\n", 2);
+				//if (for nossos builtins) = manda pra eles
+				//else = manda pro execve
+				execve(aux->real_path, aux->args, NULL);
+			}
+			else
+			{
+				waitpid(pid, NULL, 0);
+				//close(fd[1]);
+			}
+			//CLOSE FDS NECESSARIOS
+		}
+		node++;
+		aux = aux->next;
+	}
+}
+
 void	start_execution(char *usr_input, t_main *main)
 {
 	(void) usr_input;
 	main->new_input = rev_split(main->splited_input);
 	tokenize(main); // Todas as estruturas estao organizadas aqui...
-	ordering_fds(main); // Agora, fazemos a mudanca dos fds...
+	ordering_fds(main); // Agora, faremos a mudanca dos fds...
+	begin_exec(main); // Agora, faremos o inicio da execucao...
 	
 	//testing redirecting FDs
 	//test_execution(main);

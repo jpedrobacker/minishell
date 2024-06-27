@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:03:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/27 10:45:37 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/27 16:54:08 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ int	ordering_fds(t_main *bag)
 	while (aux)
 	{
 		ft_printf("----- changing FDs -----\n");
+		ft_printf("in: %i, out: %i, hd: %i\n", aux->fd_in, aux->fd_out, aux->hd_fd);
 		exec_redirects(aux, bag);
+		ft_printf("in: %i, out: %i, hd: %i\n", aux->fd_in, aux->fd_out, aux->hd_fd);
 		aux = aux->next;
 	}
 	return (1);
@@ -76,17 +78,21 @@ void	exec_redirects(t_token *node, t_main *bag)
 	{
 		if (node->arr[i][0] == '<')
 		{
+			if (node->fd_in != 0)
+				close(node->fd_in);
 			if (!ft_strncmp(node->arr[i], "<<", 2))
-				node->hd_fd = heredoc_func(node, bag, i);
+				node->fd_in = heredoc_func(node, bag, i);
 			else
-				redirect_in(node, bag, i);
+				node->fd_in = redirect_in(node, bag, i);
 		}
 		else if (node->arr[i][0] == '>')
 		{
+			if (node->fd_out != 0)
+				close(node->fd_out);
 			if (!ft_strncmp(node->arr[i], ">>", 2))
-				append_func(node, bag, i);
+				node->fd_out = append_func(node, bag, i);
 			else
-				redirect_out(node, bag, i);
+				node->fd_out = redirect_out(node, bag, i);
 		}
 		i++;
 	}

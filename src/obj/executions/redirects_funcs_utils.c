@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:22:56 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/27 10:43:04 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/27 17:46:50 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	heredoc_func(t_token *node, t_main *bag, int i)
 		else if (buff)
 		{
 			ft_putstr_fd(buff, hd_fd[1]);
+			ft_putchar_fd('\n', hd_fd[1]);
 			free(buff);
 		}
 	}
@@ -47,37 +48,42 @@ int	heredoc_func(t_token *node, t_main *bag, int i)
 	return (hd_fd[0]);
 }
 
-void	append_func(t_token *node, t_main *bag, int i)
+int	append_func(t_token *node, t_main *bag, int i)
 {
+	int	fd;
+
 	(void)bag;
 	if (!node->arr[i + 1])
 	{
 		//FREE NAS PARADA TODA
-		return ;
+		return (-1);
 	}
-	node->fd_out = open(node->arr[i + 1], O_CREAT | O_RDWR | O_APPEND, 00700);
-	if (node->fd_out < 0)
+	fd = open(node->arr[i + 1], O_CREAT | O_RDWR | O_APPEND, 00700);
+	if (fd < 0)
 	{
 		//FREE NAS PARADA TODA
-		return (ft_putstr_fd("No such file or directory", 2));
+		return (ft_putstr_fd("No such file or directory\n", 2), -1);
 	}
+	return (fd);
 }
 
-void	redirect_in(t_token *node, t_main *bag, int i)
+int	redirect_in(t_token *node, t_main *bag, int i)
 {
+	int	fd;
+
 	(void)bag;
 	if (!node->arr[i + 1])
 	{
 		//FREE NAS PARADA TODA
-		return ;
+		return (-1);
 	}
-	node->fd_in = open(node->arr[i + 1], O_RDONLY);
-	if (node->fd_in < 0)
+	fd = open(node->arr[i + 1], O_RDONLY);
+	if (fd < 0)
 	{
 		//FREE NAS PARADA TODA
-		return (ft_putstr_fd("No such file or directory\n", 2));
+		return (ft_putstr_fd("No such file or directory\n", 2), -1);
 	}
-
+	return (fd);
 	/*
 	if (dup2(node->fd_in, 0) == -1)
 	{
@@ -88,20 +94,23 @@ void	redirect_in(t_token *node, t_main *bag, int i)
 	*/
 }
 
-void	redirect_out(t_token *node, t_main *bag, int i)
+int	redirect_out(t_token *node, t_main *bag, int i)
 {
+	int	fd;
+
 	(void)bag;
 	if (!node->arr[i + 1])
 	{
 		//FREE NAS PARADA TODA
-		return ;
+		return (-1);
 	}
-	node->fd_out = open(node->arr[i + 1], O_CREAT | O_RDWR | O_TRUNC, 00700);
-	if (node->fd_out < 0)
+	fd = open(node->arr[i + 1], O_CREAT | O_RDWR | O_TRUNC, 00700);
+	if (fd < 0)
 	{
 		//FREE NAS PARADA TODA
-		return (ft_putstr_fd("No such file or directory", 2));
+		return (ft_putstr_fd("No such file or directory\n", 2), -1);
 	}
+	return (fd);
 	/*
 	if (dup2(node->fd_out, 1) == -1)
 	{
