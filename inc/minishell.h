@@ -66,15 +66,15 @@ typedef struct	s_token
 
 typedef struct		s_main
 {
-	t_varenv	*envs;
-	t_token		*cmds;
+	t_varenv	*envs; //malloc
+	t_token		*cmds; //malloc
 	char		**envp; //malloc
-	char		**splited_pipe;
-	char		**paths;
-	char		**splited_input;
-	char		*dup_usr_input;
-	char		*new_input;
-	char		*envs_path;
+	char		**splited_pipe; //malloc
+	char		**paths; //
+	char		**splited_input; //malloc
+	char		*dup_usr_input; //malloc
+	char		*new_input; //malloc
+	char		*envs_path; //
 }			t_main;
 
 enum e_type_of_errors
@@ -170,6 +170,8 @@ int			is_there_var(char *s);
 int			count_cmds(char **args);
 int			echo_flag(char **args);
 int			ft_strcmp(const char *s1, const char *s2);
+int			is_appendoc(char *s, char c, int *i);
+int			check_special(char c, char *s); 
 void		copy_char_pointer(char ***dest, char **src);
 
 /*-- handle errors --*/

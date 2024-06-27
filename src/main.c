@@ -59,6 +59,8 @@ int	validate_prompt(char *usr_input, t_main *main)
 		return (0);
 	if (!validate_input(usr_input, main) || !deal_redirects(main))
 		return (add_history(usr_input), 0);
+//	if (!validate_input(usr_input, main) || !deal_redirects(main))
+//		return (add_history(usr_input), 0);
 	return (1);
 }
 

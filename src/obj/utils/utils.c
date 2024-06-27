@@ -72,7 +72,6 @@ char	**get_args(char **arr)
 	return (new);
 }
 
-
 int	is_there_var(char *s)
 {
 	int	i;

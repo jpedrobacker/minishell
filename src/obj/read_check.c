@@ -12,7 +12,7 @@
 
 #include "../inc/minishell.h"
 
-static int	check_special(char c, char *s)
+int	check_special(char c, char *s)
 {
 	int	i;
 
@@ -23,6 +23,27 @@ static int	check_special(char c, char *s)
 			return (0);
 		i++;
 	}
+	return (1);
+}
+
+static int	starts_with_pipe(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+	{
+		if (s[i] == ' ' || s[i] == '\t')
+			i++;
+		else
+			break ;
+	}
+	if (is_appendoc(s, '<', i))
+		return (1);
+	if (!check_special(s[i], "><|"))
+		return (0);
 	return (1);
 }
 
@@ -92,6 +113,14 @@ int	validate_input(char *s, t_main *bag)
 	if (!s)
 		return (0);
 	if (!check_wspaces(s))
+		return (ft_putstr_fd("Error", 2), 0);
+	if (!check_input(s))
+		return (ft_putstr_fd("Error", 2), 0);
+
+	/*
+	if (!s)
+		return (0);
+	if (!check_wspaces(s))
 		return (ft_putstr_fd("INVALID INPUT\n", 2), 0);
 	if (!end_with_pipe(s) || !start_with_pipe(s))
 		return (ft_putstr_fd("INVALID INPUT\n", 2), 0);
@@ -100,6 +129,7 @@ int	validate_input(char *s, t_main *bag)
 	if (!check_invalid_redirects(s))
 		return (ft_putstr_fd("INVALID INPUT\n", 2), 0);
 	ft_printf("VALIDO!\n");
+	*/
 	bag->dup_usr_input = ft_strdup(s);
 	change_input(bag->dup_usr_input);
 	return (1);

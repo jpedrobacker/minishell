@@ -1,6 +1,9 @@
 ##Arquivo para organizar nossas pendencias, isto e, as features que faltam para terminar a MINISHELL##
 
 
+TODO - "Fazer func para flags de redirects"
+
+TODO - "fazer func para contagem de pipes"
 
 TODO 1- "Ver onde e como usar a variavel global"
 
@@ -17,6 +20,7 @@ TODO 3- "Fazer uma funcao para abrir/criar os arquivos de redirect"
 
 
 -------------------------- IN PROGRESS -----------------------------------------------------------------------------------------
+
 
 
 
