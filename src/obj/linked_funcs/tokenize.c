@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/27 10:46:03 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/27 10:54:38 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,10 @@ void	tokenize(t_main *bag)
 	fix_matrix(&bag->cmds);
 	print_node(bag);
 	//ordering_fds(bag);
-//	free_all(bag);
+	
+	//------------ IMPORTANTE ---------------
+	//TODOS ESSES FREES() ESTAO FUNCIONANDO. MAS PRECISAMOS DAR OS FREES NA START_EXECUTION.C
+	//free_all(bag);
 	//token_free(&bag->cmds);
 	//so damos free na linked list envp apenas quando encerramos o programa!
 	//envs_free(&bag->envs);
