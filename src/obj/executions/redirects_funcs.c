@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:03:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/26 13:57:31 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/27 10:45:37 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,20 @@ static int	special(char c, char *in)
 		i++;
 	}
 	return (0);
+}
+
+int	ordering_fds(t_main *bag)
+{
+	t_token	*aux;
+
+	aux = bag->cmds;
+	while (aux)
+	{
+		ft_printf("----- changing FDs -----\n");
+		exec_redirects(aux, bag);
+		aux = aux->next;
+	}
+	return (1);
 }
 
 int	is_appendoc(char *s, int *i, char c)
@@ -53,79 +67,27 @@ int	is_appendoc(char *s, int *i, char c)
 	return (0);
 }
 
-
-/*
-//FUNCAO QUE VAI ABRIR/CRIAR OS ARQUIVOS E TROCAR OS FDS NECESSARIOS
-//CASO DE MERDA, VAI DAR FREE NA LINKED LIST DA ENVP E DOS CMDS
-void	r_in_fd(t_token *node, t_main *bag)
+void	exec_redirects(t_token *node, t_main *bag)
 {
-	//abrir/criar o arquivo especifico
-	//caso de certo, pegue esse novo fd, e troque pelo stdin ou stdout
-	
 	int	i;
 
 	i = 0;
 	while (node->arr[i])
 	{
 		if (node->arr[i][0] == '<')
-
-		i++;
-	}
-}
-*/
-
-//VAI PRECISAR PERCORRER A MATRIZ DO NODE!!
-void	exec_redirects(t_token *node, t_main *bag)
-{
-	int		i;
-	char	**temp;
-
-	(void)bag;
-	i = 0;
-	temp = node->arr;
-	ft_printf("-> :%s: \n", node->token);
-	while (temp[i])
-	{
-		if (temp[i][0] == '<')
 		{
-			if (!ft_strncmp(temp[i], "<<", 2))
-			{
-				//heredoc_func(node, bag, i);
-				ft_printf("Exec heredoc!\n");
-			}
+			if (!ft_strncmp(node->arr[i], "<<", 2))
+				node->hd_fd = heredoc_func(node, bag, i);
 			else
-			{
-				//redirect_in(node, bag, i);
-				ft_printf("Exec infile!\n");
-			}
+				redirect_in(node, bag, i);
 		}
-		else if (temp[i][0] == '>')
+		else if (node->arr[i][0] == '>')
 		{
-			if (!ft_strncmp(temp[i], ">>", 2))
-			{
-				//append_func(node, bag, i);
-				ft_printf("Exec append!\n"); // Func to open/create file and change FDS
-			}
+			if (!ft_strncmp(node->arr[i], ">>", 2))
+				append_func(node, bag, i);
 			else
-			{
-				//redirect_out(node, bag, i);
-				ft_printf("Exec outfile!\n"); // Func to open/create file and change FDS
-			}
+				redirect_out(node, bag, i);
 		}
 		i++;
 	}
 }
-
-/*
-void	check_redirects(t_main *bag)
-{
-	t_token *aux;
-
-	aux = bag->cmds;
-	while (aux)
-	{
-		exec_redirects(aux);
-		aux = aux->next;
-	}
-}
-*/

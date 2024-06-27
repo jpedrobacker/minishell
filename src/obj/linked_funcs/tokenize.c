@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/26 14:11:19 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/27 10:46:03 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	print_node(t_main *bag)
 	}
 }
 
+/*
 int	ordering_fds(t_main *bag)
 {
 	t_token	*aux;
@@ -89,11 +90,11 @@ int	ordering_fds(t_main *bag)
 	{
 		ft_printf("----- changing FDs -----\n");
 		exec_redirects(aux, bag);
-		//close(aux->fd_out);
 		aux = aux->next;
 	}
 	return (1);
 }
+*/
 
 void	tokenize(t_main *bag)
 {

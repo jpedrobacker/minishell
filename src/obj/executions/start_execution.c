@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/26 14:18:41 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/27 10:47:18 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	execution(t_main *main)
 	return (0);
 }
 
+/*
 void	test_execution(t_main *bag)
 {
 	(void)bag;
@@ -53,19 +54,20 @@ void	test_execution(t_main *bag)
 	}
 	else
 		waitpid(pid, NULL, 0);
-	//close(bag->cmds->fd_in);
-	//close(bag->cmds->fd_out);
+	close(bag->cmds->fd_in);
+	close(bag->cmds->fd_out);
 }
+*/
 
 void	start_execution(char *usr_input, t_main *main)
 {
 	(void) usr_input;
 	main->new_input = rev_split(main->splited_input);
-	tokenize(main);
-
+	tokenize(main); // Todas as estruturas estao organizadas aqui...
+	ordering_fds(main); // Agora, fazemos a mudanca dos fds...
 	
 	//testing redirecting FDs
-	test_execution(main);
+	//test_execution(main);
 
 	//execution(main);
 	//waitpid dos comandos
