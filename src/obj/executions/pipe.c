@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:11:49 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/25 21:11:11 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:47:51 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,24 @@ int	make_pipe(t_token *token)
 		/*while (token && token->flag != P)
 			token = token->next*/
 		token = token->next; //temporario
+		ft_printf("----------%s---------\n", token->cmd);
+		ft_printf("----------%s---------\n", cmds->cmd);
 		if (!token)
 			return (0);
 		if (pipe(fd) == -1)
 			return (1);
 		cmds->fd_out = fd[1];
+		ft_printf("----------%s---------\n", cmds->cmd);
 		token = token->next;
-		cmds = token;
-		if (cmds)
+		ft_printf("----------%s---------\n", cmds->cmd);
+		if (cmds != NULL)
+		{
+			ft_printf("TESTE1\n");
 			cmds->fd_in = fd[0];
+		}
 		else
 		{
+			ft_printf("Teste2\n");
 			close(fd[0]);
 			close(fd[1]);
 		}
@@ -54,13 +61,17 @@ void	close_fds(t_token *token)
 	return ;
 }
 
-void	exec_cmds_pipe(t_token *token, char **envp)
+void	redir_(t_token *token)
 {
-	if (!token)
 	if (token->fd_out != STDOUT_FILENO)
 		dup2(token->fd_out, STDOUT_FILENO);
 	if (token->fd_in != STDIN_FILENO)
 		dup2(token->fd_in, STDIN_FILENO);
+}
+
+void	exec_cmds_pipe(t_token *token, char **envp)
+{
+	redir_(token);
 	close_fds(token);
 	if (execve(token->real_path, token->arr, envp) == -1)
 	{

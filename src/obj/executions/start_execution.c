@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/25 21:11:07 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/26 11:26:28 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ int	execution(t_main *main)
 	{
 		if (exec_redirects(token, main) != 1)
 			return (0);
-		/*if (1)
-			call_cmds_pipe(token);*/
-		if (!check_builtins(main))
-			call_cmd(main);
+		if (1)
+			call_cmds_pipe(token);
+		/*if (!check_builtins(main))
+			call_cmd(main);*/
 		//close_all(token);
 		token = token->next;
 	}
