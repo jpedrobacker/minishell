@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/25 10:36:27 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/25 11:23:45 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ char	*get_cmd(char **arr)
 	int	i;
 
 	i = 0;
-	while (arr[i][0] == '<' || arr[i][0] == '>')
+	while (arr[i] && (arr[i][0] == '<' || arr[i][0] == '>'))
 		i += 2;
-	return (ft_strdup(arr[i]));
+	if (arr[i])
+		return (ft_strdup(arr[i]));
+	return (NULL);
 }
 
 static int	count_args(char **arr)
