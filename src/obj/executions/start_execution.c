@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/28 16:11:23 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/29 16:07:36 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@ int	execution(t_main *main)
 	t_token	*token;
 
 	token = main->cmds;
-	while (token)
-	{
-	//	if (exec_redirects(token, main) != 1)
-	//		return (0);
-		if (1)
-			call_cmds_pipe(token);
+	//while (token)
+	//{
+		//ft_printf("CMD: %s, FD_IN: %d, FD_OUT: %d\n", token->cmd, token->fd_in, token->fd_out);
+		/*if (exec_redirects(token, main) != 1)
+			return (0);*/
+	call_cmds_pipe(token);
 	//	if (!check_builtins(main))
 	//		call_cmd(main);
 		//close_all(token);
-		token = token->next;
-	}
+	//	token = token->next;
+	//}
 
 	return (0);
 }
@@ -82,11 +82,12 @@ void	start_execution(char *usr_input, t_main *main)
 	//-------------------------------------------------------------------
 	//---------------- DAQUI PRA BAIXO, AINDA NAO -----------------------
 	//-------------------------------------------------------------------
-	execution(main);
+	//prepare_pipes(main->cmds);
+	call_cmds_pipe(main->cmds);
 	//make_pipe(token);
 	//testing redirecting FDs
 	//execution(main);
-	wait_all(main->cmds);
+	//wait_all(main->cmds);
 	//free do token
 }
 
@@ -225,7 +226,7 @@ void	start_execution(char *usr_input, t_main *main)
 	tokenize(main); // Todas as estruturas estao organizadas aqui...
 	ordering_fds(main); // Agora, faremos a mudanca dos fds...
 	begin_exec(main); // Agora, faremos o inicio da execucao...
-	
+
 	//testing redirecting FDs
 	//test_execution(main);
 

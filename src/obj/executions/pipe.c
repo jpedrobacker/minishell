@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:11:49 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/28 15:24:22 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/29 16:01:39 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	create_pipe(t_token *node, int size)
 		}
 		else
 		{
-			node->fd_in = 0; // O primeiro node lê do terminal (stdin)
+			node->fd_in = STDIN_FILENO; // O primeiro node lê do terminal (stdin)
 		}
 		if (counter < size)
 		{
@@ -42,9 +42,9 @@ static int	create_pipe(t_token *node, int size)
 		}
 		else
 		{
-			node->fd_out = 1; // O último node escreve no terminal (stdout)
+			node->fd_out = STDOUT_FILENO; // O último node escreve no terminal (stdout)
 		}
-		printf("Node %d: fd_in: %d, fd_out: %d\n", counter, node->fd_in, node->fd_out);
+		//printf("Node %d: fd_in: %d, fd_out: %d\n", counter, node->fd_in, node->fd_out);
 		counter++;
 		node = node->next;
 	}
@@ -183,27 +183,76 @@ void	close_fds(t_token *token)
 void	redir_(t_token *token)
 {
 	if (token->fd_out != STDOUT_FILENO)
-		dup2(token->fd_out, STDOUT_FILENO);
+		dup2(STDOUT_FILENO, token->fd_out);
 	if (token->fd_in != STDIN_FILENO)
-		dup2(token->fd_in, STDIN_FILENO);
+		dup2(STDIN_FILENO, token->fd_in);
 }
 
 void	exec_cmds_pipe(t_token *token, char **envp)
 {
 	redir_(token);
 	close_fds(token);
+	ft_printf("ANTES DO EXEC! %s\n", token->cmd);
 	if (execve(token->real_path, token->arr, envp) == -1)
 	{
 		ft_putstr_fd("Command not found\n", 2);
 		exit(127);
 	}
+	ft_printf("DEPOIS DO EXEC! %s\n", token->cmd);
 	return ;
 }
 
 void	call_cmds_pipe(t_token *token)
 {
-	token->pid = fork();
-	if (token->pid == 0)
-		exec_cmds_pipe(token, token->envs);
-	return ;
+	t_token	*exec;
+	t_token	*temp;
+	t_token	*temp2;
+	pid_t pid;
+
+	exec = token;
+	while (exec)
+	{
+		pid = fork();
+		if (pid == -1)
+		{
+			perror("fork");
+			exit(1);
+		}
+		else if (pid == 0)
+		{
+			ft_printf("CMD: %s, FD_IN: %d, FD_OUT: %d\n", exec->cmd, exec->fd_in, exec->fd_out);
+			if (exec->fd_in != STDIN_FILENO)
+				dup2(exec->fd_in, 0);
+			if (exec->fd_out != STDOUT_FILENO)
+				dup2(exec->fd_out, 1);
+			temp = token;
+			while (temp)
+			{
+				if (temp->fd_in != STDIN_FILENO)
+					close(temp->fd_in);
+				if (temp->fd_out != STDOUT_FILENO)
+					close(temp->fd_out);
+				temp = temp->next;
+			}
+			execve(exec->real_path, exec->arr, exec->envs);
+			perror("execve");
+			exit(1);
+		}
+		exec = exec->next;
+	}
+	temp2 = token;
+	while(temp2)
+	{
+		if (temp2->fd_in != STDIN_FILENO)
+			close(temp2->fd_in);
+		if (temp2->fd_out != STDOUT_FILENO)
+			close(temp2->fd_out);
+		temp2 = temp2->next;
+	}
+	exec = token;
+	while (exec)
+	{
+		wait(NULL);
+		exec = exec->next;
+	}
 }

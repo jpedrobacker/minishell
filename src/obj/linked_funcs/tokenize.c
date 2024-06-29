@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/28 14:14:04 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/29 15:55:12 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static int	flag_heredoc(char **s)
 
 static void	populate_nodes(t_token **node)
 {
-	(*node)->fd_in = 0;
-	(*node)->fd_out = 1;
+	(*node)->fd_in = -1;
+	(*node)->fd_out = -1;
 	(*node)->hd_fd = 0;
 	(*node)->pipe_in = 0;
 	(*node)->pipe_out = 0;
@@ -58,7 +58,7 @@ void	create_token(char *s, t_token **head, t_main *bag)
 	if (!new)
 		return (ft_putstr_fd("ERROR\n", 2));
 	new->arr = ft_split(s, ' ');
-	new->cmd = get_cmd(new->arr); // << ola "seg fault" 
+	new->cmd = get_cmd(new->arr); // << ola "seg fault"
 	new->args = get_args(new->arr);
 	new->token = s;
 	new->real_path = get_real_path(&bag->paths, new->cmd);
@@ -144,7 +144,7 @@ void	tokenize(t_main *bag)
 	fix_matrix(&bag->cmds);
 	print_node(bag);
 	//ordering_fds(bag);
-	
+
 	//------------ IMPORTANTE ---------------
 	//TODOS ESSES FREES() ESTAO FUNCIONANDO. MAS PRECISAMOS DAR OS FREES NA START_EXECUTION.C
 	//free_all(bag);
