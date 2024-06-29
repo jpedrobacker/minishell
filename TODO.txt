@@ -1,5 +1,6 @@
 ##Arquivo para organizar nossas pendencias, isto e, as features que faltam para terminar a MINISHELL##
 
+OBS: BRANCH APENAS PARA TESTAR AS EXECUCOES EM UM LUGAR SEGURO...
 
 
 TODO 1- "Ver onde e como usar a variavel global"
