@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/25 21:11:43 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/28 11:53:08 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ typedef struct	s_token
 {
 	int				fd_in; // input fd
 	int				fd_out; // output fd
+	int				pipe_in; // pipe fd in
+	int				pipe_out; // ppe fd out
+	int				hd_fd; // read from heredoc pipe
+	int				hd; // flag to inform if the node has an heredoc
 	char			*cmd; // string with only the command
 	char			*real_path; // bin path of the command
 	char			*token; // the string node
@@ -104,11 +108,20 @@ enum e_type_of_errors
 };
 
 /*-- redirects functions --*/
+int			ordering_fds(t_main *bag);
+int			heredoc_func(t_token *node, t_main *bag, int i);
+void	exec_redirects(t_token *node, t_main *bag);
+int			append_func(t_token *node, t_main *bag, int i);
+int			redirect_in(t_token *node, t_main *bag, int i);
+int			redirect_out(t_token *node, t_main *bag, int i);
+
+/*
 int		exec_redirects(t_token *node, t_main *bag);
 void	heredoc_func(t_token *node, t_main *bag, int i);
 void	append_func(t_token *node, t_main *bag, int i);
 void	redirect_in(t_token *node, t_main *bag, int i);
 void	redirect_out(t_token *node, t_main *bag, int i);
+*/
 
 /*-- path functions --*/
 char		*find_env_path(t_varenv *envp);
@@ -195,8 +208,11 @@ int			check_var_exist(t_varenv **env, char *input);
 int			env_lst_size(t_varenv *env);
 
 /*-- pipes --*/
-int		make_pipe(t_token *token);
+int			make_pipe(t_main *bag);
 void	exec_cmds_pipe(t_token *token, char **envp);
 void	call_cmds_pipe(t_token *token);
+
+/*-- need to delete --*/
+void	print_node(t_main *bag);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/25 20:37:50 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:14:04 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,33 @@ static void	init_bag(t_main *bag)
 	replace_char(bag->new_input, '\v', ' ');
 }
 
+static int	flag_heredoc(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i][0] == '<')
+		{
+			if (ft_strlen(s[i]) == 2)
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+static void	populate_nodes(t_token **node)
+{
+	(*node)->fd_in = 0;
+	(*node)->fd_out = 1;
+	(*node)->hd_fd = 0;
+	(*node)->pipe_in = 0;
+	(*node)->pipe_out = 0;
+	(*node)->hd = flag_heredoc((*node)->arr);
+}
+
 void	create_token(char *s, t_token **head, t_main *bag)
 {
 	t_token		*new;
@@ -31,11 +58,12 @@ void	create_token(char *s, t_token **head, t_main *bag)
 	if (!new)
 		return (ft_putstr_fd("ERROR\n", 2));
 	new->arr = ft_split(s, ' ');
-	new->cmd = get_cmd(new->arr);
+	new->cmd = get_cmd(new->arr); // << ola "seg fault" 
 	new->args = get_args(new->arr);
 	new->token = s;
 	new->real_path = get_real_path(&bag->paths, new->cmd);
 	new->next = NULL;
+	populate_nodes(&new);
 	if (!(*head))
 	{
 		(*head) = new;
@@ -62,6 +90,8 @@ void	print_node(t_main *bag)
 		ft_printf("----- NODE: %i -----\n", i);
 		ft_printf("token :%s: \n", aux->token);
 		ft_printf("COMANDO :%s: \n", aux->cmd);
+		ft_printf("FDs-> in:%i, out:%i, hd:%i\n", aux->fd_in, aux->fd_out, aux->hd_fd);
+		ft_printf("FLAGS-> heredoc:%i\n", aux->hd);
 		//exec_redirects(aux);
 		while (aux->arr[x])
 		{
@@ -80,6 +110,7 @@ void	print_node(t_main *bag)
 	}
 }
 
+/*
 int	ordering_fds(t_main *bag)
 {
 	t_token	*aux;
@@ -93,6 +124,7 @@ int	ordering_fds(t_main *bag)
 	}
 	return (1);
 }
+*/
 
 void	tokenize(t_main *bag)
 {
@@ -112,21 +144,11 @@ void	tokenize(t_main *bag)
 	fix_matrix(&bag->cmds);
 	print_node(bag);
 	//ordering_fds(bag);
-//	free_all(bag);
+	
+	//------------ IMPORTANTE ---------------
+	//TODOS ESSES FREES() ESTAO FUNCIONANDO. MAS PRECISAMOS DAR OS FREES NA START_EXECUTION.C
+	//free_all(bag);
 	//token_free(&bag->cmds);
 	//so damos free na linked list envp apenas quando encerramos o programa!
 	//envs_free(&bag->envs);
-}
-
-int	flag_type(char	*str)
-{
-	if (!str)
-		return (0);
-	if (ft_strcmp(str, "|"))
-		return (P);
-	else if (ft_strcmp(str , ">"))
-		return (O);
-	else if (ft_strcmp(str, "<"))
-		return (I);
-	return (C);
 }
