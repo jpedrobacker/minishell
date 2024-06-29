@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:03:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/28 15:38:45 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/29 10:58:53 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ordering_fds(t_main *bag)
 	{
 		ft_printf("----- changing FDs -----\n");
 		exec_redirects(aux, bag);
-		ft_printf("in: %i, out: %i, hd: %i\n", aux->fd_in, aux->fd_out, aux->hd_fd);
+		//ft_printf("in: %i, out: %i, hd: %i\n", aux->fd_in, aux->fd_out, aux->hd_fd);
 		aux = aux->next;
 	}
 	return (1);

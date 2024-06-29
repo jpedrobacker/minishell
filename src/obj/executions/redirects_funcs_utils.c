@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:22:56 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/27 17:46:50 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/29 10:37:53 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	append_func(t_token *node, t_main *bag, int i)
 {
 	int	fd;
 
+	fd = 1;
 	(void)bag;
 	if (!node->arr[i + 1])
 	{
@@ -71,6 +72,7 @@ int	redirect_in(t_token *node, t_main *bag, int i)
 {
 	int	fd;
 
+	fd = 0;
 	(void)bag;
 	if (!node->arr[i + 1])
 	{
@@ -98,6 +100,7 @@ int	redirect_out(t_token *node, t_main *bag, int i)
 {
 	int	fd;
 
+	fd = 1;
 	(void)bag;
 	if (!node->arr[i + 1])
 	{

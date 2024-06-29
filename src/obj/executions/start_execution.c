@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/28 16:11:23 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/29 11:53:05 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,35 @@ void	wait_all(t_token *token)
 	return ;
 }
 
+static void	test(t_main *main)
+{
+	t_token *aux;
+
+	aux = main->cmds;
+	while (aux)
+	{
+		aux->pid = fork();
+		if (aux->pid == -1)
+			ft_putstr_fd("Error\n", 2);
+		if (aux->pid == 0)
+		{
+			ft_printf("CHILD PROCESS\n");
+			if (dup2(aux->fd_in, READ_END) == -1)
+				ft_putstr_fd("Error\n", 2);
+			if (dup2(aux->fd_out, WRITE_END) == -1)
+				ft_putstr_fd("Error\n", 2);
+			execve(aux->real_path, aux->args, NULL);
+		}
+		else
+		{
+			waitpid(aux->pid, NULL, 0);
+			close(aux->fd_in);
+			close(aux->fd_out);
+		}
+		aux = aux->next;
+	}
+}
+
 void	start_execution(char *usr_input, t_main *main)
 {
 	(void) usr_input;
@@ -82,11 +111,24 @@ void	start_execution(char *usr_input, t_main *main)
 	//-------------------------------------------------------------------
 	//---------------- DAQUI PRA BAIXO, AINDA NAO -----------------------
 	//-------------------------------------------------------------------
-	execution(main);
+	t_token *aux;
+	int	counter = 1;
+
+	aux = main->cmds;
+	while (aux)
+	{
+		printf("Node %d: fd_in: %d, fd_out: %d\n", counter, aux->fd_in, aux->fd_out);
+		counter++;
+		aux = aux->next;
+	}
+	ft_printf("--------------- Test execution ----------------\n");
+	test(main);
+
+	//execution(main);
 	//make_pipe(token);
 	//testing redirecting FDs
 	//execution(main);
-	wait_all(main->cmds);
+	//wait_all(main->cmds);
 	//free do token
 }
 
