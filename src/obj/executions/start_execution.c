@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/29 16:13:14 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/30 10:24:23 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,25 @@ void	close_all(t_token *token)
 	return ;
 }
 
-int	execution(t_main *main)
+/*int	execution(t_main *main)
 {
 	t_token	*token;
 
 	token = main->cmds;
-	//while (token)
-	//{
-		//ft_printf("CMD: %s, FD_IN: %d, FD_OUT: %d\n", token->cmd, token->fd_in, token->fd_out);
-		/*if (exec_redirects(token, main) != 1)
-			return (0);*/
-	call_cmds_pipe(token);
-	//	if (!check_builtins(main))
-	//		call_cmd(main);
-		//close_all(token);
-	//	token = token->next;
-	//}
+	while (token)
+	{
+		ft_printf("CMD: %s, FD_IN: %d, FD_OUT: %d\n", token->cmd, token->fd_in, token->fd_out);
+		if (exec_redirects(token, main) != 1)
+			return (0);
+		call_cmds_pipe(token);
+		if (!check_builtins(main))
+			call_cmd(main);
+		close_all(token);
+		token = token->next;
+	}
 
 	return (0);
-}
+}*/
 
 void	wait_all(t_token *token)
 {
@@ -83,7 +83,7 @@ void	start_execution(char *usr_input, t_main *main)
 	//---------------- DAQUI PRA BAIXO, AINDA NAO -----------------------
 	//-------------------------------------------------------------------
 	//prepare_pipes(main->cmds);
-	call_cmds_pipe(main->cmds);
+	call_cmds_pipe(main);
 	//make_pipe(token);
 	//testing redirecting FDs
 	//execution(main);

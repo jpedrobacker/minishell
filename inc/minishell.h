@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/28 11:53:08 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/30 10:56:05 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,15 +160,16 @@ int			check_char(char *s, int i, int s_len, char *in);
 void		new_expand_envs(char ***matrix, t_varenv *envs);
 
 /*-- builtins --*/
-int			built_cd(t_main **main);
+int			built_cd(t_main *main);
 int			built_pwd(t_main *main);
-int			built_echo(t_main **main, int flag);
-int			built_env(t_main **main);
+int			built_echo(t_main *main, int flag);
+int			built_env(t_main *main);
 void		built_exit(t_main *main);
-int			built_export(t_main **main);
+int			built_export(t_main *main);
 int			built_unset(t_main *main);
 int			built_clear(void);
 int			check_builtins(t_main *main);
+int			our_builtins(char *s);
 
 /*-- utils --*/
 void		fix_matrix(t_token **head);
@@ -208,9 +209,10 @@ int			check_var_exist(t_varenv **env, char *input);
 int			env_lst_size(t_varenv *env);
 
 /*-- pipes --*/
-int			make_pipe(t_main *bag);
+int		make_pipe(t_main *bag);
 void	exec_cmds_pipe(t_token *token, char **envp);
-void	call_cmds_pipe(t_token *token);
+void	call_cmds_pipe(t_main *main);
+void	wait_all(t_token *token);
 
 /*-- need to delete --*/
 void	print_node(t_main *bag);

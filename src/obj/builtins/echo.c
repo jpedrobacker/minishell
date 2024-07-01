@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/25 15:35:04 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/30 10:56:34 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_with_no_quotes(char **arr, int i, t_token *token)
 		ft_printf(" ");
 }
 
-int	built_echo(t_main **main, int flag)
+int	built_echo(t_main *main, int flag)
 {
 	extern int	g_status;
 	t_token	*aux;
@@ -48,7 +48,7 @@ int	built_echo(t_main **main, int flag)
 	int		i;
 	int		j;
 
-	aux = (*main)->cmds;
+	aux = main->cmds;
 	args = count_cmds(aux->arr);
 	i = 0;
 	if (flag == 0)

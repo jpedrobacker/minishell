@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/25 20:58:56 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/30 10:56:47 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_var_exist(t_varenv **env, char *input)
 	return (1);
 }
 
-int	built_export(t_main **main)
+int	built_export(t_main *main)
 {
 	extern int	g_status;
 	t_varenv	*aux_env;
@@ -60,8 +60,8 @@ int	built_export(t_main **main)
 	int			arrs;
 	int			i;
 
-	aux_env = (*main)->envs;
-	aux_token = (*main)->cmds;
+	aux_env = main->envs;
+	aux_token = main->cmds;
 	arrs = count_cmds(aux_token->args);
 	if (arrs == 1)
 		while (aux_env != NULL)

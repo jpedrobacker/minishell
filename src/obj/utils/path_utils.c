@@ -6,15 +6,13 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:07:29 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/25 11:43:37 by aprado           ###   ########.fr       */
+/*   Updated: 2024/06/30 10:22:56 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-#include "../inc/minishell.h"
-
-static int	our_builtins(char *s)
+int	our_builtins(char *s)
 {
 	if (!s)
 		return (0);

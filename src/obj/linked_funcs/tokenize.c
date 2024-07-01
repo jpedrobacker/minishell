@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/29 15:55:12 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/30 10:50:01 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static int	flag_heredoc(char **s)
 
 static void	populate_nodes(t_token **node)
 {
-	(*node)->fd_in = -1;
-	(*node)->fd_out = -1;
+	(*node)->fd_in = STDIN_FILENO;
+	(*node)->fd_out = STDOUT_FILENO;
 	(*node)->hd_fd = 0;
 	(*node)->pipe_in = 0;
 	(*node)->pipe_out = 0;

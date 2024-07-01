@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:11:49 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/29 16:01:39 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/30 10:54:01 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,77 +182,44 @@ void	close_fds(t_token *token)
 
 void	redir_(t_token *token)
 {
-	if (token->fd_out != STDOUT_FILENO)
-		dup2(STDOUT_FILENO, token->fd_out);
 	if (token->fd_in != STDIN_FILENO)
-		dup2(STDIN_FILENO, token->fd_in);
+		dup2(token->fd_in, STDIN_FILENO);
+	if (token->fd_out != STDOUT_FILENO)
+		dup2(token->fd_out, STDOUT_FILENO);
 }
 
-void	exec_cmds_pipe(t_token *token, char **envp)
+void	call_cmds_pipe(t_main *main)
 {
-	redir_(token);
-	close_fds(token);
-	ft_printf("ANTES DO EXEC! %s\n", token->cmd);
-	if (execve(token->real_path, token->arr, envp) == -1)
-	{
-		ft_putstr_fd("Command not found\n", 2);
-		exit(127);
-	}
-	ft_printf("DEPOIS DO EXEC! %s\n", token->cmd);
-	return ;
-}
-
-void	call_cmds_pipe(t_token *token)
-{
-	t_token	*exec;
+	t_token	*token;
 	t_token	*temp;
 	t_token	*temp2;
-	pid_t pid;
 
-	exec = token;
-	while (exec)
+	token = main->cmds;
+	while (token)
 	{
-		pid = fork();
-		if (pid == -1)
+		token->pid = fork();
+		if (token->pid == -1)
 		{
 			perror("fork");
 			exit(1);
 		}
-		else if (pid == 0)
+		else if (token->pid == 0)
 		{
-			ft_printf("CMD: %s, FD_IN: %d, FD_OUT: %d\n", exec->cmd, exec->fd_in, exec->fd_out);
-			if (exec->fd_in != STDIN_FILENO)
-				dup2(exec->fd_in, 0);
-			if (exec->fd_out != STDOUT_FILENO)
-				dup2(exec->fd_out, 1);
-			temp = token;
-			while (temp)
-			{
-				if (temp->fd_in != STDIN_FILENO)
-					close(temp->fd_in);
-				if (temp->fd_out != STDOUT_FILENO)
-					close(temp->fd_out);
-				temp = temp->next;
-			}
-			execve(exec->real_path, exec->arr, exec->envs);
-			perror("execve");
-			exit(1);
+			redir_(token);
+			temp = main->cmds;
+			close_fds(temp);
+			if (!check_builtins(main))
+				execve(token->real_path, token->args, token->envs);
 		}
-		exec = exec->next;
+		token = token->next;
 	}
-	temp2 = token;
-	while(temp2)
-	{
-		if (temp2->fd_in != STDIN_FILENO)
-			close(temp2->fd_in);
-		if (temp2->fd_out != STDOUT_FILENO)
-			close(temp2->fd_out);
-		temp2 = temp2->next;
-	}
-	exec = token;
-	while (exec)
+	temp2 = main->cmds;
+	close_fds(temp2);
+	token = main->cmds;
+	//wait_all(token);
+	while (token)
 	{
 		wait(NULL);
-		exec = exec->next;
+		token = token->next;
 	}
 }

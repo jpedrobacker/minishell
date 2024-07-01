@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:14 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/20 13:40:47 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/06/30 10:56:25 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,15 @@ int	update_new_pwd(t_varenv **env)
 	return (1);
 }
 
-int	built_cd(t_main **main)
+int	built_cd(t_main *main)
 {
 	extern int	g_status;
 	t_token		*aux_cmds;
 	t_varenv	*aux_env;
 	int			args;
 
-	aux_cmds = (*main)->cmds;
-	aux_env = (*main)->envs;
+	aux_cmds = main->cmds;
+	aux_env = main->envs;
 	args = count_cmds(aux_cmds->arr);
 	if (args > 2)
 	{
