@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/01 09:51:07 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/01 18:08:03 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,9 @@ char		*get_quote_pos(char *s);
 
 /*-- split in tokens --*/
 char		**split_in_tokens(char *s, char *in, t_varenv *envs);
-int			line_count(char *s, char *in, int s_len);
+int			new_line_count(char *s, char *in, int i);
 int			check_char(char *s, int i, int s_len, char *in);
+int			check_specials(char *s, int i, int t, char *in);
 
 /*-- expand envs --*/
 void		new_expand_envs(char ***matrix, t_varenv *envs);
