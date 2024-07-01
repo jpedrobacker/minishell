@@ -1,5 +1,18 @@
 ##Arquivo para organizar nossas pendencias, isto e, as features que faltam para terminar a MINISHELL##
 
+OBS "Branch para colocar as coisas na norma... Da pra pegar esses arquivos e por para a branch principal dps..."
+
+-------- FILES TO NORM --------
+split in tokens - NEED TO DELETE COMMENTS
+split in tokens utils - DONE
+rev split - DONE
+read check - DONE
+expand envs - 
+error - 
+deal redirects - 
+deal quotes - DONE
+deal quotes utils - DONE
+
 
 
 TODO 1- "Ver onde e como usar a variavel global"
@@ -8,33 +21,37 @@ EM ABERTO 2- "Fazer uma funcao para flagear a matrix de cada nó"
 	Isto e, verificar se tem redirects "< > << >>" e por em uma variavel
 	da struct, sua respectiva flag.
 
-TODO 3- "Fazer uma funcao para abrir/criar os arquivos de redirect"
-	Essa func vai alterar o stdin e o stdout. 
-	< vai alterar o stdin.
-	> vai alterar o stdout.
+
 
 
 
 
 -------------------------- IN PROGRESS -----------------------------------------------------------------------------------------
 
-TODO 2- "Fazer todas as validacoes de input. O que vai ser valido e o que nao?"
+
+FAZENDO AS EXECUCOES...
+
+
+-------------------------- DONE ------------------------------------------------------------------------------------------------
+
+
+-> "Fazer uma funcao para abrir/criar os arquivos de redirect"
+	Essa func vai alterar o stdin e o stdout. 
+	< vai alterar o stdin.
+	> vai alterar o stdout.
+
+-> "Fazer todas as validacoes de input. O que vai ser valido e o que nao?"
 	"ex: echo < | ls = NAO E VALIDO"
 	"ex: echo | = NAO E VALIDO"
 	"ex: echo | < = NAO E VALIDO"
 	"ex: echo | | ls = NAO E VALIDO"
 	"ex: echo " | | " | cat = E VALIDO
 
-TODO 7- implementar um tratamento para os redirects < > <<
+-> implementar um tratamento para os redirects < > <<
 	Basicamente, o que vem depois desses redirects e o seu parametro.
 	por ex: "echo < teste teste2".
 	teste e parametro do redirect <
 	teste2 e parametro do echo.
-
-
-
-
--------------------------- DONE ------------------------------------------------------------------------------------------------
 
 -> "VERIFICAR OS LEAKS E PROBLEMAS DO VALGRIND"
 	-> Acredito que o erro na func "change_input()" venha atraves do readline+strjoin.
