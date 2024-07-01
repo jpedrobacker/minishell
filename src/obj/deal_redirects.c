@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:02:14 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/22 18:00:50 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/01 17:35:25 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ int	deal_redirects(t_main *bag)
 	}
 	*/
 	//PRINT DA SPLIT IN TOKENS!!!
-	/*
+	int i = 0;
+	char **s = bag->splited_input;
 	while (s[i])
 	{
 		ft_printf("splited :%s: \n", s[i]);
 		i++;
 	}
-	*/
 	return (1);
 }

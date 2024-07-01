@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/30 10:24:23 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/01 18:09:12 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,16 @@ void	start_execution(char *usr_input, t_main *main)
 	//---------------- DAQUI PRA BAIXO, AINDA NAO -----------------------
 	//-------------------------------------------------------------------
 	//prepare_pipes(main->cmds);
-	call_cmds_pipe(main);
+	//
+	//------------------------------------------
+	//--------- Passando a norma----------------
+	//-----------------------------------------
+	
+
+
+	//call_cmds_pipe(main);
+
+
 	//make_pipe(token);
 	//testing redirecting FDs
 	//execution(main);
