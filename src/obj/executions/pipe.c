@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:11:49 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/30 10:54:01 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/01 09:41:41 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,6 @@ void	call_cmds_pipe(t_main *main)
 {
 	t_token	*token;
 	t_token	*temp;
-	t_token	*temp2;
 
 	token = main->cmds;
 	while (token)
@@ -213,10 +212,9 @@ void	call_cmds_pipe(t_main *main)
 		}
 		token = token->next;
 	}
-	temp2 = main->cmds;
-	close_fds(temp2);
+	temp = main->cmds;
+	close_fds(temp);
 	token = main->cmds;
-	//wait_all(token);
 	while (token)
 	{
 		wait(NULL);

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/30 10:56:47 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/01 09:48:36 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ int	built_export(t_main *main)
 	if (arrs == 1)
 		while (aux_env != NULL)
 		{
-			ft_putstr_fd("declare -x ", aux_token->fd_out);
-			ft_putstr_fd(aux_env->key, aux_token->fd_out);
-			ft_putstr_fd("=\"", aux_token->fd_out);
-			ft_putstr_fd(aux_env->var,aux_token->fd_out);
-			ft_putendl_fd("\"", aux_token->fd_out);
+			ft_putstr_fd("declare -x ", STDOUT_FILENO);
+			ft_putstr_fd(aux_env->key, STDOUT_FILENO);
+			ft_putstr_fd("=\"", STDOUT_FILENO);
+			ft_putstr_fd(aux_env->var,STDOUT_FILENO);
+			ft_putendl_fd("\"", STDOUT_FILENO);
 			aux_env = aux_env->next;
 		}
 	i = 1;

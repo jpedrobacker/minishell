@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/30 10:56:05 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/01 09:51:07 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ void		new_expand_envs(char ***matrix, t_varenv *envs);
 
 /*-- builtins --*/
 int			built_cd(t_main *main);
-int			built_pwd(t_main *main);
+int			built_pwd(void);
 int			built_echo(t_main *main, int flag);
 int			built_env(t_main *main);
 void		built_exit(t_main *main);

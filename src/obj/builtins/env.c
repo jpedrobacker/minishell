@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:53 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/30 11:12:08 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/01 09:46:44 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	built_env(t_main *main)
 			ft_putendl_fd("env error!", 2);
 		while (aux_env)
 		{
-			ft_putendl_fd(aux_env->full_env, main->cmds->fd_out);
+			ft_putendl_fd(aux_env->full_env, STDOUT_FILENO);
 			aux_env = aux_env->next;
 		}
 	}
