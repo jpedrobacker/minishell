@@ -6,66 +6,30 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/30 10:24:23 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/01 22:50:09 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	close_all(t_token *token)
-{
-
-	if (token->fd_in != STDIN_FILENO)
-		close(token->fd_in);
-	if (token->fd_out != STDOUT_FILENO)
-		close(token->fd_out);
-	return ;
-}
-
-/*int	execution(t_main *main)
+void	main_exec(t_main *main)
 {
 	t_token	*token;
+	int		have_pipe;
 
 	token = main->cmds;
+	have_pipe = if_pipe(main);
 	while (token)
 	{
-		ft_printf("CMD: %s, FD_IN: %d, FD_OUT: %d\n", token->cmd, token->fd_in, token->fd_out);
-		if (exec_redirects(token, main) != 1)
-			return (0);
-		call_cmds_pipe(token);
-		if (!check_builtins(main))
-			call_cmd(main);
-		close_all(token);
+		if (have_pipe == 1)
+			exec_cmds_pipe(main, token);
+		else
+			call_cmd(main, token);
 		token = token->next;
 	}
-
-	return (0);
-}*/
-
-void	wait_all(t_token *token)
-{
-	t_token	*aux;
-	extern int	g_status;
-	int	status;
-
-	status = 0;
-	if (!token)
-		return ;
-	aux = token;
-	while (token)
-	{
-		if (token->pid != 0)
-			waitpid(token->pid, &status, 0);
-		token = token->next;
-	}
-	token = aux;
-	while (token)
-	{
-		if (status >= 0)
-			g_status = WEXITSTATUS(status);
-		token = token->next;
-	}
-	return ;
+	close_fds(main->cmds);
+	token = main->cmds;
+	wait_all(token);
 }
 
 void	start_execution(char *usr_input, t_main *main)
@@ -77,29 +41,10 @@ void	start_execution(char *usr_input, t_main *main)
 		ft_putstr_fd("Error\n", 2);
 	if (!ordering_fds(main)) // ja abre os pipes, se tiver, e faz os redirecionamentos, se tiver.
 		ft_putstr_fd("Error\n", 2);
-	//-------------------------------------------------------------------
-	//------- ATE AQUI ESTA FUNCIONANDO CORRETAMENTE, EU ACHO -----------
-	//-------------------------------------------------------------------
-	//---------------- DAQUI PRA BAIXO, AINDA NAO -----------------------
-	//-------------------------------------------------------------------
-	//prepare_pipes(main->cmds);
-	call_cmds_pipe(main);
-	//make_pipe(token);
+	main_exec(main);
 	//testing redirecting FDs
-	//execution(main);
-	//wait_all(main->cmds);
 	//free do token
 }
-
-/*
-	A FAZER
-	FUNÇÃO PARA PREPARAR OS BUILT INS COM OS NOVOS FDS
-	FUNÇÃO PARA FECHAR OS BUILT INS PÓS FDS
-	FUNÇÃO EXCLUSIVA PARA REDIRECT DOS BUILT INS
-	EXIT STATUS DE TODOS OS BUILT INS
-	MELHORAR E BOTAR PRA FUNCIONAR A FUNÇÃO DE FDS IN E OUT
-*/
-
 //-------------------------------------------------------------------
 //---------------- feat_execution ----------------------------------
 /*

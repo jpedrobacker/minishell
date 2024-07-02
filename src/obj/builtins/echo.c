@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/01 09:52:20 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:38:01 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_quotes(char *s)
 	return (1);
 }
 
-void	print_with_no_quotes(char **arr, int i)
+void	print_with_no_quotes(t_token *token, char **arr, int i)
 {
 	int	j;
 
@@ -32,41 +32,37 @@ void	print_with_no_quotes(char **arr, int i)
 		while (arr[i][j] == ' ' || arr[i][j] == '"' || arr[i][j] == '\'')
 			j++;
 		if (arr[i][j - 1] == ' ')
-			ft_putchar_fd(' ', STDOUT_FILENO);
+			ft_putchar_fd(' ', token->fd_out);
 		if (arr[i][j] != '\0' )
-			ft_putchar_fd(arr[i][j], STDOUT_FILENO);
+			ft_putchar_fd(arr[i][j], token->fd_out);
 	}
 	if (arr[i + 1] != NULL)
-		ft_printf(" ");
+		ft_putstr_fd(" ", token->fd_out);
 }
 
-int	built_echo(t_main *main, int flag)
+int	built_echo(t_main *main, t_token *token, int flag)
 {
 	extern int	g_status;
 	t_token	*aux;
 	int		args;
 	int		i;
-	int		j;
+	(void) main;
 
-	aux = main->cmds;
+	aux = token;
 	args = count_cmds(aux->arr);
 	i = 0;
 	if (flag == 0)
 		i = 1;
 	while (++i < args)
 	{
-		j = -1;
 		if (check_quotes(aux->arr[i]) == 0)
-		{
-			while (aux->arr[i][++j])
-				ft_putchar_fd(aux->arr[i][j], STDOUT_FILENO);
-		}
+			ft_putstr_fd(aux->arr[i], token->fd_out);
 		else
-			print_with_no_quotes(aux->arr, i);
+			print_with_no_quotes(token, aux->arr, i);
 	}
 	if (flag == 0)
 		return (g_status = 1);
-	ft_printf("\n");
+	ft_putstr_fd("\n", token->fd_out);
 	return (g_status = 1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:11:49 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/01 09:41:41 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/01 19:24:31 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,59 +165,4 @@ int	make_pipe(t_main *bag)
 	}
 	return (0);
 	*/
-}
-
-void	close_fds(t_token *token)
-{
-	while (token)
-	{
-		if (token->fd_in != STDIN_FILENO)
-			close(token->fd_in);
-		else if (token->fd_out != STDOUT_FILENO)
-			close(token->fd_out);
-		token = token->next;
-	}
-	return ;
-}
-
-void	redir_(t_token *token)
-{
-	if (token->fd_in != STDIN_FILENO)
-		dup2(token->fd_in, STDIN_FILENO);
-	if (token->fd_out != STDOUT_FILENO)
-		dup2(token->fd_out, STDOUT_FILENO);
-}
-
-void	call_cmds_pipe(t_main *main)
-{
-	t_token	*token;
-	t_token	*temp;
-
-	token = main->cmds;
-	while (token)
-	{
-		token->pid = fork();
-		if (token->pid == -1)
-		{
-			perror("fork");
-			exit(1);
-		}
-		else if (token->pid == 0)
-		{
-			redir_(token);
-			temp = main->cmds;
-			close_fds(temp);
-			if (!check_builtins(main))
-				execve(token->real_path, token->args, token->envs);
-		}
-		token = token->next;
-	}
-	temp = main->cmds;
-	close_fds(temp);
-	token = main->cmds;
-	while (token)
-	{
-		wait(NULL);
-		token = token->next;
-	}
 }

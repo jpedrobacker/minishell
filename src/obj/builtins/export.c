@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/01 09:48:36 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:39:35 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_var_exist(t_varenv **env, char *input)
 	return (1);
 }
 
-int	built_export(t_main *main)
+int	built_export(t_varenv *env, t_token *token)
 {
 	extern int	g_status;
 	t_varenv	*aux_env;
@@ -60,17 +60,17 @@ int	built_export(t_main *main)
 	int			arrs;
 	int			i;
 
-	aux_env = main->envs;
-	aux_token = main->cmds;
+	aux_env = env;
+	aux_token = token;
 	arrs = count_cmds(aux_token->args);
 	if (arrs == 1)
 		while (aux_env != NULL)
 		{
-			ft_putstr_fd("declare -x ", STDOUT_FILENO);
-			ft_putstr_fd(aux_env->key, STDOUT_FILENO);
-			ft_putstr_fd("=\"", STDOUT_FILENO);
-			ft_putstr_fd(aux_env->var,STDOUT_FILENO);
-			ft_putendl_fd("\"", STDOUT_FILENO);
+			ft_putstr_fd("declare -x ", aux_token->fd_out);
+			ft_putstr_fd(aux_env->key, aux_token->fd_out);
+			ft_putstr_fd("=\"", aux_token->fd_out);
+			ft_putstr_fd(aux_env->var,aux_token->fd_out);
+			ft_putendl_fd("\"", aux_token->fd_out);
 			aux_env = aux_env->next;
 		}
 	i = 1;

@@ -6,27 +6,27 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:53 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/01 09:46:44 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:59:59 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	built_env(t_main *main)
+int	built_env(t_main *main, t_token *token)
 {
 	extern int	g_status;
 	t_varenv	*aux_env;
-	char		**args;
+	//char		**args;
 
 	aux_env = main->envs;
-	args = main->cmds->args;
-	if (count_cmds(args) < 2)
+	//args = token->arr;
+	if (1)
 	{
 		if (!aux_env)
 			ft_putendl_fd("env error!", 2);
 		while (aux_env)
 		{
-			ft_putendl_fd(aux_env->full_env, STDOUT_FILENO);
+			ft_putendl_fd(aux_env->full_env, token->fd_out);
 			aux_env = aux_env->next;
 		}
 	}
