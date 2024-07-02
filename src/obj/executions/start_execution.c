@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/29 11:53:05 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/02 16:17:47 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,10 @@ static void	test(t_main *main)
 		else
 		{
 			waitpid(aux->pid, NULL, 0);
-			close(aux->fd_in);
-			close(aux->fd_out);
+			if (aux->fd_in != STDIN_FILENO)
+				close(aux->fd_in);
+			if (aux->fd_out != STDOUT_FILENO)
+				close(aux->fd_out);
 		}
 		aux = aux->next;
 	}

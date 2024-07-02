@@ -6,7 +6,7 @@
 /*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:03:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/29 10:58:53 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/02 16:16:27 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	exec_redirects(t_token *node, t_main *bag)
 		}
 		else if (node->arr[i][0] == '>')
 		{
-			//if (node->fd_out != 1)
-			//	close(node->fd_out);
+			if (node->fd_out != 1)
+				close(node->fd_out);
 			if (!ft_strncmp(node->arr[i], ">>", 2))
 				node->fd_out = append_func(node, bag, i);
 			else
