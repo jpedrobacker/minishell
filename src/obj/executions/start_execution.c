@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/01 22:50:09 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/02 21:25:45 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,16 @@ void	main_exec(t_main *main)
 			exec_cmds_pipe(main, token);
 		else
 			call_cmd(main, token);
+		waitpid(token->pid, NULL, 0);
+		if (token->fd_in != STDIN_FILENO)
+			close(token->fd_in);
+		if (token->fd_out != STDOUT_FILENO)
+			close(token->fd_out);
 		token = token->next;
 	}
-	close_fds(main->cmds);
-	token = main->cmds;
-	wait_all(token);
+	//close_fds(main->cmds);
+	//token = main->cmds;
+	//wait_all(token);
 }
 
 void	start_execution(char *usr_input, t_main *main)

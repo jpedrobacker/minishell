@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:00:52 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/01 22:52:05 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:07:52 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 void	exec_normal_cmd_pipe(t_main *main, t_token *token)
 {
-	t_token	*temp;
-
+	//t_token	*temp;
+	
+	(void)main;
 	redir_(token);
-	temp = main->cmds;
-	close_fds(temp);
+	//temp = main->cmds;
+	//close_fds(temp);
 	execve(token->real_path, token->args, token->envs);
 	return ;
 }
@@ -28,14 +29,41 @@ void	exec_cmds_pipe(t_main *main, t_token *token)
 	token->pid = fork();
 	if (token->pid != 0)
 		return ;
-	if (!our_builtins(token->cmd))
-		exec_normal_cmd_pipe(main, token);
-	else
-		check_builtins_pipes(main, token);
+	if (token->pid == 0)
+	{
+		if (!our_builtins(token->cmd))
+			exec_normal_cmd_pipe(main, token);
+		else
+			check_builtins_pipes(main, token);
+	}
 }
 
 void	exec_non_builtin_cmd(t_token *token)
 {
+	//t_token	*temp;
+
+	token->pid = fork();
+	if (token->pid != 0)
+		return ;
+	if (token->pid == 0)
+	{
+		redir_(token);
+		//temp = token;
+		//close_fds(temp);
+		execve(token->real_path, token->args, NULL);
+	}
+	return ;
+	/*
+	else
+	{
+		waitpid(token->pid, NULL, 0);
+		if (token->fd_in != STDIN_FILENO)
+			close(token->fd_in);
+		if (token->fd_out != STDOUT_FILENO)
+			close(token->fd_out);
+	}
+	*/
+	/*
 	t_token	*temp;
 
 	token->pid = fork();
@@ -46,6 +74,7 @@ void	exec_non_builtin_cmd(t_token *token)
 	close_fds(temp);
 	execve(token->real_path, token->args, token->envs);
 	return ;
+	*/
 }
 
 void	call_cmd(t_main *main, t_token *token)
@@ -54,7 +83,24 @@ void	call_cmd(t_main *main, t_token *token)
 	if (!our_builtins(token->cmd))
 		exec_non_builtin_cmd(token);
 	else
+	{
+		token->pid = fork();
+		if (token->pid != 0)
+			return ;
+		if (token->pid == 0)
+		{
+			redir_(token);
+			check_builtins_pipes(main, token);
+		}
+	}
+		//check_builtins(main, token);
+	/*
+	token->envs = update_envp(main->envs);
+	if (!our_builtins(token->cmd))
+		exec_non_builtin_cmd(token);
+	else
 		check_builtins(main, token);
+	*/
 }
 
 /*
