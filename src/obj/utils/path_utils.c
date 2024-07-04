@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:07:29 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/01 22:21:42 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:13:38 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,12 @@ char	*get_real_path(char ***all_paths, char *command)
 		return (NULL);
 	if (our_builtins(command))
 		return (NULL);
+	if (access(command, F_OK & X_OK) == 0) // Correcao para o relative path como input
+		return (ft_strdup(command));
 	paths = (*all_paths);
 	if (!paths)
 		return (NULL);
+	//Colocar essas condicionais em uma func helper separada...
 	test_command = ft_strjoin("/", command);
 	while (paths[i])
 	{
