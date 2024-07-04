@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/04 13:42:13 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/04 14:25:38 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,11 @@ int	built_export(t_varenv *env, t_token *token)
 	{
 		while (aux_env != NULL)
 		{
-			if (!ft_strcmp("?", aux_env->key))
-			{
-				ft_putstr_fd("declare -x ", aux_token->fd_out);
-				ft_putstr_fd(aux_env->key, aux_token->fd_out);
-				ft_putstr_fd("=\"", aux_token->fd_out);
-				ft_putstr_fd(aux_env->var, aux_token->fd_out);
-				ft_putendl_fd("\"", aux_token->fd_out);
-			}
+			ft_putstr_fd("declare -x ", aux_token->fd_out);
+			ft_putstr_fd(aux_env->key, aux_token->fd_out);
+			ft_putstr_fd("=\"", aux_token->fd_out);
+			ft_putstr_fd(aux_env->var, aux_token->fd_out);
+			ft_putendl_fd("\"", aux_token->fd_out);
 			aux_env = aux_env->next;
 		}
 		return (0);
