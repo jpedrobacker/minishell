@@ -6,13 +6,13 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 11:55:58 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/20 12:59:15 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/04 14:12:51 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	link_envp(char *envp, t_varenv **head)
+void	link_envp(char *envp, t_varenv *head)
 {
 	t_varenv	*node;
 	t_varenv	*aux;
@@ -24,12 +24,12 @@ void	link_envp(char *envp, t_varenv **head)
 	node->var = ft_memchr(envp, '=', ft_strlen(envp));
 	node->full_env = ft_strdup(envp);
 	node->next = NULL;
-	if (!(*head))
+	if (!head)
 	{
-		(*head) = node;
+		head = node;
 		return ;
 	}
-	aux = (*head);
+	aux = head;
 	while (aux->next)
 		aux = aux->next;
 	aux->next = node;

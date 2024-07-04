@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/01 16:39:35 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/04 13:42:13 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,23 @@
 
 int	check_export(char *var)
 {
-	int	i;
-
-	i = -1;
 	if (!ft_isalpha(var[0]))
 		return (1);
-	while (var[++i])
-	{
-		if (var[i] == '=')
-			return (0);
-	}
-	return (1);
+	return (0);
 }
 
-int	check_var_exist(t_varenv **env, char *input)
+int	check_var_exist(t_varenv *env, char *input)
 {
 	t_varenv	*aux;
 	char		*key;
 	char		*var;
 
-	aux = (*(env));
+	aux = env;
 	key = get_env_key(input, '=');
 	var = ft_memchr(input, '=', ft_strlen(input));
 	while (aux != NULL)
 	{
-		if (ft_strncmp(key, aux->key, ft_strlen(key)) == 0)
+		if (ft_strcmp(key, aux->key) == 0)
 		{
 			aux->var = var;
 			free(aux->full_env);
@@ -54,7 +46,6 @@ int	check_var_exist(t_varenv **env, char *input)
 
 int	built_export(t_varenv *env, t_token *token)
 {
-	extern int	g_status;
 	t_varenv	*aux_env;
 	t_token		*aux_token;
 	int			arrs;
@@ -62,30 +53,42 @@ int	built_export(t_varenv *env, t_token *token)
 
 	aux_env = env;
 	aux_token = token;
-	arrs = count_cmds(aux_token->args);
+	arrs = count_cmds(aux_token->arr);
 	if (arrs == 1)
+	{
 		while (aux_env != NULL)
 		{
-			ft_putstr_fd("declare -x ", aux_token->fd_out);
-			ft_putstr_fd(aux_env->key, aux_token->fd_out);
-			ft_putstr_fd("=\"", aux_token->fd_out);
-			ft_putstr_fd(aux_env->var,aux_token->fd_out);
-			ft_putendl_fd("\"", aux_token->fd_out);
+			if (!ft_strcmp("?", aux_env->key))
+			{
+				ft_putstr_fd("declare -x ", aux_token->fd_out);
+				ft_putstr_fd(aux_env->key, aux_token->fd_out);
+				ft_putstr_fd("=\"", aux_token->fd_out);
+				ft_putstr_fd(aux_env->var, aux_token->fd_out);
+				ft_putendl_fd("\"", aux_token->fd_out);
+			}
 			aux_env = aux_env->next;
 		}
-	i = 1;
-	while (aux_token->args[i])
-	{
-		if (check_export(aux_token->args[i]) == 0)
-		{
-			if (check_var_exist(&aux_env, aux_token->args[i]) == 0)
-				break ;
-			else
-				link_envp(aux_token->args[i], &aux_env);
-		}
-		else
-			errors_mini(QUOTE, "export");
-		i++;
+		return (0);
 	}
-	return (g_status = 127);
+	else
+	{
+		i = 1;
+		while (aux_token->arr[i])
+		{
+			if (check_export(aux_token->arr[i]) == 0)
+			{
+				if (check_var_exist(aux_env, aux_token->arr[i]) == 0)
+					break ;
+				else
+					link_envp(aux_token->arr[i], aux_env);
+			}
+			else
+			{
+				errors_mini(QUOTE, "export");
+				return (127);
+			}
+			i++;
+		}
+	}
+	return (0);
 }

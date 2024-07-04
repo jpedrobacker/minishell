@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/01 16:38:01 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/04 14:24:10 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ int	check_quotes(char *s)
 {
 	int	len;
 
+	if (!s)
+		return (1);
 	len = ft_strlen(s) - 1;
-	if ((s[0] == '"' && s[len] == '"') || (s[0] == '\'' && s[len] == '\''))
+	if ((s[0] == '\"' && s[len] == '\"') || (s[0] == '\'' && s[len] == '\''))
 		return (0);
 	return (1);
 }
@@ -26,23 +28,22 @@ void	print_with_no_quotes(t_token *token, char **arr, int i)
 {
 	int	j;
 
-	j = -1;
-	while (arr[i][++j])
+	if (!arr[i])
+		return ;
+	j = 0;
+	while (arr[i][j])
 	{
-		while (arr[i][j] == ' ' || arr[i][j] == '"' || arr[i][j] == '\'')
+		while (arr[i][j] == '\"' || arr[i][j] == '\'')
 			j++;
-		if (arr[i][j - 1] == ' ')
-			ft_putchar_fd(' ', token->fd_out);
-		if (arr[i][j] != '\0' )
-			ft_putchar_fd(arr[i][j], token->fd_out);
+		if (arr[i][j] == '\0')
+			break ;
+		ft_putchar_fd(arr[i][j], token->fd_out);
+		j++;
 	}
-	if (arr[i + 1] != NULL)
-		ft_putstr_fd(" ", token->fd_out);
 }
 
 int	built_echo(t_main *main, t_token *token, int flag)
 {
-	extern int	g_status;
 	t_token	*aux;
 	int		args;
 	int		i;
@@ -55,15 +56,19 @@ int	built_echo(t_main *main, t_token *token, int flag)
 		i = 1;
 	while (++i < args)
 	{
-		if (check_quotes(aux->arr[i]) == 0)
+		if (ft_strcmp(aux->arr[i], ">") == 0)
+			i = i + 2;
+		if (check_quotes(aux->arr[i]) == 1)
 			ft_putstr_fd(aux->arr[i], token->fd_out);
 		else
 			print_with_no_quotes(token, aux->arr, i);
+		if (aux->arr[i + 1])
+			ft_putchar_fd(' ', token->fd_out);
 	}
 	if (flag == 0)
-		return (g_status = 1);
+		return (1);
 	ft_putstr_fd("\n", token->fd_out);
-	return (g_status = 1);
+	return (1);
 }
 
 //Return de erros do echo

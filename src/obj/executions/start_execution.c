@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/02 21:25:45 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/04 14:12:03 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,23 @@
 
 void	main_exec(t_main *main)
 {
-	t_token	*token;
-	int		have_pipe;
+	extern int	g_status;
+	t_token		*token;
+	int			have_pipe;
+	int			status;
 
 	token = main->cmds;
 	have_pipe = if_pipe(main);
+	status = 0;
 	while (token)
 	{
 		if (have_pipe == 1)
 			exec_cmds_pipe(main, token);
 		else
 			call_cmd(main, token);
-		waitpid(token->pid, NULL, 0);
-		if (token->fd_in != STDIN_FILENO)
-			close(token->fd_in);
-		if (token->fd_out != STDOUT_FILENO)
-			close(token->fd_out);
+		waitpid(token->pid, &status, 0);
+		g_status = WEXITSTATUS(status);
+		close_all(token);
 		token = token->next;
 	}
 	//close_fds(main->cmds);
