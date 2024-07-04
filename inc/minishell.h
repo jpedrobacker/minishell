@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/04 12:20:34 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:13:35 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@
 
 # define WRITE_END 1
 # define READ_END 0
+
+typedef struct s_helper
+{
+	char	*t;
+	int		i;
+	int		one_q;
+	int		two_q;
+}			t_helper;
 
 typedef struct s_varenv
 {
@@ -153,8 +161,9 @@ char		*get_quote_pos(char *s);
 
 /*-- split in tokens --*/
 char		**split_in_tokens(char *s, char *in, t_varenv *envs);
-int			line_count(char *s, char *in, int s_len);
+int			new_line_count(char *s, char *in, int i);
 int			check_char(char *s, int i, int s_len, char *in);
+int			check_specials(char *s, int i, int t, char *in);
 
 /*-- expand envs --*/
 void		new_expand_envs(char ***matrix, t_varenv *envs);

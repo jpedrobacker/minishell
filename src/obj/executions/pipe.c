@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:11:49 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/01 19:24:31 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:46:43 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,9 @@ static int	create_pipe(t_token *node, int size)
 	while (node)
 	{
 		if (counter != 1)
-		{
 			node->fd_in = last_pipe;
-		}
 		else
-		{
 			node->fd_in = STDIN_FILENO; // O primeiro node lê do terminal (stdin)
-		}
 		if (counter < size)
 		{
 			if (pipe(fd) == -1)
@@ -41,9 +37,7 @@ static int	create_pipe(t_token *node, int size)
 			last_pipe = fd[READ_END];
 		}
 		else
-		{
 			node->fd_out = STDOUT_FILENO; // O último node escreve no terminal (stdout)
-		}
 		//printf("Node %d: fd_in: %d, fd_out: %d\n", counter, node->fd_in, node->fd_out);
 		counter++;
 		node = node->next;
