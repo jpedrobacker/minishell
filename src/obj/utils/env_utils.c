@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:26:41 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/04 13:20:23 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:19:46 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ char	*get_env_key(char *envp, char c)
 	char	*result;
 
 	len = 0;
-	while (envp[len] != '\0' && envp[len] != c)
-		len++;
-	result = (char*)malloc(len + 1);
+	/*while (envp[len] != '\0' && envp[len] != c)
+		len++;*/
+	len = ft_strlen(envp);
+	result = (char *)malloc(len + 1);
 	if (!result)
 		return (NULL);
 	i = 0;

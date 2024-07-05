@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/04 14:24:10 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/05 10:41:30 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	built_echo(t_main *main, t_token *token, int flag)
 	{
 		if (ft_strcmp(aux->arr[i], ">") == 0)
 			i = i + 2;
-		if (check_quotes(aux->arr[i]) == 1)
+		if (check_quotes(aux->arr[i]) == 1 && aux->arr[i] != NULL)
 			ft_putstr_fd(aux->arr[i], token->fd_out);
-		else
+		else if (aux->arr[i] != NULL)
 			print_with_no_quotes(token, aux->arr, i);
 		if (aux->arr[i + 1])
 			ft_putchar_fd(' ', token->fd_out);

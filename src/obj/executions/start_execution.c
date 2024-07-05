@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/04 14:12:03 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:13:34 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	main_exec(t_main *main)
 		close_all(token);
 		token = token->next;
 	}
+	//update_status();
 	//close_fds(main->cmds);
 	//token = main->cmds;
 	//wait_all(token);
@@ -43,9 +44,9 @@ void	start_execution(char *usr_input, t_main *main)
 	(void) usr_input;
 	main->new_input = rev_split(main->splited_input);
 	tokenize(main);
-	if (!make_pipe(main)) // ESTA FUNCIONANDO
+	if (!make_pipe(main))
 		ft_putstr_fd("Error\n", 2);
-	if (!ordering_fds(main)) // ja abre os pipes, se tiver, e faz os redirecionamentos, se tiver.
+	if (!ordering_fds(main))
 		ft_putstr_fd("Error\n", 2);
 	main_exec(main);
 	//testing redirecting FDs

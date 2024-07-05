@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:11:49 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/04 17:46:43 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/05 11:07:44 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,35 @@
 static int	create_pipe(t_token *node, int size)
 {
 	int	fd[2];
-	int	last_pipe = -1;
-	int	counter = 1;
+	int	last_pipe;
+	int	counter;
 
-	if (size == 1) // Não há motivo para ter pipe, pois só temos 1 node.
-		return 1;
+	last_pipe = -1;
+	counter = 1;
+	if (size == 1)
+		return (1);
 	while (node)
 	{
 		if (counter != 1)
 			node->fd_in = last_pipe;
 		else
-			node->fd_in = STDIN_FILENO; // O primeiro node lê do terminal (stdin)
+			node->fd_in = STDIN_FILENO;
 		if (counter < size)
 		{
 			if (pipe(fd) == -1)
 			{
 				perror("pipe");
-				return 0;
+				return (0);
 			}
 			node->fd_out = fd[WRITE_END];
 			last_pipe = fd[READ_END];
 		}
 		else
-			node->fd_out = STDOUT_FILENO; // O último node escreve no terminal (stdout)
-		//printf("Node %d: fd_in: %d, fd_out: %d\n", counter, node->fd_in, node->fd_out);
+			node->fd_out = STDOUT_FILENO;
 		counter++;
 		node = node->next;
 	}
-	return 1;
+	return (1);
 }
 
 /*

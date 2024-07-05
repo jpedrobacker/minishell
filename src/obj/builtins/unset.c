@@ -6,29 +6,35 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/04 12:01:01 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:16:07 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int		real_unset(t_varenv *env, char **cmds)
+static void	to_free_temp(t_varenv *temp)
+{
+	free(temp->key);
+	free(temp->full_env);
+	free(temp);
+	return ;
+}
+
+int	real_unset(t_varenv *env, char **cmds)
 {
 	t_varenv	*temp;
 	t_varenv	*prev;
 	t_varenv	*cur;
 	int			i;
 
-	i = 1;
-	while (cmds[i])
+	i = 0;
+	while (cmds[++i])
 	{
 		if (ft_strcmp(env->key, cmds[i]) == 0)
 		{
 			temp = env;
 			env = env->next;
-			free(temp->key);
-			free(temp->full_env);
-			free(temp);
+			to_free_temp(temp);
 		}
 		prev = env;
 		cur = prev->next;
@@ -43,9 +49,8 @@ int		real_unset(t_varenv *env, char **cmds)
 			prev = cur;
 			cur = cur->next;
 		}
-		i++;
 	}
-	return (1);
+	return (0);
 }
 
 int	built_unset(t_main *main, t_token *token)

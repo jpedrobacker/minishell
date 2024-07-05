@@ -6,12 +6,11 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:16:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/04 16:34:29 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/05 11:00:08 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
 
 /*
 int	check_chars(char c, char *in)
@@ -120,7 +119,7 @@ static void	core(char *s, char *in, int len, char ***new)
 		{
 			if (t != 0)
 			{
-				(*new)[j++] = ft_substr(s, (i - t), t); //implementar free caso de merda.
+				(*new)[j++] = ft_substr(s, (i - t), t); /*implementar free caso de merda.*/
 				t = 0;
 				i--;
 			}
@@ -149,7 +148,6 @@ char	**split_in_tokens(char *s, char *in, t_varenv *envs)
 	new_expand_envs(&new, envs);
 	return (new);
 }
-
 
 /*
 char	**split_in_tokens(char *s, char *in, t_varenv *envs)

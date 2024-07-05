@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   split_in_tokens_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
+/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:35:14 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/04 16:35:45 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/05 10:58:44 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../inc/minishell.h"
 

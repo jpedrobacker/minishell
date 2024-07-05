@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/25 11:23:45 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/05 11:17:46 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ char	**get_args(char **arr)
 	}
 	return (new);
 }
-
 
 int	is_there_var(char *s)
 {

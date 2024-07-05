@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_envs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
+/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:45:21 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/04 17:17:56 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/05 11:01:20 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,10 @@ t_varenv	*get_value(char *name, t_varenv *envs)
 	t_varenv	*aux;
 
 	aux = envs;
-
 	while (aux)
 	{
-
 		if (!ft_strncmp(aux->key, name, ft_strlen(name)))
-				return (aux);
+			return (aux);
 		aux = aux->next;
 	}
 	return (NULL);
@@ -41,7 +39,6 @@ static char	*get_value_test(char *name, t_varenv *envs)
 	}
 	return (NULL);
 }
-
 
 void	new_expand_envs(char ***matrix, t_varenv *envs)
 {

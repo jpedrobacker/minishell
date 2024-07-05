@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirects_funcs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
+/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:03:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/02 16:26:08 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/05 11:04:17 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	is_appendoc(char *s, int *i, char c)
 			else
 				return (1);
 		}
-			return (0);
+		return (0);
 	}
 	return (0);
 }
