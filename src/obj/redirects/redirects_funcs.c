@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:03:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/05 11:04:17 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:21:36 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static int	special(char c, char *in)
 	return (0);
 }
 
+//RETIRAR O PRINTF DESSA FUNC...
 int	ordering_fds(t_main *bag)
 {
 	t_token	*aux;

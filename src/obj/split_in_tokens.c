@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:16:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/05 11:00:08 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:17:48 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ static void	core(char *s, char *in, int len, char ***new)
 		{
 			if (t != 0)
 			{
-				(*new)[j++] = ft_substr(s, (i - t), t); /*implementar free caso de merda.*/
+				(*new)[j++] = ft_substr(s, (i - t), t);
 				t = 0;
 				i--;
 			}
@@ -175,7 +175,7 @@ char	**split_in_tokens(char *s, char *in, t_varenv *envs)
 		{
 			if (t != 0)
 			{
-				new[j] = ft_substr(s, (i - t), t); //implementar free caso de merda.
+				new[j] = ft_substr(s, (i - t), t);
 				j++;
 				t = 0;
 				i--;
@@ -316,7 +316,7 @@ char	**split_in_tokens(char *s, char *in, t_varenv *envs)
 		{
 			if (t != 0)
 			{
-				new[j] = ft_substr(s, (i - t), t); //implementar free caso de merda.
+				new[j] = ft_substr(s, (i - t), t);
 				j++;
 				t = 0;
 				i--;

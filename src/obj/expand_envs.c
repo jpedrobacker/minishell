@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:45:21 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/05 11:01:20 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:19:07 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ void	new_expand_envs(char ***matrix, t_varenv *envs)
 			}
 		}
 	}
+}
+
+// new_expand_envs()
+{
 	/*
 	char		*temp;
 	char		**s;
@@ -100,4 +104,3 @@ void	new_expand_envs(char ***matrix, t_varenv *envs)
 		i++;
 	}
 	*/
-}
