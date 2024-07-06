@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/05 11:13:34 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/06 10:07:43 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ void	start_execution(char *usr_input, t_main *main)
 	if (!ordering_fds(main))
 		ft_putstr_fd("Error\n", 2);
 	main_exec(main);
-	//testing redirecting FDs
-	//free do token
+	//---------------------------------------------------------
+	//------- PRECISAMOS JOGAR AS FUNCS DE FREE() AQUI --------
+	//------------- MENOS A DE FREE_ENVP() --------------------
+	//---------------------------------------------------------
 }
 //-------------------------------------------------------------------
 //---------------- feat_execution ----------------------------------
