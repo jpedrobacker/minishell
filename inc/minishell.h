@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/28 11:53:08 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/04 17:13:35 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@
 
 # define WRITE_END 1
 # define READ_END 0
+
+typedef struct s_helper
+{
+	char	*t;
+	int		i;
+	int		one_q;
+	int		two_q;
+}			t_helper;
 
 typedef struct s_varenv
 {
@@ -110,7 +118,7 @@ enum e_type_of_errors
 /*-- redirects functions --*/
 int			ordering_fds(t_main *bag);
 int			heredoc_func(t_token *node, t_main *bag, int i);
-void	exec_redirects(t_token *node, t_main *bag);
+void		exec_redirects(t_token *node, t_main *bag);
 int			append_func(t_token *node, t_main *bag, int i);
 int			redirect_in(t_token *node, t_main *bag, int i);
 int			redirect_out(t_token *node, t_main *bag, int i);
@@ -129,13 +137,13 @@ char		*divide_command_input(char *s);
 char		*get_real_path(char ***all_paths, char *command);
 
 /*-- Tokenize funcs --*/
-void	tokenize(t_main *bag);
+void		tokenize(t_main *bag);
 
 /*-- linked list functions --*/
 t_token		*create_list(char *usr_input, t_varenv *envs);
 t_varenv	*make_envp_list(char **envp);
 void		create_node(char *s, t_token **head, char ***paths, t_varenv *envs);
-void		link_envp(char *envp, t_varenv **head);
+void		link_envp(char *envp, t_varenv *head);
 
 /*-- Validate Input functions --*/
 int			validate_input(char *s, t_main *bag);
@@ -153,22 +161,25 @@ char		*get_quote_pos(char *s);
 
 /*-- split in tokens --*/
 char		**split_in_tokens(char *s, char *in, t_varenv *envs);
-int			line_count(char *s, char *in, int s_len);
+int			new_line_count(char *s, char *in, int i);
 int			check_char(char *s, int i, int s_len, char *in);
+int			check_specials(char *s, int i, int t, char *in);
 
 /*-- expand envs --*/
 void		new_expand_envs(char ***matrix, t_varenv *envs);
 
 /*-- builtins --*/
-int			built_cd(t_main **main);
-int			built_pwd(t_main *main);
-int			built_echo(t_main **main, int flag);
-int			built_env(t_main **main);
+int			our_builtins(char *s);
+int			built_cd(t_main *main, t_token *token);
+int			built_pwd(void);
+int			built_echo(t_main *main, t_token *token, int flag);
+int			built_env(t_main *main, t_token *token);
 void		built_exit(t_main *main);
-int			built_export(t_main **main);
-int			built_unset(t_main *main);
-int			built_clear(void);
-int			check_builtins(t_main *main);
+int			built_export(t_varenv *env, t_token *token);
+int			built_unset(t_main *main, t_token *token);
+int			built_clear(t_token *token);
+int			check_builtins(t_main *main, t_token *token);
+void		check_builtins_pipes(t_main *main, t_token *token);
 
 /*-- utils --*/
 void		fix_matrix(t_token **head);
@@ -181,6 +192,9 @@ int			count_cmds(char **args);
 int			echo_flag(char **args);
 int			ft_strcmp(const char *s1, const char *s2);
 void		copy_char_pointer(char ***dest, char **src);
+void		redir_(t_token *token);
+void		close_fds(t_token *token);
+void		close_all(t_token *token);
 
 /*-- handle errors --*/
 void		*errors_mini(int type_err, char *param);
@@ -193,24 +207,26 @@ void		token_free(t_token **head);
 
 /*-- exec functions --*/
 void		start_execution(char *usr_input, t_main *main);
-void		token_fds_close(t_token *head);
-void		exec_non_builtin_cmd(t_token *token, char **env);
-int			call_cmd(t_main *main);
+void		exec_non_builtin_cmd(t_token *token);
+void		main_exec(t_main *main);
+void		wait_all(t_token *token);
 
 /*-- env utils --*/
 char		*get_env_key(char *envp, char c);
 char		*get_env_name(char *s, int flag, int s_len);
 char		**update_envp(t_varenv *env);
-char		*find_var_key(t_varenv **env, char *key_to_find);
-int			update_new_pwd(t_varenv **env);
-int			update_old_pwd(t_varenv **env);
-int			check_var_exist(t_varenv **env, char *input);
+char		*find_var_key(t_varenv *env, char *key_to_find);
+int			update_new_pwd(t_varenv *env);
+int			update_old_pwd(t_varenv *env);
+int			check_var_exist(t_varenv *env, char *input);
 int			env_lst_size(t_varenv *env);
 
 /*-- pipes --*/
 int			make_pipe(t_main *bag);
-void	exec_cmds_pipe(t_token *token, char **envp);
-void	call_cmds_pipe(t_token *token);
+void		exec_cmds_pipe(t_main *main, t_token *token);
+void		call_cmd(t_main *main, t_token *token);
+int			if_pipe(t_main *main);
+
 
 /*-- need to delete --*/
 void	print_node(t_main *bag);

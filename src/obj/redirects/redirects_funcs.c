@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirects_funcs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
+/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:03:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/28 15:38:45 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/05 14:21:36 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static int	special(char c, char *in)
 	return (0);
 }
 
+//RETIRAR O PRINTF DESSA FUNC...
 int	ordering_fds(t_main *bag)
 {
 	t_token	*aux;
@@ -63,7 +64,7 @@ int	is_appendoc(char *s, int *i, char c)
 			else
 				return (1);
 		}
-			return (0);
+		return (0);
 	}
 	return (0);
 }
@@ -86,8 +87,8 @@ void	exec_redirects(t_token *node, t_main *bag)
 		}
 		else if (node->arr[i][0] == '>')
 		{
-			//if (node->fd_out != 1)
-			//	close(node->fd_out);
+			if (node->fd_out != 1)
+				close(node->fd_out);
 			if (!ft_strncmp(node->arr[i], ">>", 2))
 				node->fd_out = append_func(node, bag, i);
 			else

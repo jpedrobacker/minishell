@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 13:58:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/12 15:57:38 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/01 10:11:21 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,16 @@ void	free_splits(char **split)
 	int	i;
 
 	i = 0;
-	while (split[i])
+	if (split[i] != NULL)
 	{
-		free(split[i]);
-		i++;
+		while (split[i])
+		{
+			free(split[i]);
+			i++;
+		}
 	}
-	free(split);
 	//split = NULL;
+	free(split);
 }
 
 void	envs_free(t_varenv **head)

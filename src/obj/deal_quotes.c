@@ -6,12 +6,13 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:51:06 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/14 19:51:15 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:27:11 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+/*
 void	replace_char(char *s, char old, char want)
 {
 	int	i;
@@ -24,6 +25,7 @@ void	replace_char(char *s, char old, char want)
 		i++;
 	}
 }
+*/
 
 void	change_reds(char *s, int *start, int *end)
 {
@@ -107,7 +109,7 @@ void	change_input(char *s)
 			if (s[end] != '\0')
 				change_pipe(s, &start, &end);
 			else
-				ft_putstr_fd("Error quote>\n", 2);
+				ft_putstr_fd("Error quote> \n", 2);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/14 19:43:14 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/04 14:13:06 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ char	*make_prompt(void)
 int	validate_prompt(char *usr_input, t_main *main)
 {
 	(void) main;
-	if (!ft_strlen(usr_input) || !usr_input)
-		return (0);
+	if (!usr_input)
+		return (built_exit(main), 0);
 	if (!validate_input(usr_input, main) || !deal_redirects(main))
 		return (add_history(usr_input), 0);
 	return (1);
@@ -70,6 +70,7 @@ int	main(int ac, char **av, char **envp)
 
 	(void) ac;
 	(void) av;
+	g_status = 0;
 	bag.envs = make_envp_list(envp);
 	sigs_handle();
 	while (1)

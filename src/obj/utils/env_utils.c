@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:26:41 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/14 16:32:34 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/05 16:54:19 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,18 @@ char	**update_envp(t_varenv *env)
 	return (arr);
 }
 
-char	*find_var_key(t_varenv **env, char *key_to_find)
+char	*find_var_key(t_varenv *env, char *key_to_find)
 {
 	t_varenv	*aux;
 
-	aux = (*(env));
+	aux = env;
 	while (aux != NULL)
 	{
 		if (ft_strcmp(aux->key, key_to_find) == 0)
 			return (aux->var);
 		aux = aux->next;
 	}
-	return ("NONE");
+	return ("");
 }
 
 char	*get_env_key(char *envp, char c)
@@ -69,7 +69,7 @@ char	*get_env_key(char *envp, char c)
 	len = 0;
 	while (envp[len] != '\0' && envp[len] != c)
 		len++;
-	result = (char*)malloc(len + 1);
+	result = (char *)malloc(len + 1);
 	if (!result)
 		return (NULL);
 	i = 0;

@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   deal_quotes_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
+/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 21:44:10 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/12 21:57:23 by jbergfel         ###   ########.fr       */
+/*   Created: 2024/07/04 17:24:39 by aprado            #+#    #+#             */
+/*   Updated: 2024/07/04 17:25:03 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	token_fds_close(t_token *head)
+void	replace_char(char *s, char old, char want)
 {
-	while (head)
+	int	i;
+
+	i = 0;
+	while (s[i])
 	{
-		if (head->fd_in != STDIN_FILENO)
-			close(head->fd_in);
-		else if (head->fd_out != STDOUT_FILENO)
-			close(head->fd_out);
-		head = head->next;
+		if (s[i] == old)
+			s[i] = want;
+		i++;
 	}
-	return ;
 }

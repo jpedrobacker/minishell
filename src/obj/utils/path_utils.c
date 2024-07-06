@@ -6,15 +6,13 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:07:29 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/25 11:43:37 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/04 16:27:15 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-#include "../inc/minishell.h"
-
-static int	our_builtins(char *s)
+int	our_builtins(char *s)
 {
 	if (!s)
 		return (0);
@@ -32,7 +30,23 @@ static int	our_builtins(char *s)
 		return (1);
 	else if (!ft_strncmp("unset", s, ft_strlen(s)))
 		return (1);
+	else if (!ft_strncmp("clear", s, ft_strlen(s)))
+		return (1);
 	return (0);
+}
+
+static int	real_path_helper(char ***all_paths, char *command)
+{
+	char	**paths;
+
+	if (!command)
+		return (0);
+	if (our_builtins(command))
+		return (0);
+	paths = (*all_paths);
+	if (!paths)
+		return (0);
+	return (1);
 }
 
 char	*get_real_path(char ***all_paths, char *command)
@@ -43,13 +57,11 @@ char	*get_real_path(char ***all_paths, char *command)
 	int		i;
 
 	i = 0;
-	if (!command)
+	if (!real_path_helper(all_paths, command))
 		return (NULL);
-	if (our_builtins(command))
-		return (NULL);
+	if (access(command, F_OK & X_OK) == 0) // Correcao para o relative path como input
+		return (ft_strdup(command));
 	paths = (*all_paths);
-	if (!paths)
-		return (NULL);
 	test_command = ft_strjoin("/", command);
 	while (paths[i])
 	{

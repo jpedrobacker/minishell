@@ -6,43 +6,54 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:53 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/06/25 15:23:52 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/04 13:47:26 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	built_env(t_main **main)
+int	check_env(char *var)
 {
-	extern int	g_status;
-	t_varenv	*aux_env;
-	t_token		*aux_token;
-	char		**args;
+	int	i;
 
-	aux_token = (*main)->cmds;
-	aux_env = (*main)->envs;
-	args = aux_token->arr;
-	if (count_cmds(args) < 2)
+	i = -1;
+	if (!ft_isalpha(var[0]))
+		return (1);
+	while (var[++i])
+	{
+		if (var[i] == '=')
+			return (0);
+	}
+	return (1);
+}
+
+int	built_env(t_main *main, t_token *token)
+{
+	t_varenv	*aux_env;
+
+	aux_env = main->envs;
+	if (count_cmds(token->args) == 1)
 	{
 		if (!aux_env)
 			ft_putendl_fd("env error!", 2);
 		while (aux_env)
 		{
-			ft_putendl_fd(aux_env->full_env, aux_token->fd_out);
+			if (check_env(aux_env->full_env) == 0)
+				ft_putendl_fd(aux_env->full_env, token->fd_out);
 			aux_env = aux_env->next;
 		}
 	}
 	else
 	{
 		errors_mini(ARGS, "env");
-		return (g_status = 127);
+		return (127);
 	}
-	return (g_status = 1);
+	return (0);
 }
 
 //return de erros da env
 
 /*
 	Não há permissão do arquivo $? = 126
-	Não há dir $0 = 127
+	Não há dir $? = 127
 */

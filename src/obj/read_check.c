@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
+/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:26:28 by aprado            #+#    #+#             */
-/*   Updated: 2024/06/22 17:31:33 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/05 11:03:08 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static int	check_special(char c, char *s)
 static int	end_with_pipe(char *s)
 {
 	int	len;
-
 
 	if (!s)
 		return (0);
