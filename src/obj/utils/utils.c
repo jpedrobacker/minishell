@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/05 11:17:46 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/06 15:44:30 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,15 @@ char	**get_args(char **arr)
 	return (new);
 }
 
+int	ft_isvar(char c)
+{
+	if (c == '?')
+		return (1);
+	if (ft_isalnum(c))
+		return (1);
+	return (0);
+}
+
 int	is_there_var(char *s)
 {
 	int	i;
@@ -89,11 +98,15 @@ int	is_there_var(char *s)
 		{
 			if ((onequote % 2) == 1)
 			{
-				if (s[i + 1] && ft_isalnum(s[i + 1]))
+				if (s[i + 1] && ft_isvar(s[i + 1]))
 					check = 0;
+				//if (s[i + 1] && ft_isalnum(s[i + 1]))
+				//	check = 0;
 			}
-			else if (s[i + 1] && ft_isalnum(s[i + 1]))
+			else if (s[i + 1] && ft_isvar(s[i + 1]))
 				check = 1;
+			//else if (s[i + 1] && ft_isalnum(s[i + 1]))
+			//	check = 1;
 		}
 		i++;
 	}
