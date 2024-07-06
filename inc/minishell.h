@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/04 17:13:35 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/06 15:45:00 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ char		*rev_split(char **matrix);
 char		*get_cmd(char **arr);
 char		**get_args(char **arr);
 int			is_there_var(char *s);
+int			ft_isvar(char c);
 int			count_cmds(char **args);
 int			echo_flag(char **args);
 int			ft_strcmp(const char *s1, const char *s2);

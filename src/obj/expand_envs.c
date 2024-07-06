@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:45:21 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/05 16:54:04 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/06 17:09:23 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static char	*get_value_test(char *name, t_varenv *envs)
 			return (aux->var);
 		aux = aux->next;
 	}
-	return (NULL);
+	return ("");
+	// Retornando "" pode dar merda???
 }
 
 void	new_expand_envs(char ***matrix, t_varenv *envs)
