@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:35:14 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/05 10:58:44 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/06 15:46:32 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ void	count_helper(char *s, int i, int *word, int *line)
 		l++;
 		w = 0;
 	}
-	if ((i + 1) < s_len && (s[i + 1] == '$' || ft_isalnum(s[i + 1])))
+	if ((i + 1) < s_len && (s[i + 1] == '$' || ft_isvar(s[i + 1])))
 		w++;
+	//if ((i + 1) < s_len && (s[i + 1] == '$' || ft_isalnum(s[i + 1])))
+	//	w++;
 	else
 		l++;
 	*word = w;
@@ -86,8 +88,10 @@ int	check_specials(char *s, int i, int t, char *in)
 	s_len = ft_strlen(s);
 	if ((i + 1) < s_len)
 	{
-		if (s[i] == '$' && ft_isalpha(s[i + 1]) && t == 0)
+		if (s[i] == '$' && ft_isvar(s[i + 1]) && t == 0)
 			return (0);
+		//if (s[i] == '$' && ft_isalpha(s[i + 1]) && t == 0)
+		//	return (0);
 	}
 	while (in[x])
 	{
