@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/06 10:07:43 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/06 18:03:04 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@ void	main_exec(t_main *main)
 	status = 0;
 	while (token)
 	{
-		if (have_pipe == 1)
-			exec_cmds_pipe(main, token);
-		else
-			call_cmd(main, token);
-		waitpid(token->pid, &status, 0);
-		g_status = WEXITSTATUS(status);
+		if (pre_execute(token))
+		{
+			if (have_pipe == 1)
+				exec_cmds_pipe(main, token);
+			else
+				call_cmd(main, token);
+			waitpid(token->pid, &status, 0);
+			g_status = WEXITSTATUS(status);
+		}
 		close_all(token);
 		token = token->next;
 	}
