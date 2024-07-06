@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 11:55:58 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/04 14:12:51 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/06 12:37:40 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ void	link_envp(char *envp, t_varenv *head)
 	while (aux->next)
 		aux = aux->next;
 	aux->next = node;
+}
+
+void	add_gstatus_to_env(t_varenv *envs)
+{
+	extern int	g_status;
+	char		*str_gstatus;
+
+	str_gstatus = ft_itoa(g_status);
+	ft_printf("TESTE G: %s\n", ft_strjoin("?=", str_gstatus));
+	link_envp(ft_strjoin("?=", str_gstatus), envs);
 }
 
 t_varenv	*make_envp_list(char **envp)
@@ -68,5 +78,6 @@ t_varenv	*make_envp_list(char **envp)
 		}
 		i++;
 	}
+	add_gstatus_to_env(head);
 	return (head);
 }

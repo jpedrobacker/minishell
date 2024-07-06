@@ -6,11 +6,24 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/04 14:25:38 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/06 13:27:16 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	print_export(t_token *token, t_varenv *env)
+{
+	while (env != NULL)
+	{
+		ft_putstr_fd("declare -x ", token->fd_out);
+		ft_putstr_fd(env->key, token->fd_out);
+		ft_putstr_fd("=\"", token->fd_out);
+		ft_putstr_fd(env->var, token->fd_out);
+		ft_putendl_fd("\"", token->fd_out);
+		env = env->next;
+	}
+}
 
 int	check_export(char *var)
 {
@@ -56,15 +69,7 @@ int	built_export(t_varenv *env, t_token *token)
 	arrs = count_cmds(aux_token->arr);
 	if (arrs == 1)
 	{
-		while (aux_env != NULL)
-		{
-			ft_putstr_fd("declare -x ", aux_token->fd_out);
-			ft_putstr_fd(aux_env->key, aux_token->fd_out);
-			ft_putstr_fd("=\"", aux_token->fd_out);
-			ft_putstr_fd(aux_env->var, aux_token->fd_out);
-			ft_putendl_fd("\"", aux_token->fd_out);
-			aux_env = aux_env->next;
-		}
+		print_export(aux_token, aux_env);
 		return (0);
 	}
 	else

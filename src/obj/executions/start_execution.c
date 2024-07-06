@@ -6,11 +6,22 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/05 11:13:34 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/06 12:25:40 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	update_gstatus(t_varenv *env)
+{
+	extern int	g_status;
+	char		*str_status;
+	t_varenv	*aux_env;
+
+	aux_env = env;
+	str_status = ft_itoa(g_status);
+	check_var_exist(aux_env, str_status);
+}
 
 void	main_exec(t_main *main)
 {
@@ -33,7 +44,7 @@ void	main_exec(t_main *main)
 		close_all(token);
 		token = token->next;
 	}
-	//update_status();
+	update_gstatus(main->envs);
 	//close_fds(main->cmds);
 	//token = main->cmds;
 	//wait_all(token);

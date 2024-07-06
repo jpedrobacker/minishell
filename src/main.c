@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/04 14:13:06 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/06 12:28:13 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	main(int ac, char **av, char **envp)
 			continue ;
 		}
 		start_execution(usr_input, &bag);
-		ft_printf("g_status: %d\n", g_status);
+		//ft_printf("g_status: %d\n", g_status);
 		add_history(usr_input);
 		free(usr_input);
 	}
