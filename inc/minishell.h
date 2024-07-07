@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/04 17:13:35 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/06 17:02:55 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ void		copy_char_pointer(char ***dest, char **src);
 void		redir_(t_token *token);
 void		close_fds(t_token *token);
 void		close_all(t_token *token);
+int			ft_isvar(char c);
 
 /*-- handle errors --*/
 void		*errors_mini(int type_err, char *param);
@@ -230,5 +231,8 @@ int			if_pipe(t_main *main);
 
 /*-- need to delete --*/
 void	print_node(t_main *bag);
+
+void	sig_int_handle(int sig);
+void	sigs_handle(void);
 
 #endif

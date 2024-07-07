@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirects_funcs_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
+/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:22:56 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/06 15:28:33 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/06 19:10:55 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,17 @@
 //node->fd_out
 // ------------- IMPORTANTE --------------
 // Essas funcoes vao apenas abrir/criar os FDs necessarios, quando ncessario.
-// Elas nao vao dar dup2() em NADA agora. 
+// Elas nao vao dar dup2() em NADA agora.
 // O dup2() tem que ser feito dentro do fork()
+
+void	sig_int_heredoc_handle(int sig)
+{
+	if (sig == SIGINT)
+	{
+		ft_printf("TESTEEEEEEE KRL\n");
+		close(0);
+	}
+}
 
 int	heredoc_func(t_token *node, t_main *bag, int i)
 {
@@ -30,6 +39,7 @@ int	heredoc_func(t_token *node, t_main *bag, int i)
 	buff = NULL;
 	if (pipe(hd_fd) == -1)
 		return (-1);
+	signal(SIGINT, sig_int_heredoc_handle);
 	while (42)
 	{
 		buff = readline("> ");
@@ -37,8 +47,7 @@ int	heredoc_func(t_token *node, t_main *bag, int i)
 			break ;
 		else if (buff)
 		{
-			ft_putstr_fd(buff, hd_fd[1]);
-			ft_putchar_fd('\n', hd_fd[1]);
+			ft_putendl_fd(buff, hd_fd[1]);
 			free(buff);
 		}
 	}

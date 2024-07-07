@@ -6,21 +6,21 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/06 16:32:40 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/06 17:14:16 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	update_gstatus(t_varenv *env)
+void	update_gstatus(t_varenv *env, int status)
 {
-	extern int	g_status;
 	char		*str_status;
 	t_varenv	*aux_env;
 
 	aux_env = env;
-	str_status = ft_itoa(g_status);
+	str_status = ft_strjoin("?=", ft_itoa(status));
 	check_var_exist(aux_env, str_status);
+	free(str_status);
 }
 
 void	main_exec(t_main *main)
@@ -44,7 +44,6 @@ void	main_exec(t_main *main)
 		close_all(token);
 		token = token->next;
 	}
-	update_gstatus(main->envs);
 	//close_fds(main->cmds);
 	//token = main->cmds;
 	//wait_all(token);
@@ -52,7 +51,10 @@ void	main_exec(t_main *main)
 
 void	start_execution(char *usr_input, t_main *main)
 {
+	extern int	g_status;
+
 	(void) usr_input;
+	update_gstatus(main->envs, g_status);
 	main->new_input = rev_split(main->splited_input);
 	tokenize(main);
 	if (!make_pipe(main))
