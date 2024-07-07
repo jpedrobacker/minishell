@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 15:59:53 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/07 18:11:36 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ void	start_execution(char *usr_input, t_main *main)
 	main->new_input = rev_split(main->splited_input);
 	tokenize(main);
 	if (!make_pipe(main))
-		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("Pipe Error.\n", 2);
 	if (!ordering_fds(main))
-		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("Use an existing file.\n", 2);
 	main_exec(main);
 	wait_all(main->cmds);
 	update_gstatus(main->envs);

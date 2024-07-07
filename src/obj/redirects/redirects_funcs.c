@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:03:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/05 14:21:36 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/07 17:07:45 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	ordering_fds(t_main *bag)
 	while (aux)
 	{
 		ft_printf("----- changing FDs -----\n");
-		exec_redirects(aux, bag);
+		if (!exec_redirects(aux, bag))
+			return (0);
 		ft_printf("in: %i, out: %i, hd: %i\n", aux->fd_in, aux->fd_out, aux->hd_fd);
 		aux = aux->next;
 	}
@@ -69,7 +70,7 @@ int	is_appendoc(char *s, int *i, char c)
 	return (0);
 }
 
-void	exec_redirects(t_token *node, t_main *bag)
+int	exec_redirects(t_token *node, t_main *bag)
 {
 	int	i;
 
@@ -94,6 +95,9 @@ void	exec_redirects(t_token *node, t_main *bag)
 			else
 				node->fd_out = redirect_out(node, bag, i);
 		}
+		if (node->fd_in == -1 || node->fd_out == -1)
+			return (0);
 		i++;
 	}
+	return (1);
 }

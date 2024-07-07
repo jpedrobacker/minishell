@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 04:30:18 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 17:08:04 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ extern int	g_status;
 /*-- redirects functions --*/
 int			ordering_fds(t_main *bag);
 int			heredoc_func(t_token *node, t_main *bag, int i);
-void		exec_redirects(t_token *node, t_main *bag);
+int			exec_redirects(t_token *node, t_main *bag);
 int			append_func(t_token *node, t_main *bag, int i);
 int			redirect_in(t_token *node, t_main *bag, int i);
 int			redirect_out(t_token *node, t_main *bag, int i);
