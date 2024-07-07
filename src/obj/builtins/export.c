@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/04 14:25:38 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 05:47:03 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,32 @@
 
 int	check_export(char *var)
 {
-	if (!ft_isalpha(var[0]))
+	if (!ft_isalpha(var[0]) && var[0] != '_')
 		return (1);
 	return (0);
 }
+
+void	print_export(t_token *token, t_varenv *env)
+{
+	while (env != NULL)
+	{
+		if (check_export(env->key) == 0)
+		{
+			ft_putstr_fd("declare -x ", token->fd_out);
+			ft_putstr_fd(env->key, token->fd_out);
+			if (env->var != NULL)
+			{
+				ft_putstr_fd("=\"", token->fd_out);
+				ft_putstr_fd(env->var, token->fd_out);
+				ft_putendl_fd("\"", token->fd_out);
+			}
+			else
+				ft_putchar_fd('\n', token->fd_out);
+		}
+		env = env->next;
+	}
+}
+
 
 int	check_var_exist(t_varenv *env, char *input)
 {
@@ -55,18 +77,7 @@ int	built_export(t_varenv *env, t_token *token)
 	aux_token = token;
 	arrs = count_cmds(aux_token->arr);
 	if (arrs == 1)
-	{
-		while (aux_env != NULL)
-		{
-			ft_putstr_fd("declare -x ", aux_token->fd_out);
-			ft_putstr_fd(aux_env->key, aux_token->fd_out);
-			ft_putstr_fd("=\"", aux_token->fd_out);
-			ft_putstr_fd(aux_env->var, aux_token->fd_out);
-			ft_putendl_fd("\"", aux_token->fd_out);
-			aux_env = aux_env->next;
-		}
-		return (0);
-	}
+		print_export(aux_token, aux_env);
 	else
 	{
 		i = 1;

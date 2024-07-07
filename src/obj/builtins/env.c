@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:53 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/04 13:47:26 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 05:34:30 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_env(char *var)
 	int	i;
 
 	i = -1;
-	if (!ft_isalpha(var[0]))
+	if (!ft_isalpha(var[0]) && var[0] != '_')
 		return (1);
 	while (var[++i])
 	{

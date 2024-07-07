@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/06 17:39:25 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/07 04:30:18 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct		s_main
 	char		*dup_usr_input;
 	char		*new_input;
 	char		*envs_path;
+	char		*usr_input;
 }			t_main;
 
 enum e_type_of_flags
@@ -114,6 +115,8 @@ enum e_type_of_errors
 	NO_DIR = 11, //Not a
 	ARGS = 12 //Too many arguments
 };
+
+extern int	g_status;
 
 /*-- redirects functions --*/
 int			ordering_fds(t_main *bag);
@@ -196,6 +199,7 @@ void		copy_char_pointer(char ***dest, char **src);
 void		redir_(t_token *token);
 void		close_fds(t_token *token);
 void		close_all(t_token *token);
+int			ft_isvar(char c);
 
 /*-- handle errors --*/
 void		*errors_mini(int type_err, char *param);
@@ -232,5 +236,8 @@ int			if_pipe(t_main *main);
 
 /*-- need to delete --*/
 void	print_node(t_main *bag);
+
+void	sig_int_handle(int sig);
+void	sigs_handle(void);
 
 #endif

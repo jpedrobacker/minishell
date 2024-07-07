@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:14 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/03 22:18:58 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 05:49:14 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	update_new_pwd(t_varenv *env)
 
 int	built_cd(t_main *main, t_token *token)
 {
-	extern int	g_status;
 	t_token		*aux_cmds;
 	t_varenv	*aux_env;
 	int			args;
@@ -80,5 +79,5 @@ int	built_cd(t_main *main, t_token *token)
 	if (chdir(aux_cmds->arr[1]) != -1)
 		return (update_old_pwd(aux_env), update_new_pwd(aux_env));
 	errors_mini(NDIR, "cd");
-	return (g_status = 1);
+	return (1);
 }

@@ -6,22 +6,29 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/06 18:03:04 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/07 05:28:24 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+void	update_gstatus(t_varenv *env)
+{
+	char		*str_status;
+	t_varenv	*aux_env;
+
+	aux_env = env;
+	str_status = ft_strjoin("?=", ft_itoa(g_status));
+	check_var_exist(aux_env, str_status);
+}
+
 void	main_exec(t_main *main)
 {
-	extern int	g_status;
 	t_token		*token;
 	int			have_pipe;
-	int			status;
 
 	token = main->cmds;
 	have_pipe = if_pipe(main);
-	status = 0;
 	while (token)
 	{
 		if (pre_execute(token))
@@ -30,20 +37,43 @@ void	main_exec(t_main *main)
 				exec_cmds_pipe(main, token);
 			else
 				call_cmd(main, token);
-			waitpid(token->pid, &status, 0);
-			g_status = WEXITSTATUS(status);
 		}
 		close_all(token);
 		token = token->next;
 	}
-	//update_status();
 	//close_fds(main->cmds);
 	//token = main->cmds;
 	//wait_all(token);
 }
 
+void	wait_all(t_token *token)
+{
+	t_token	*aux;
+	int		status;
+
+	if (!token)
+		return ;
+	aux = token;
+	while (token)
+	{
+		if (token->pid != 0)
+			waitpid(token->pid, &status, 0);
+		token = token->next;
+	}
+	token = aux;
+	while (token)
+	{
+		if (status >= 0)
+			g_status = WEXITSTATUS(status);
+		token = token->next;
+	}
+	return ;
+}
+
 void	start_execution(char *usr_input, t_main *main)
 {
+	extern int	g_status;
+
 	(void) usr_input;
 	main->new_input = rev_split(main->splited_input);
 	tokenize(main);
@@ -52,6 +82,8 @@ void	start_execution(char *usr_input, t_main *main)
 	if (!ordering_fds(main))
 		ft_putstr_fd("Error\n", 2);
 	main_exec(main);
+	wait_all(main->cmds);
+	update_gstatus(main->envs);
 	//---------------------------------------------------------
 	//------- PRECISAMOS JOGAR AS FUNCS DE FREE() AQUI --------
 	//------------- MENOS A DE FREE_ENVP() --------------------
