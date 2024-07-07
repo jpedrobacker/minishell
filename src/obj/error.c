@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 13:58:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/01 10:11:21 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 16:09:30 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	*errors_mini(int type_err, char *param)
 	return (NULL);
 }
 
+/*
 void	to_free_varenv(t_varenv **lst_env)
 {
 	t_varenv	*begin;
@@ -63,7 +64,7 @@ void	to_free_varenv(t_varenv **lst_env)
 	*lst_env = NULL;
 }
 
-/*
+//FUNCAO NAO USADA.....
 void	to_free_token(t_token **token)
 {
 	t_token	*begin;
@@ -90,7 +91,6 @@ void	to_free_token(t_token **token)
 	}
 	*token = NULL;
 }
-*/
 
 void	free_splits(char **split)
 {
@@ -160,3 +160,4 @@ void	token_free(t_token **head)
 		free(temp);
 	}
 }
+*/

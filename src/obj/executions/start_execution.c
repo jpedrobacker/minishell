@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 05:28:24 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 15:59:53 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,10 @@ void	start_execution(char *usr_input, t_main *main)
 	//------- PRECISAMOS JOGAR AS FUNCS DE FREE() AQUI --------
 	//------------- MENOS A DE FREE_ENVP() --------------------
 	//---------------------------------------------------------
+	free_all(main);
+	token_free(&main->cmds);
+	//so damos free na linked list envp apenas quando encerramos o programa!
+	//envs_free(&bag->envs);
 }
 //-------------------------------------------------------------------
 //---------------- feat_execution ----------------------------------

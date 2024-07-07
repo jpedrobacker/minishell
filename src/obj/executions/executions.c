@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:00:52 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 05:46:08 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 16:34:38 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exec_normal_cmd_pipe(t_token *token)
 	redir_(token);
 	//temp = main->cmds;
 	//close_fds(temp);
-	execve(token->real_path, token->args, token->envs);
+	execve(token->real_path, token->args, NULL);
 	return ;
 }
 
