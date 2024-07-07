@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/06 17:02:55 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 04:30:18 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct		s_main
 	char		*dup_usr_input;
 	char		*new_input;
 	char		*envs_path;
+	char		*usr_input;
 }			t_main;
 
 enum e_type_of_flags
@@ -114,6 +115,8 @@ enum e_type_of_errors
 	NO_DIR = 11, //Not a
 	ARGS = 12 //Too many arguments
 };
+
+extern int	g_status;
 
 /*-- redirects functions --*/
 int			ordering_fds(t_main *bag);
@@ -188,6 +191,7 @@ char		*rev_split(char **matrix);
 char		*get_cmd(char **arr);
 char		**get_args(char **arr);
 int			is_there_var(char *s);
+int			ft_isvar(char c);
 int			count_cmds(char **args);
 int			echo_flag(char **args);
 int			ft_strcmp(const char *s1, const char *s2);
@@ -211,6 +215,7 @@ void		start_execution(char *usr_input, t_main *main);
 void		exec_non_builtin_cmd(t_token *token);
 void		main_exec(t_main *main);
 void		wait_all(t_token *token);
+int			pre_execute(t_token *token);
 
 /*-- env utils --*/
 char		*get_env_key(char *envp, char c);

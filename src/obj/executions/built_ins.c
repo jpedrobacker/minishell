@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 11:21:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/04 12:25:29 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 05:00:34 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	check_builtins(t_main *main, t_token *token)
 {
-	extern int	g_status;
-	int			status;
+	int	status;
 
 	status = 0;
 	if (ft_strcmp("cd", token->cmd) == 0)

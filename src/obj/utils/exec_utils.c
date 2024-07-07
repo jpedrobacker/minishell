@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:44:10 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/02 20:40:02 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/07 05:26:04 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,31 +49,5 @@ void	close_all(t_token *token)
 		close(token->fd_in);
 	if (token->fd_out != STDOUT_FILENO)
 		close(token->fd_out);
-	return ;
-}
-
-void	wait_all(t_token *token)
-{
-	t_token	*aux;
-	extern int	g_status;
-	int	status;
-
-	status = 0;
-	if (!token)
-		return ;
-	aux = token;
-	while (token)
-	{
-		if (token->pid != 0)
-			waitpid(token->pid, &status, 0);
-		token = token->next;
-	}
-	token = aux;
-	while (token)
-	{
-		if (status >= 0)
-			g_status = WEXITSTATUS(status);
-		token = token->next;
-	}
 	return ;
 }

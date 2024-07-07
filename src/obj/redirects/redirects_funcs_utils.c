@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:22:56 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/06 19:10:55 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 04:40:35 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,15 @@ void	sig_int_heredoc_handle(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_printf("TESTEEEEEEE KRL\n");
-		close(0);
+		signal(SIGINT, SIG_DFL);
+		
+	}
+	else
+	{
+		write(1, "> ", 2);
+		ioctl(1, TIOCSTI, 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
 	}
 }
 
@@ -39,7 +46,7 @@ int	heredoc_func(t_token *node, t_main *bag, int i)
 	buff = NULL;
 	if (pipe(hd_fd) == -1)
 		return (-1);
-	signal(SIGINT, sig_int_heredoc_handle);
+	signal(SIGINT, &sig_int_heredoc_handle);
 	while (42)
 	{
 		buff = readline("> ");
