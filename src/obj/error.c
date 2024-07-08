@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 13:58:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/01 10:11:21 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:08:21 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ void	*errors_mini(int type_err, char *param)
 	return (NULL);
 }
 
-void	to_free_varenv(t_varenv **lst_env)
+void	to_free_varenv(t_varenv *lst_env)
 {
 	t_varenv	*begin;
 	t_varenv	*temp;
 
-	begin = (*(lst_env));
+	begin = lst_env;
 	free(begin->key);
 	temp = begin->next;
 	free(begin);
@@ -55,12 +55,16 @@ void	to_free_varenv(t_varenv **lst_env)
 	while (begin)
 	{
 		temp = begin->next;
+		if (ft_strcmp("?", begin->key) == 0)
+			free(begin->var);
+		begin->var = NULL;
 		free(begin->key);
+		begin->key = NULL;
 		free(begin);
 		begin = NULL;
 		begin = temp;
 	}
-	*lst_env = NULL;
+	lst_env = NULL;
 }
 
 /*
@@ -136,6 +140,7 @@ void	free_all(t_main *bag)
 	free_splits(bag->paths);
 //	token_free(&bag->cmds);
 //	envs_free(&bag->envs);
+//	to_free_varenv(bag->envs);
 	bag->new_input = NULL;
 	bag->dup_usr_input = NULL;
 	bag->splited_input = NULL;

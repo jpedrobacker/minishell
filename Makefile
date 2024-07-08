@@ -22,7 +22,7 @@ $(NAME): $(OBJ)
 
 val: re
 	make clean
-	valgrind --leak-check=full --show-leak-kinds=all --suppressions=suppression/rline.supp ./minishell
+	valgrind -s --leak-check=full --show-leak-kinds=all --suppressions=suppression/rline.supp ./minishell
 
 clean:
 		make -C lib clean

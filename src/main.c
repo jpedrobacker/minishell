@@ -6,41 +6,13 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 21:01:52 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:58:47 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 int	g_status;
-
-void	sig_int_handle(int sig)
-{
-	extern int	g_status;
-
-	if (sig == SIGINT)
-	{
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-	}
-	g_status = 130;
-}
-
-void	sigs_handle(void)
-{
-	struct sigaction	sig;
-
-	signal(SIGQUIT, SIG_IGN);
-	ft_memset(&sig, 0, sizeof(sig));
-	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-		exit(EXIT_FAILURE);
-	sig.sa_handler = sig_int_handle;
-	if (sigemptyset(&sig.sa_mask) < 0 || sigaddset(&sig.sa_mask, SIGINT) < 0)
-		exit(EXIT_FAILURE);
-	if (sigaction(SIGINT, &sig, NULL) < 0)
-		exit(EXIT_FAILURE);
-}
 
 void	make_prompt(t_main *main)
 {
@@ -66,7 +38,7 @@ int	validate_prompt(char *usr_input, t_main *main)
 
 int	main(int ac, char **av, char **envp)
 {
-	t_main		bag;
+	t_main	bag;
 
 	(void) ac;
 	(void) av;
@@ -76,8 +48,10 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		rl_replace_line("", 0);
+		kill(getpid(), SIGUSR1);
 		make_prompt(&bag);
 		bag.usr_input = readline(bag.usr_input);
+		update_gstatus(bag.envs);
 		if (!validate_prompt(bag.usr_input, &bag))
 		{
 			free(bag.usr_input);

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 21:24:04 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:17:16 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,14 @@ void	wait_all(t_token *token)
 	aux = token;
 	while (token)
 	{
-		if (token->pid != 0)
+		if (token->pid != 0 && !our_builtins(token->cmd))
 			waitpid(token->pid, &status, 0);
 		token = token->next;
 	}
 	token = aux;
 	while (token)
 	{
-		if (status >= 0)
+		if (status >= 0 && !our_builtins(token->cmd))
 			g_status = WEXITSTATUS(status);
 		token = token->next;
 	}
@@ -96,7 +96,6 @@ void	start_execution(char *usr_input, t_main *main)
 	if (!ordering_fds(main))
 		ft_putstr_fd("Error\n", 2);
 	main_exec(main);
-	update_gstatus(main->envs);
 	wait_all(main->cmds);
 	//---------------------------------------------------------
 	//------- PRECISAMOS JOGAR AS FUNCS DE FREE() AQUI --------

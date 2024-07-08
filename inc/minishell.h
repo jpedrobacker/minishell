@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 19:49:23 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:04:12 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ int			ft_isvar(char c);
 /*-- handle errors --*/
 void		*errors_mini(int type_err, char *param);
 void		to_free_token(t_token **token);
-void		to_free_varenv(t_varenv **lst_env);
+void		to_free_varenv(t_varenv *lst_env);
 void		free_splits(char **split);
 void		free_all(t_main *bag);
 void		envs_free(t_varenv **head);
@@ -223,6 +223,7 @@ int			update_new_pwd(t_varenv *env);
 int			update_old_pwd(t_varenv *env);
 int			check_var_exist(t_varenv *env, char *input);
 int			env_lst_size(t_varenv *env);
+void		update_gstatus(t_varenv *env);
 
 /*-- pipes --*/
 int			make_pipe(t_main *bag);

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 11:55:58 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 20:16:57 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:18:23 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,8 @@ void	link_envp(char *envp, t_varenv *head)
 void	add_gstatus_to_env(t_varenv *envs)
 {
 	char		*str_gstatus;
-	char		*g_status_itoa;
 
-	g_status_itoa = ft_itoa(g_status);
-	str_gstatus = ft_strjoin("?=" , g_status_itoa);
+	str_gstatus = "?=0";
 	link_envp(str_gstatus, envs);
 }
 

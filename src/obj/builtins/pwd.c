@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:30:41 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/04 12:02:36 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:13:12 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ int	built_pwd(void)
 	if (getcwd(pwd, sizeof(pwd)) != NULL)
 		ft_putendl_fd(pwd, STDOUT_FILENO);
 	else
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
