@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 11:55:58 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/06 12:37:40 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 20:16:57 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	link_envp(char *envp, t_varenv *head)
 		return ;
 	node->key = get_env_key(envp, '=');
 	node->var = ft_memchr(envp, '=', ft_strlen(envp));
-	node->full_env = ft_strdup(envp);
 	node->next = NULL;
 	if (!head)
 	{
@@ -37,12 +36,12 @@ void	link_envp(char *envp, t_varenv *head)
 
 void	add_gstatus_to_env(t_varenv *envs)
 {
-	extern int	g_status;
 	char		*str_gstatus;
+	char		*g_status_itoa;
 
-	str_gstatus = ft_itoa(g_status);
-	ft_printf("TESTE G: %s\n", ft_strjoin("?=", str_gstatus));
-	link_envp(ft_strjoin("?=", str_gstatus), envs);
+	g_status_itoa = ft_itoa(g_status);
+	str_gstatus = ft_strjoin("?=" , g_status_itoa);
+	link_envp(str_gstatus, envs);
 }
 
 t_varenv	*make_envp_list(char **envp)
@@ -61,7 +60,6 @@ t_varenv	*make_envp_list(char **envp)
 			return (NULL);
 		node->key = get_env_key(envp[i], '=');
 		node->var = ft_memchr(envp[i], '=', ft_strlen(envp[i]));
-		node->full_env = ft_strdup(envp[i]);
 		node->next = NULL;
 		if (head == NULL)
 		{

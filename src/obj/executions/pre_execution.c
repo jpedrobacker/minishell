@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_execution.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
+/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 17:39:47 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/06 17:57:50 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/07 10:10:28 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	pre_execute(t_token *token)
 	{
 		write(2, token->cmd, ft_strlen(token->cmd));
 		ft_putstr_fd(": command not found\n", 2);
+		g_status = 127;
 		return (0);
 	}
 	return (1);

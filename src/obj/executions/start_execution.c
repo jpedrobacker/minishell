@@ -6,20 +6,37 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 05:28:24 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 21:24:04 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	update_gstatus(t_varenv *env)
+int	change_status_var(t_varenv *env, char *new_var)
 {
-	char		*str_status;
 	t_varenv	*aux_env;
 
 	aux_env = env;
-	str_status = ft_strjoin("?=", ft_itoa(g_status));
-	check_var_exist(aux_env, str_status);
+	while (aux_env)
+	{
+		if (ft_strcmp(aux_env->key, "?") == 0)
+		{
+			aux_env->var = new_var;
+			return (0);
+		}
+		aux_env = aux_env->next;
+	}
+	return (1);
+}
+
+void	update_gstatus(t_varenv *env)
+{
+	char		*g_status_char;
+	t_varenv	*aux_env;
+
+	aux_env = env;
+	g_status_char = ft_itoa(g_status);
+	change_status_var(aux_env, g_status_char);
 }
 
 void	main_exec(t_main *main)
@@ -43,7 +60,6 @@ void	main_exec(t_main *main)
 	}
 	//close_fds(main->cmds);
 	//token = main->cmds;
-	//wait_all(token);
 }
 
 void	wait_all(t_token *token)
@@ -72,8 +88,6 @@ void	wait_all(t_token *token)
 
 void	start_execution(char *usr_input, t_main *main)
 {
-	extern int	g_status;
-
 	(void) usr_input;
 	main->new_input = rev_split(main->splited_input);
 	tokenize(main);
@@ -82,8 +96,8 @@ void	start_execution(char *usr_input, t_main *main)
 	if (!ordering_fds(main))
 		ft_putstr_fd("Error\n", 2);
 	main_exec(main);
-	wait_all(main->cmds);
 	update_gstatus(main->envs);
+	wait_all(main->cmds);
 	//---------------------------------------------------------
 	//------- PRECISAMOS JOGAR AS FUNCS DE FREE() AQUI --------
 	//------------- MENOS A DE FREE_ENVP() --------------------

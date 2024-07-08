@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 04:30:18 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 19:49:23 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct s_helper
 
 typedef struct s_varenv
 {
-	char			*full_env; //malloc
 	char			*key;
 	char			*var; //malloc
 	struct s_varenv	*next;
@@ -69,7 +68,6 @@ typedef struct	s_token
 	char			*token; // the string node
 	char			**arr; // array with all the params divided by space
 	char			**args; // array with the command and its args
-	char			**envs;
 	int				flag;
 	pid_t			pid;
 	struct s_token	*next;
@@ -220,7 +218,6 @@ int			pre_execute(t_token *token);
 /*-- env utils --*/
 char		*get_env_key(char *envp, char c);
 char		*get_env_name(char *s, int flag, int s_len);
-char		**update_envp(t_varenv *env);
 char		*find_var_key(t_varenv *env, char *key_to_find);
 int			update_new_pwd(t_varenv *env);
 int			update_old_pwd(t_varenv *env);

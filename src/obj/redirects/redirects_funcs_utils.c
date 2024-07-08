@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:22:56 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/07 04:40:35 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 16:39:18 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	sig_int_heredoc_handle(int sig)
 	if (sig == SIGINT)
 	{
 		signal(SIGINT, SIG_DFL);
-		
+		exit(EXIT_SUCCESS);
 	}
 	else
 	{

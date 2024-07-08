@@ -6,16 +6,19 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 05:47:03 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 21:22:51 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	check_export(char *var)
+int	check_export(char *key)
 {
-	if (!ft_isalpha(var[0]) && var[0] != '_')
-		return (1);
+	if (key)
+	{
+		if (!ft_isalpha(key[0]) && key[0] != '_')
+			return (1);
+	}
 	return (0);
 }
 
@@ -55,8 +58,6 @@ int	check_var_exist(t_varenv *env, char *input)
 		if (ft_strcmp(key, aux->key) == 0)
 		{
 			aux->var = var;
-			free(aux->full_env);
-			aux->full_env = ft_strdup(input);
 			free(key);
 			return (0);
 		}

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 05:28:32 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 21:01:52 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,13 @@ void	sigs_handle(void)
 		exit(EXIT_FAILURE);
 }
 
-char	*make_prompt(void)
+void	make_prompt(t_main *main)
 {
 	char	curdir[PATH_MAX];
 	char	*prompt;
 
 	prompt = getcwd(curdir, sizeof(curdir));
-	prompt = ft_strjoin(prompt, "$>>> ");
-	return (prompt);
+	main->usr_input = ft_strjoin(prompt, "$>>> ");
 }
 
 int	validate_prompt(char *usr_input, t_main *main)
@@ -61,7 +60,7 @@ int	validate_prompt(char *usr_input, t_main *main)
 		exit(EXIT_SUCCESS);
 	}
 	if (!validate_input(usr_input, main) || !deal_redirects(main))
-		return (add_history(usr_input), 0);
+		return (0);
 	return (1);
 }
 
@@ -77,14 +76,14 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		rl_replace_line("", 0);
-		bag.usr_input = readline(make_prompt());
+		make_prompt(&bag);
+		bag.usr_input = readline(bag.usr_input);
 		if (!validate_prompt(bag.usr_input, &bag))
 		{
 			free(bag.usr_input);
 			continue ;
 		}
 		start_execution(bag.usr_input, &bag);
-		//ft_printf("g_status: %d\n", g_status);
 		add_history(bag.usr_input);
 		free(bag.usr_input);
 	}

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:00:52 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 05:46:08 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 19:58:57 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exec_normal_cmd_pipe(t_token *token)
 	redir_(token);
 	//temp = main->cmds;
 	//close_fds(temp);
-	execve(token->real_path, token->args, token->envs);
+	execve(token->real_path, token->args, NULL);
 	return ;
 }
 
@@ -48,7 +48,6 @@ void	exec_non_builtin_cmd(t_token *token)
 
 void	call_cmd(t_main *main, t_token *token)
 {
-	token->envs = update_envp(main->envs);
 	if (!our_builtins(token->cmd))
 		exec_non_builtin_cmd(token);
 	else

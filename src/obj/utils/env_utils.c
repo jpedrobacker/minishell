@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:26:41 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/05 16:54:19 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/07 19:24:24 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,12 @@ int	env_lst_size(t_varenv *env)
 
 	temp = env;
 	i = 0;
-	while (temp != NULL)
+	while (temp)
 	{
-		temp = temp->next;
 		i++;
+		temp = temp->next;
 	}
 	return (i);
-}
-
-char	**update_envp(t_varenv *env)
-{
-	int		i;
-	int		len;
-	char	**arr;
-
-	i = 0;
-	len = env_lst_size(env);
-	arr = (char **)malloc(sizeof(char *) * (len + 1));
-	while (env)
-	{
-		arr[i] = ft_strdup(env->full_env);
-		env = env->next;
-		i++;
-	}
-	arr[i] = NULL;
-	return (arr);
 }
 
 char	*find_var_key(t_varenv *env, char *key_to_find)
