@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 17:08:04 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/08 14:26:03 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_helper
 	int		i;
 	int		one_q;
 	int		two_q;
+	int		hd;
 }			t_helper;
 
 typedef struct s_varenv
