@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/06 16:58:07 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:57:39 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ int	check_quotes(char *s)
 void	print_with_no_quotes(t_token *token, char **arr, int i)
 {
 	int	j;
+	int	len;
 
 	if (!arr[i])
 		return ;
-	j = 0;
+	j = 1;
+	len = ft_strlen(arr[i]);
 	while (arr[i][j])
 	{
-		while (arr[i][j] == '\"' || arr[i][j] == '\'')
-			j++;
-		if (arr[i][j] == '\0')
+		if (arr[i][j] == '\0' || j == len - 1)
 			break ;
 		ft_putchar_fd(arr[i][j], token->fd_out);
 		j++;
