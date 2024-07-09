@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/09 20:03:09 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 20:06:18 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ void		token_free(t_token **head);
 /*-- exec functions --*/
 void		start_execution(char *usr_input, t_main *main);
 void		exec_non_builtin_cmd(t_token *token, char **new_env);
-void		exec_normal_cmd_pipe(t_token *token, char **new_env)
+void		exec_normal_cmd_pipe(t_token *token, char **new_env);
 void		main_exec(t_main *main);
 void		wait_all(t_token *token);
 void		exec_cmds_pipe(t_main *main, t_token *token);
@@ -229,6 +229,7 @@ int			update_old_pwd(t_varenv *env);
 int			check_var_exist(t_varenv *env, char *input);
 int			env_lst_size(t_varenv *env);
 void		update_gstatus(t_varenv *env);
+char		**linked_to_env(t_varenv *env);
 
 /*-- pipes --*/
 int			make_pipe(t_main *bag);
