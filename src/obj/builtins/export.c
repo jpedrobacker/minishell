@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:28 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/09 11:54:21 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:27:15 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ int	check_var_exist(t_varenv *env, char *input)
 	aux = env;
 	key = get_env_key(input, '=');
 	if (find_char(input, '=') == 0)
-		new_var = ft_strdup((char *)ft_memchr(input, '=', ft_strlen(input)));
+		new_var = ft_strdup(ft_strchr(input, '='));
+	else
+		new_var = NULL;
 	while (aux)
 	{
 		if (ft_strcmp(key, aux->key) == 0)

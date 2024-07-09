@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
+/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:00:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/07 16:31:40 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/09 15:14:28 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	envs_free(t_varenv **head)
 	{
 		temp = aux;
 		free(aux->key);
-		//free(aux->var); o valor nao e dupado.
+		free(aux->var);
 		aux->key = NULL;
 		aux->var = NULL;
 		aux = aux->next;

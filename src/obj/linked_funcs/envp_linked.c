@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 11:55:58 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/09 11:45:02 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:48:44 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	link_envp(char *envp, t_varenv *head)
 		return ;
 	node->key = get_env_key(envp, '=');
 	if (find_char(envp, '=') == 0)
-		node->var = ft_strdup((char *)ft_memchr(envp, '=', ft_strlen(envp)));
+		node->var = ft_strdup(ft_strchr(envp, '='));
 	else
 		node->var = NULL;
 	node->next = NULL;
@@ -41,8 +41,9 @@ void	add_gstatus_to_env(t_varenv *envs)
 {
 	char		*str_gstatus;
 
-	str_gstatus = "?=0";
+	str_gstatus = ft_strdup("?=0");
 	link_envp(str_gstatus, envs);
+	free(str_gstatus);
 }
 
 t_varenv	*make_envp_list(char **envp)
@@ -61,7 +62,7 @@ t_varenv	*make_envp_list(char **envp)
 			return (NULL);
 		node->key = get_env_key(envp[i], '=');
 		if (find_char(envp[i], '=') == 0)
-			node->var = ft_strdup((char*)ft_memchr(envp[i], '=', ft_strlen(envp[i])));
+			node->var = ft_strdup(ft_strchr(envp[i], '='));
 		node->next = NULL;
 		if (head == NULL)
 		{
