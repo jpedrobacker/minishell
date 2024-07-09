@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:00:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/09 15:14:28 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:57:38 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,15 @@ void	free_splits(char **split)
 	int	i;
 
 	i = 0;
-	if (split[i] != NULL)
+	if (!split)
+		return ;
+	while (split[i])
 	{
-		while (split[i])
-		{
-			free(split[i]);
-			i++;
-		}
+		if (!split[i])
+			return ;
+		free(split[i]);
+		i++;
 	}
-	//split = NULL;
 	free(split);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/09 15:50:55 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:24:32 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,8 @@ void	update_gstatus(t_varenv *env)
 	}
 	g_status_char = ft_itoa(g_status);
 	status = ft_strdup(g_status_char);
-	free(g_status_char);
 	change_status_var(aux_env, status);
-	free(status);
+	free(g_status_char);
 }
 
 void	main_exec(t_main *main)
@@ -115,7 +114,7 @@ void	start_execution(char *usr_input, t_main *main)
 	//------- PRECISAMOS JOGAR AS FUNCS DE FREE() AQUI --------
 	//------------- MENOS A DE FREE_ENVP() --------------------
 	//---------------------------------------------------------
-	//free_all(main); O problema do unset PATH está nesta função :)
+	free_all(main); //O problema do unset PATH está nesta função :)
 	token_free(&main->cmds);
 	//so damos free na linked list envp apenas quando encerramos o programa!
 	//envs_free(&bag->envs);

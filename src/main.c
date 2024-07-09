@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/09 15:44:26 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:26:26 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ int	validate_prompt(char *usr_input, t_main *main)
 {
 	(void) main;
 	if (!usr_input)
-	{
-		ft_putstr_fd("exit\n", STDOUT_FILENO);
-		exit(EXIT_SUCCESS);
-	}
+		built_exit(main);
 	if (!validate_input(usr_input, main) || !deal_redirects(main))
 		return (0);
 	return (1);

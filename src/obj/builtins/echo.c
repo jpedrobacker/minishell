@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/08 15:18:36 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:10:08 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,3 @@ int	built_echo(t_main *main, t_token *token, int flag)
 	ft_putstr_fd("\n", token->fd_out);
 	return (0);
 }
-
-//Return de erros do echo
-
-/*
-	Caso passe por exemplo echo (teste) $? = 2
-*/
