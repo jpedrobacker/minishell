@@ -1,54 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   utils_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
+/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/10 13:58:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/09 10:37:00 by jbergfel         ###   ########.fr       */
+/*   Created: 2024/07/07 16:00:53 by aprado            #+#    #+#             */
+/*   Updated: 2024/07/07 16:31:40 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	*errors_mini(int type_err, char *param)
-{
-	if (type_err == QUOTE)
-		ft_putstr_fd("QUOTE error msg: ", 2);
-	else if (type_err == NDIR)
-		ft_putstr_fd("NDIR error msg: ", 2);
-	else if (type_err == NPERM)
-		ft_putstr_fd("NPERM error msg: ", 2);
-	else if (type_err == NCMD)
-		ft_putstr_fd("NCMD error msg: ", 2);
-	else if (type_err == DUPERR)
-		ft_putstr_fd("DUPERR error msg: ", 2);
-	else if (type_err == FORKERR)
-		ft_putstr_fd("FORKERR error msg: ", 2);
-	else if (type_err == PIPERR)
-		ft_putstr_fd("PIPERR error msg: ", 2);
-	else if (type_err == PIPENDERR)
-		ft_putstr_fd("PIPENDERR error msg: ", 2);
-	else if (type_err == MEM)
-		ft_putstr_fd("MEM error msg: ", 2);
-	else if (type_err == IS_DIR)
-		ft_putstr_fd("IS_DIR error msg: ", 2);
-	else if (type_err == NO_DIR)
-		ft_putstr_fd("NO_DIR error msg: ", 2);
-	else if (type_err == ARGS)
-		ft_putstr_fd("Too many arguments: ", 2);
-	ft_putendl_fd(param, 2);
-	return (NULL);
-}
-
-/*
 void	to_free_varenv(t_varenv **lst_env)
 {
 	t_varenv	*begin;
 	t_varenv	*temp;
 
-	begin = lst_env;
+	begin = (*(lst_env));
 	free(begin->key);
 	temp = begin->next;
 	free(begin);
@@ -56,19 +25,15 @@ void	to_free_varenv(t_varenv **lst_env)
 	while (begin)
 	{
 		temp = begin->next;
-		if (ft_strcmp("?", begin->key) == 0)
-			free(begin->var);
-		begin->var = NULL;
 		free(begin->key);
-		begin->key = NULL;
 		free(begin);
 		begin = NULL;
 		begin = temp;
 	}
-	lst_env = NULL;
+	*lst_env = NULL;
 }
 
-//FUNCAO NAO USADA.....
+/*
 void	to_free_token(t_token **token)
 {
 	t_token	*begin;
@@ -95,6 +60,7 @@ void	to_free_token(t_token **token)
 	}
 	*token = NULL;
 }
+*/
 
 void	free_splits(char **split)
 {
@@ -135,14 +101,15 @@ void	free_all(t_main *bag)
 {
 	free(bag->new_input);
 	free(bag->dup_usr_input);
+//	free(bag->envs_path);
 	free_splits(bag->splited_input);
 	free_splits(bag->splited_pipe);
 	free_splits(bag->paths);
 //	token_free(&bag->cmds);
 //	envs_free(&bag->envs);
-//	to_free_varenv(bag->envs);
 	bag->new_input = NULL;
 	bag->dup_usr_input = NULL;
+//	bag->envs_path = NULL;
 	bag->splited_input = NULL;
 	bag->splited_pipe = NULL;
 	bag->paths = NULL;
@@ -158,11 +125,14 @@ void	token_free(t_token **head)
 	{
 		temp = aux;
 		free_splits(aux->arr);
+		free_splits(aux->args);
 		free(aux->real_path);
+		free(aux->cmd);
+		aux->cmd = NULL;
 		aux->arr = NULL;
+		aux->args = NULL;
 		aux->real_path = NULL;
 		aux = aux->next;
 		free(temp);
 	}
 }
-*/

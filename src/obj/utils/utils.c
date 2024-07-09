@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/07 13:18:26 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 10:37:46 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ void	fix_matrix(t_token **head)
 		{
 			replace_char(aux->arr[i], '\v', ' ');
 			replace_char(aux->arr[i], '\t', '|');
+			replace_char(aux->arr[i], '\a', '>');
+			replace_char(aux->arr[i], '\n', '<');
 			i++;
 		}
 		i = 0;

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/08 17:17:16 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 10:37:34 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,19 @@ void	start_execution(char *usr_input, t_main *main)
 	main->new_input = rev_split(main->splited_input);
 	tokenize(main);
 	if (!make_pipe(main))
-		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("Pipe Error.\n", 2);
 	if (!ordering_fds(main))
-		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("Use an existing file.\n", 2);
 	main_exec(main);
 	wait_all(main->cmds);
 	//---------------------------------------------------------
 	//------- PRECISAMOS JOGAR AS FUNCS DE FREE() AQUI --------
 	//------------- MENOS A DE FREE_ENVP() --------------------
 	//---------------------------------------------------------
+	free_all(main);
+	token_free(&main->cmds);
+	//so damos free na linked list envp apenas quando encerramos o programa!
+	//envs_free(&bag->envs);
 }
 //-------------------------------------------------------------------
 //---------------- feat_execution ----------------------------------

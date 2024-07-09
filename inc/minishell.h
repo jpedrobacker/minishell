@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/09 10:33:55 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 10:38:41 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_helper
 	int		i;
 	int		one_q;
 	int		two_q;
+	int		hd;
 }			t_helper;
 
 typedef struct s_varenv
@@ -119,7 +120,7 @@ extern int	g_status;
 /*-- redirects functions --*/
 int			ordering_fds(t_main *bag);
 int			heredoc_func(t_token *node, t_main *bag, int i);
-void		exec_redirects(t_token *node, t_main *bag);
+int			exec_redirects(t_token *node, t_main *bag);
 int			append_func(t_token *node, t_main *bag, int i);
 int			redirect_in(t_token *node, t_main *bag, int i);
 int			redirect_out(t_token *node, t_main *bag, int i);
@@ -202,7 +203,7 @@ int			ft_isvar(char c);
 /*-- handle errors --*/
 void		*errors_mini(int type_err, char *param);
 void		to_free_token(t_token **token);
-void		to_free_varenv(t_varenv *lst_env);
+void		to_free_varenv(t_varenv **lst_env);
 void		free_splits(char **split);
 void		free_all(t_main *bag);
 void		envs_free(t_varenv **head);
