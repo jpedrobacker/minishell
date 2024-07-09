@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:22:56 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/07 16:39:18 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:55:35 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ void	sig_int_heredoc_handle(int sig)
 {
 	if (sig == SIGINT)
 	{
-		signal(SIGINT, SIG_DFL);
-		exit(EXIT_SUCCESS);
+		signal(SIGINT, SIG_IGN);
+		g_status = 130;
+		exit(g_status);
 	}
 	else
 	{
@@ -37,30 +38,44 @@ void	sig_int_heredoc_handle(int sig)
 
 int	heredoc_func(t_token *node, t_main *bag, int i)
 {
+	pid_t	hd_pid;
 	int		hd_fd[2];
 	char	*eof;
 	char	*buff;
+	int		status;
 
-	(void)bag;
-	eof = ft_strdup(node->arr[i + 1]);
-	buff = NULL;
 	if (pipe(hd_fd) == -1)
 		return (-1);
-	signal(SIGINT, &sig_int_heredoc_handle);
-	while (42)
+	signal(SIGINT, SIG_IGN);
+	hd_pid = fork();
+	(void)bag;
+	if (hd_pid == 0)
 	{
-		buff = readline("> ");
-		if (!buff || !ft_strncmp(eof, buff, ft_strlen(buff) + 1))
-			break ;
-		else if (buff)
+		close(hd_fd[0]);
+		eof = ft_strdup(node->arr[i + 1]);
+		buff = NULL;
+		signal(SIGINT, &sig_int_heredoc_handle);
+		while (42)
 		{
-			ft_putendl_fd(buff, hd_fd[1]);
-			free(buff);
+			buff = readline("> ");
+			if (!buff || !ft_strncmp(eof, buff, ft_strlen(buff) + 1))
+				break ;
+			else if (buff)
+			{
+				ft_putendl_fd(buff, hd_fd[1]);
+				free(buff);
+			}
 		}
+		if (buff)
+			free(buff);
+		close(hd_fd[1]);
+		exit(1);
 	}
-	if (buff)
-		free(buff);
+	waitpid(hd_pid, &status, 0);
 	close(hd_fd[1]);
+	g_status = WEXITSTATUS(status);
+	if (g_status == 130)
+		return (-1);
 	return (hd_fd[0]);
 }
 

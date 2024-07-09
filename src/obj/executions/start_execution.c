@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/09 10:37:34 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:52:54 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	wait_all(t_token *token)
 	t_token	*aux;
 	int		status;
 
+	status = 0;
 	if (!token)
 		return ;
 	aux = token;
@@ -93,8 +94,9 @@ void	start_execution(char *usr_input, t_main *main)
 	tokenize(main);
 	if (!make_pipe(main))
 		ft_putstr_fd("Pipe Error.\n", 2);
-	if (!ordering_fds(main))
-		ft_putstr_fd("Use an existing file.\n", 2);
+	ordering_fds(main);
+	//if (!ordering_fds(main))
+	//	ft_putstr_fd("Use an existing file.\n", 2);
 	main_exec(main);
 	wait_all(main->cmds);
 	//---------------------------------------------------------

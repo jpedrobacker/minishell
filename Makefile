@@ -26,7 +26,7 @@ val: re
 
 sup: re
 	make clean
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=/home/aprado/42Projects/minishell/suppression/rline.supp ./minishell
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=suppression/rline.supp ./minishell
 
 clean:
 		make -C lib clean

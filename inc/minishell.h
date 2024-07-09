@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/09 10:38:41 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:36:21 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ void		redir_(t_token *token);
 void		close_fds(t_token *token);
 void		close_all(t_token *token);
 int			ft_isvar(char c);
+int			find_char(char *s, char c);
 
 /*-- handle errors --*/
 void		*errors_mini(int type_err, char *param);

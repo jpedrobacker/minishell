@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 10:12:36 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/05/18 11:21:17 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 13:15:25 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,11 @@
 
 int	echo_flag(char **args)
 {
-	int		i;
 	int		flag;
 
-	i = 0;
 	flag = 1;
-	while (args[i] != NULL)
-	{
-		if (ft_strncmp(args[i], "-n", ft_strlen("-n")) == 0)
-			return (flag = 0);
-		i++;
-	}
+	if (ft_strncmp(args[1], "-n", ft_strlen("-n")) == 0)
+		return (flag = 0);
 	return (flag);
 }
 

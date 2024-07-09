@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:26:41 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 19:24:24 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:36:09 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,18 @@ char	*get_env_name(char *s, int flag, int s_len)
 	while (len != -1)
 		env[--len] = s[--i];
 	return (env);
+}
+
+int	find_char(char *s, char c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (0);
+		i++;
+	}
+	return (1);
 }

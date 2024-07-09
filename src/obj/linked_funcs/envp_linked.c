@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 11:55:58 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/08 17:18:23 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:45:02 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	link_envp(char *envp, t_varenv *head)
 	if (!node)
 		return ;
 	node->key = get_env_key(envp, '=');
-	node->var = ft_memchr(envp, '=', ft_strlen(envp));
+	if (find_char(envp, '=') == 0)
+		node->var = ft_strdup((char *)ft_memchr(envp, '=', ft_strlen(envp)));
+	else
+		node->var = NULL;
 	node->next = NULL;
 	if (!head)
 	{
@@ -57,7 +60,8 @@ t_varenv	*make_envp_list(char **envp)
 		if (!node)
 			return (NULL);
 		node->key = get_env_key(envp[i], '=');
-		node->var = ft_memchr(envp[i], '=', ft_strlen(envp[i]));
+		if (find_char(envp[i], '=') == 0)
+			node->var = ft_strdup((char*)ft_memchr(envp[i], '=', ft_strlen(envp[i])));
 		node->next = NULL;
 		if (head == NULL)
 		{
