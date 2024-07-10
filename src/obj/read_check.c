@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:26:28 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/10 12:08:44 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/10 17:29:50 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,13 @@ int	validate_input(char *s, t_main *bag)
 	if (!s)
 		return (0);
 	if (!check_wspaces(s))
-		return (ft_putstr_fd("INVALID INPUT\n", 2), 0);
+		return (0);
 	if (!end_with_pipe(s) || !start_with_pipe(s))
-		return (ft_putstr_fd("INVALID INPUT\n", 2), 0);
+		return (0);
 	if (!check_invalid_pipe(s))
-		return (ft_putstr_fd("INVALID INPUT\n", 2), 0);
+		return (0);
 	if (!check_invalid_redirects(s))
-		return (ft_putstr_fd("INVALID INPUT\n", 2), 0);
-	ft_printf("VALIDO!\n");
+		return (0);
 	bag->dup_usr_input = ft_strdup(s);
 	if (!change_input(bag->dup_usr_input))
 	{
