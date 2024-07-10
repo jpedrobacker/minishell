@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/10 12:06:26 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/10 19:23:42 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,7 @@ void		wait_all(t_token *token);
 void		exec_cmds_pipe(t_main *main, t_token *token);
 void		call_cmd(t_main *main, t_token *token);
 int			pre_execute(t_token *token);
+int			test_execution(t_token *token);
 
 /*-- env utils --*/
 char		*get_env_key(char *envp, char c);

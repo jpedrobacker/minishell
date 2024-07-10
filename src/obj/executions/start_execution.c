@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/10 16:25:24 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:24:09 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	wait_all(t_token *token)
 	token = aux;
 	while (token)
 	{
-		if (status >= 0 && !our_builtins(token->cmd) && pre_execute(token) == 1)
+		if (status >= 0 && !our_builtins(token->cmd) && test_execution(token) == 1)
 			g_status = WEXITSTATUS(status);
 		token = token->next;
 	}
