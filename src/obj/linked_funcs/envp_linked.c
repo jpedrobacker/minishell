@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 11:55:58 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/09 15:48:44 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/10 01:02:02 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,17 @@ void	add_gstatus_to_env(t_varenv *envs)
 	free(str_gstatus);
 }
 
-t_varenv	*make_envp_list(char **envp)
+void	add_elems(t_varenv *node, char *envp)
+{
+	if (!node)
+		return ;
+	node->key = get_env_key(envp, '=');
+	if (find_char(envp, '=') == 0)
+		node->var = ft_strdup(ft_strchr(envp, '='));
+	node->next = NULL;
+}
+
+/*t_varenv	*make_envp_list(char **envp)
 {
 	int			i;
 	t_varenv	*node;
@@ -58,12 +68,7 @@ t_varenv	*make_envp_list(char **envp)
 	while (envp[i] != NULL)
 	{
 		node = malloc(sizeof(t_varenv));
-		if (!node)
-			return (NULL);
-		node->key = get_env_key(envp[i], '=');
-		if (find_char(envp[i], '=') == 0)
-			node->var = ft_strdup(ft_strchr(envp[i], '='));
-		node->next = NULL;
+		add_elems(node, envp[i]);
 		if (head == NULL)
 		{
 			head = node;
@@ -81,4 +86,32 @@ t_varenv	*make_envp_list(char **envp)
 	}
 	add_gstatus_to_env(head);
 	return (head);
+}*/
+
+t_varenv *make_envp_list(char **envp)
+{
+	int i;
+	t_varenv *head;
+	t_varenv *node;
+	t_varenv *last;
+
+	i = 0;
+	head = NULL;
+	while (envp[i] != NULL)
+	{
+		node = malloc(sizeof(t_varenv));
+		if (!node)
+			return (NULL);
+		add_elems(node, envp[i]);
+		node->next = NULL;
+
+		if (head == NULL)
+			head = node;
+		else
+			last->next = node;
+		last = node;
+		i++;
+	}
+	add_gstatus_to_env(head);
+	return head;
 }

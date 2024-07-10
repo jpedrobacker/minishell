@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/09 20:06:18 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/10 00:58:23 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ typedef struct	s_token
 	char			*token; // the string node
 	char			**arr; // array with all the params divided by space
 	char			**args; // array with the command and its args
-	int				flag;
 	pid_t			pid;
 	struct s_token	*next;
 	struct s_token	*head;
