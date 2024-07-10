@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/10 14:43:22 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/10 16:25:24 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,13 @@ void	update_gstatus(t_varenv *env)
 void	main_exec(t_main *main)
 {
 	t_token		*token;
-	int			have_pipe;
 
 	token = main->cmds;
-	have_pipe = if_pipe(main);
 	while (token)
 	{
 		if (pre_execute(token))
 		{
-			if (have_pipe == 1)
+			if (main->cmds->next != NULL)
 				exec_cmds_pipe(main, token);
 			else
 				call_cmd(main, token);
@@ -91,7 +89,7 @@ void	wait_all(t_token *token)
 	token = aux;
 	while (token)
 	{
-		if (status >= 0 && !our_builtins(token->cmd))
+		if (status >= 0 && !our_builtins(token->cmd) && pre_execute(token) == 1)
 			g_status = WEXITSTATUS(status);
 		token = token->next;
 	}

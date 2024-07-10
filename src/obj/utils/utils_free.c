@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:00:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/10 13:20:11 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/10 15:48:37 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,9 @@ void	token_free(t_token **head)
 	aux = (*head);
 	if (!aux)
 		return ;
+	temp = NULL;
 	while (aux)
 	{
-		temp = aux;
 		free_splits(aux->arr);
 		free_splits(aux->args);
 		free(aux->real_path);
@@ -135,6 +135,11 @@ void	token_free(t_token **head)
 		aux->args = NULL;
 		aux->real_path = NULL;
 		aux = aux->next;
+	}
+	while (*head)
+	{
+		temp = (*head);
+		(*head) = (*head)->next;
 		free(temp);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/09 19:10:08 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:15:40 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,19 @@ int	built_echo(t_main *main, t_token *token, int flag)
 	(void) main;
 
 	aux = token;
-	args = count_cmds(aux->arr);
+	args = count_cmds(aux->args);
 	i = 0;
 	if (flag == 0)
 		i = 1;
 	while (++i < args)
 	{
-		if (ft_strcmp(aux->arr[i], ">") == 0)
+		if (ft_strcmp(aux->args[i], ">") == 0)
 			i = i + 2;
-		if (check_quotes(aux->arr[i]) == 1 && aux->arr[i] != NULL)
-			ft_putstr_fd(aux->arr[i], token->fd_out);
-		else if (aux->arr[i] != NULL)
-			print_with_no_quotes(token, aux->arr, i);
-		if (aux->arr[i + 1])
+		if (check_quotes(aux->args[i]) == 1 && aux->args[i] != NULL)
+			ft_putstr_fd(aux->args[i], token->fd_out);
+		else if (aux->args[i] != NULL)
+			print_with_no_quotes(token, aux->args, i);
+		if (aux->args[i + 1])
 			ft_putchar_fd(' ', token->fd_out);
 	}
 	if (flag == 0)

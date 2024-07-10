@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:00:52 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/09 20:03:31 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:31:13 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,13 @@ void	exec_cmds_pipe(t_main *main, t_token *token)
 		free_splits(new_env);
 	}
 	else
-		check_builtins_pipes(main, token);
+	{
+		check_builtins(main, token);
+		free_all(main);
+		envs_free(&main->envs);
+		token_free(&main->cmds);
+		exit(g_status);
+	}
 }
 
 void	exec_non_builtin_cmd(t_token *token, char **new_env)
