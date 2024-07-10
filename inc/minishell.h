@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/10 00:58:23 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:06:26 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int			is_appendoc(char *s, int *i, char c);
 /*-- deal quotes functions --*/
 void		change_pipe(char *s, int *start, int *end);
 void		change_spaces(char *s, int *start, int *end);
-void		change_input(char *s);
+int			change_input(char *s);
 void		replace_char(char *s, char old, char want);
 char		*get_quote_pos(char *s);
 
