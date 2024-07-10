@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 17:39:47 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/10 16:19:05 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:49:38 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ int	pre_execute(t_token *token)
 		return (0);
 	else if (!our_builtins(token->cmd) && !token->real_path)
 	{
+		replace_char(token->cmd, '\t', '|');
+		replace_char(token->cmd, '\v', ' ');
+		replace_char(token->cmd, '\n', '<');
+		replace_char(token->cmd, '\a', '>');
 		write(2, token->cmd, ft_strlen(token->cmd));
 		ft_putstr_fd(": command not found\n", 2);
 		g_status = 127;
