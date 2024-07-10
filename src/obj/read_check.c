@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:26:28 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/08 15:11:18 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:08:44 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,11 @@ int	validate_input(char *s, t_main *bag)
 		return (ft_putstr_fd("INVALID INPUT\n", 2), 0);
 	ft_printf("VALIDO!\n");
 	bag->dup_usr_input = ft_strdup(s);
-	change_input(bag->dup_usr_input);
+	if (!change_input(bag->dup_usr_input))
+	{
+		free(bag->dup_usr_input);
+		ft_putstr_fd("Error quote> \n", 2);
+		return (0);
+	}
 	return (1);
 }
