@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aprado <aprado@student.42.rio>             +#+  +:+       +#+        */
+/*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:00:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/07 16:31:40 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/10 15:48:37 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,15 @@ void	free_splits(char **split)
 	int	i;
 
 	i = 0;
-	if (split[i] != NULL)
+	if (!split)
+		return ;
+	while (split[i])
 	{
-		while (split[i])
-		{
-			free(split[i]);
-			i++;
-		}
+		if (!split[i])
+			return ;
+		free(split[i]);
+		i++;
 	}
-	//split = NULL;
 	free(split);
 }
 
@@ -89,7 +89,7 @@ void	envs_free(t_varenv **head)
 	{
 		temp = aux;
 		free(aux->key);
-		//free(aux->var); o valor nao e dupado.
+		free(aux->var);
 		aux->key = NULL;
 		aux->var = NULL;
 		aux = aux->next;
@@ -121,9 +121,11 @@ void	token_free(t_token **head)
 	t_token		*temp;
 
 	aux = (*head);
+	if (!aux)
+		return ;
+	temp = NULL;
 	while (aux)
 	{
-		temp = aux;
 		free_splits(aux->arr);
 		free_splits(aux->args);
 		free(aux->real_path);
@@ -133,6 +135,11 @@ void	token_free(t_token **head)
 		aux->args = NULL;
 		aux->real_path = NULL;
 		aux = aux->next;
+	}
+	while (*head)
+	{
+		temp = (*head);
+		(*head) = (*head)->next;
 		free(temp);
 	}
 }

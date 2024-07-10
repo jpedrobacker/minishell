@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 10:38:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2023/11/07 16:10:19 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:24:54 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ char	*ft_strchr(const char *str, int c)
 			return (0);
 		i++;
 	}
-	return (stri + i);
+	return (stri + (i + 1));
 }

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:26:41 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/05 16:54:19 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/09 20:03:38 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,12 @@ int	env_lst_size(t_varenv *env)
 
 	temp = env;
 	i = 0;
-	while (temp != NULL)
+	while (temp)
 	{
-		temp = temp->next;
 		i++;
+		temp = temp->next;
 	}
 	return (i);
-}
-
-char	**update_envp(t_varenv *env)
-{
-	int		i;
-	int		len;
-	char	**arr;
-
-	i = 0;
-	len = env_lst_size(env);
-	arr = (char **)malloc(sizeof(char *) * (len + 1));
-	while (env)
-	{
-		arr[i] = ft_strdup(env->full_env);
-		env = env->next;
-		i++;
-	}
-	arr[i] = NULL;
-	return (arr);
 }
 
 char	*find_var_key(t_varenv *env, char *key_to_find)
@@ -110,4 +91,48 @@ char	*get_env_name(char *s, int flag, int s_len)
 	while (len != -1)
 		env[--len] = s[--i];
 	return (env);
+}
+
+int	find_char(char *s, char c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static char	*ft_env_join(char *key, char *var)
+{
+	char	*nv_one;
+	char	*nv_two;
+
+	nv_one = ft_strjoin(key, "=");
+	nv_two = ft_strjoin(nv_one, var);
+	free(nv_one);
+	return (nv_two);
+}
+
+char	**linked_to_env(t_varenv *env)
+{
+	char	**new_env;
+	int		linked_len;
+	int		i;
+
+	linked_len = env_lst_size(env);
+	i = 0;
+	new_env = malloc(sizeof(char *) * (linked_len + 1));
+	while (env)
+	{
+		new_env[i] = ft_env_join(env->key, env->var);
+		i++;
+		env = env->next;
+	}
+	new_env[i] = NULL;
+	return (new_env);
 }

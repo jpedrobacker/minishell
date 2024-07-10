@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/06 16:58:07 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:38:43 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ int	check_quotes(char *s)
 void	print_with_no_quotes(t_token *token, char **arr, int i)
 {
 	int	j;
+	int	len;
 
 	if (!arr[i])
 		return ;
-	j = 0;
+	j = 1;
+	len = ft_strlen(arr[i]);
 	while (arr[i][j])
 	{
-		while (arr[i][j] == '\"' || arr[i][j] == '\'')
-			j++;
-		if (arr[i][j] == '\0')
+		if (arr[i][j] == '\0' || j == len - 1)
 			break ;
 		ft_putchar_fd(arr[i][j], token->fd_out);
 		j++;
@@ -50,29 +50,25 @@ int	built_echo(t_main *main, t_token *token, int flag)
 	(void) main;
 
 	aux = token;
-	args = count_cmds(aux->arr);
+	args = count_cmds(aux->args);
+	if (args == 1)
+		return (0);
 	i = 0;
 	if (flag == 0)
 		i = 1;
 	while (++i < args)
 	{
-		if (ft_strcmp(aux->arr[i], ">") == 0)
+		if (ft_strcmp(aux->args[i], ">") == 0)
 			i = i + 2;
-		if (check_quotes(aux->arr[i]) == 1 && aux->arr[i] != NULL)
-			ft_putstr_fd(aux->arr[i], token->fd_out);
-		else if (aux->arr[i] != NULL)
-			print_with_no_quotes(token, aux->arr, i);
-		if (aux->arr[i + 1])
+		if (check_quotes(aux->args[i]) == 1 && aux->args[i] != NULL)
+			ft_putstr_fd(aux->args[i], token->fd_out);
+		else if (aux->args[i] != NULL)
+			print_with_no_quotes(token, aux->args, i);
+		if (aux->args[i + 1])
 			ft_putchar_fd(' ', token->fd_out);
 	}
 	if (flag == 0)
-		return (1);
+		return (0);
 	ft_putstr_fd("\n", token->fd_out);
-	return (1);
+	return (0);
 }
-
-//Return de erros do echo
-
-/*
-	Caso passe por exemplo echo (teste) $? = 2
-*/

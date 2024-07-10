@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/05 11:16:07 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:42:03 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	to_free_temp(t_varenv *temp)
 {
 	free(temp->key);
-	free(temp->full_env);
+	free(temp->var);
 	free(temp);
 	return ;
 }
@@ -44,7 +44,8 @@ int	real_unset(t_varenv *env, char **cmds)
 			{
 				prev->next = cur->next;
 				free(cur->key);
-				free(cur->full_env);
+				if (cur->var != NULL)
+					free(cur->var);
 			}
 			prev = cur;
 			cur = cur->next;

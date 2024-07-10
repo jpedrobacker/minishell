@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:14 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 05:49:14 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 19:20:01 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,7 @@ int	built_cd(t_main *main, t_token *token)
 	aux_env = main->envs;
 	args = count_cmds(aux_cmds->arr);
 	if (args > 2)
-	{
-		errors_mini(QUOTE, "cd");
-		return (g_status = 1);
-	}
+		return (errors_mini(QUOTE, "cd"), 1);
 	if (args == 1 || ft_strcmp(aux_cmds->arr[1], "~") == 0)
 	{
 		chdir(find_var_key(aux_env, "HOME"));
@@ -78,6 +75,5 @@ int	built_cd(t_main *main, t_token *token)
 	}
 	if (chdir(aux_cmds->arr[1]) != -1)
 		return (update_old_pwd(aux_env), update_new_pwd(aux_env));
-	errors_mini(NDIR, "cd");
-	return (1);
+	return (errors_mini(NDIR, "cd"), 1);
 }

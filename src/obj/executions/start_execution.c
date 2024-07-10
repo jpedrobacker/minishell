@@ -6,34 +6,60 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/08 15:48:56 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/10 16:25:24 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	update_gstatus(t_varenv *env)
+int	change_status_var(t_varenv *env, char *new_var)
 {
-	char		*str_status;
 	t_varenv	*aux_env;
 
 	aux_env = env;
-	str_status = ft_strjoin("?=", ft_itoa(g_status));
-	check_var_exist(aux_env, str_status);
+	while (aux_env)
+	{
+		if (ft_strcmp(aux_env->key, "?") == 0)
+		{
+			aux_env->var = new_var;
+			return (0);
+		}
+		aux_env = aux_env->next;
+	}
+	return (1);
+}
+
+void	update_gstatus(t_varenv *env)
+{
+	char		*g_status_char;
+	char		*status;
+	t_varenv	*aux_env;
+	t_varenv	*temp;
+
+	aux_env = env;
+	temp = env;
+	while (temp)
+	{
+		if (ft_strcmp("?", temp->key) == 0)
+			free(temp->var);
+		temp = temp->next;
+	}
+	g_status_char = ft_itoa(g_status);
+	status = ft_strdup(g_status_char);
+	change_status_var(aux_env, status);
+	free(g_status_char);
 }
 
 void	main_exec(t_main *main)
 {
 	t_token		*token;
-	int			have_pipe;
 
 	token = main->cmds;
-	have_pipe = if_pipe(main);
 	while (token)
 	{
 		if (pre_execute(token))
 		{
-			if (have_pipe == 1)
+			if (main->cmds->next != NULL)
 				exec_cmds_pipe(main, token);
 			else
 				call_cmd(main, token);
@@ -43,7 +69,6 @@ void	main_exec(t_main *main)
 	}
 	//close_fds(main->cmds);
 	//token = main->cmds;
-	//wait_all(token);
 }
 
 void	wait_all(t_token *token)
@@ -51,19 +76,20 @@ void	wait_all(t_token *token)
 	t_token	*aux;
 	int		status;
 
+	status = 0;
 	if (!token)
 		return ;
 	aux = token;
 	while (token)
 	{
-		if (token->pid != 0)
+		if (token->pid != 0 && !our_builtins(token->cmd))
 			waitpid(token->pid, &status, 0);
 		token = token->next;
 	}
 	token = aux;
 	while (token)
 	{
-		if (status >= 0)
+		if (status >= 0 && !our_builtins(token->cmd) && pre_execute(token) == 1)
 			g_status = WEXITSTATUS(status);
 		token = token->next;
 	}
@@ -72,23 +98,21 @@ void	wait_all(t_token *token)
 
 void	start_execution(char *usr_input, t_main *main)
 {
-	extern int	g_status;
-
 	(void) usr_input;
 	main->new_input = rev_split(main->splited_input);
 	tokenize(main);
 	if (!make_pipe(main))
 		ft_putstr_fd("Pipe Error.\n", 2);
-	if (!ordering_fds(main))
-		ft_putstr_fd("Use an existing file.\n", 2);
+	ordering_fds(main);
+	//if (!ordering_fds(main))
+	//	ft_putstr_fd("Use an existing file.\n", 2);
 	main_exec(main);
 	wait_all(main->cmds);
-	update_gstatus(main->envs);
 	//---------------------------------------------------------
 	//------- PRECISAMOS JOGAR AS FUNCS DE FREE() AQUI --------
 	//------------- MENOS A DE FREE_ENVP() --------------------
 	//---------------------------------------------------------
-	free_all(main);
+	free_all(main); //O problema do unset PATH está nesta função :)
 	token_free(&main->cmds);
 	//so damos free na linked list envp apenas quando encerramos o programa!
 	//envs_free(&bag->envs);

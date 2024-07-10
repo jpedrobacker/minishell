@@ -6,21 +6,11 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:44:10 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 05:26:04 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:36:41 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	if_pipe(t_main *main)
-{
-	t_token *token;
-
-	token = main->cmds;
-	if (token->next != NULL)
-		return (1);
-	return (0);
-}
 
 void	close_fds(t_token *token)
 {

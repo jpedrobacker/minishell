@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 13:58:43 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 16:09:30 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/09 10:37:00 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	to_free_varenv(t_varenv **lst_env)
 	t_varenv	*begin;
 	t_varenv	*temp;
 
-	begin = (*(lst_env));
+	begin = lst_env;
 	free(begin->key);
 	temp = begin->next;
 	free(begin);
@@ -56,12 +56,16 @@ void	to_free_varenv(t_varenv **lst_env)
 	while (begin)
 	{
 		temp = begin->next;
+		if (ft_strcmp("?", begin->key) == 0)
+			free(begin->var);
+		begin->var = NULL;
 		free(begin->key);
+		begin->key = NULL;
 		free(begin);
 		begin = NULL;
 		begin = temp;
 	}
-	*lst_env = NULL;
+	lst_env = NULL;
 }
 
 //FUNCAO NAO USADA.....
@@ -136,6 +140,7 @@ void	free_all(t_main *bag)
 	free_splits(bag->paths);
 //	token_free(&bag->cmds);
 //	envs_free(&bag->envs);
+//	to_free_varenv(bag->envs);
 	bag->new_input = NULL;
 	bag->dup_usr_input = NULL;
 	bag->splited_input = NULL;

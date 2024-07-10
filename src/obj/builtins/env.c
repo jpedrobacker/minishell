@@ -6,25 +6,17 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:38:53 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/07 05:34:30 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/07 20:03:46 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	check_env(char *var)
+int	check_env(char *key, char *var)
 {
-	int	i;
-
-	i = -1;
-	if (!ft_isalpha(var[0]) && var[0] != '_')
+	if ((!ft_isalpha(key[0]) && key[0] != '_') || !var)
 		return (1);
-	while (var[++i])
-	{
-		if (var[i] == '=')
-			return (0);
-	}
-	return (1);
+	return (0);
 }
 
 int	built_env(t_main *main, t_token *token)
@@ -38,8 +30,12 @@ int	built_env(t_main *main, t_token *token)
 			ft_putendl_fd("env error!", 2);
 		while (aux_env)
 		{
-			if (check_env(aux_env->full_env) == 0)
-				ft_putendl_fd(aux_env->full_env, token->fd_out);
+			if (check_env(aux_env->key, aux_env->var) == 0)
+			{
+				ft_putstr_fd(aux_env->key, token->fd_out);
+				ft_putstr_fd("=", token->fd_out);
+				ft_putendl_fd(aux_env->var, token->fd_out);
+			}
 			aux_env = aux_env->next;
 		}
 	}

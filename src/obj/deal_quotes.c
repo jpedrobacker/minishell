@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:51:06 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/04 17:27:11 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/10 12:08:28 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,17 @@ char	*get_quote_pos(char *s)
 	return (NULL);
 }
 
-void	change_input(char *s)
+int	change_input(char *s)
 {
 	int		i;
 	int		start;
 	int		end;
 	char	c1;
 
-	i = 0;
+	i = -1;
 	start = 0;
 	end = 0;
-	while (s[i])
+	while (s[++i])
 	{
 		if (s[i] == 34 || s[i] == 39)
 		{
@@ -109,8 +109,8 @@ void	change_input(char *s)
 			if (s[end] != '\0')
 				change_pipe(s, &start, &end);
 			else
-				ft_putstr_fd("Error quote> \n", 2);
+				return (0);
 		}
-		i++;
 	}
+	return (1);
 }
