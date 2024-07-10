@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:00:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/09 19:57:38 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/10 13:20:11 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ void	token_free(t_token **head)
 	t_token		*temp;
 
 	aux = (*head);
+	if (!aux)
+		return ;
 	while (aux)
 	{
 		temp = aux;
