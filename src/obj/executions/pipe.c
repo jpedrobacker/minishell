@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:11:49 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/10 01:20:13 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:19:09 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,15 @@ int	make_pipe(t_main *bag)
 	int		size;
 
 	aux = bag->cmds;
-	size = 1;
-	while (aux->next)
+	size = 0;
+	while (aux)
 	{
 		size++;
 		aux = aux->next;
 	}
 	if (!create_pipe(bag->cmds, size))
 		return (0);
+
 	return (1);
 	/*
 	int		fd[2];

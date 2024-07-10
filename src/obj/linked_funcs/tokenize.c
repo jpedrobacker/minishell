@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/09 13:34:55 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:44:20 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ void	tokenize(t_main *bag)
 	}
 	fix_matrix(&bag->cmds);
 	print_node(bag);
+	ft_putstr_fd("-----FIM TOKENIZE-------\n", 1);
 	//ordering_fds(bag);
 
 	//------------ IMPORTANTE ---------------
