@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/09 10:37:46 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:35:00 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,21 @@ static int	count_args(char **arr)
 	return (word);
 }
 
+static void	fix_args(char ***args)
+{
+	int	i;
+
+	i = 0;
+	while ((*args)[i])
+	{
+		replace_char((*args)[i], '\t', '|');
+		replace_char((*args)[i], '\v', ' ');
+		replace_char((*args)[i], '\n', '<');
+		replace_char((*args)[i], '\a', '>');
+		i++;
+	}
+}
+
 char	**get_args(char **arr)
 {
 	int		i;
@@ -69,6 +84,7 @@ char	**get_args(char **arr)
 			i++;
 		}
 	}
+	fix_args(&new);
 	return (new);
 }
 
