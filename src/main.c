@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/10 13:26:42 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/10 19:28:53 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		rl_replace_line("", 0);
-		kill(getpid(), SIGUSR1);
 		usr_input = readline("minihell$>> ");
 		update_gstatus(bag.envs);
 		if (!validate_prompt(usr_input, &bag))

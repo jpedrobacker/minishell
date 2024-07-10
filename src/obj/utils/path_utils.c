@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:07:29 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/06 09:57:33 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/10 19:15:33 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int	our_builtins(char *s)
 	else if (!ft_strncmp("export", s, ft_strlen(s)))
 		return (1);
 	else if (!ft_strncmp("unset", s, ft_strlen(s)))
-		return (1);
-	else if (!ft_strncmp("clear", s, ft_strlen(s)))
 		return (1);
 	return (0);
 }
