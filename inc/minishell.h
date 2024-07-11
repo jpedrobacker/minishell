@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/11 12:29:38 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/11 14:32:24 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,26 @@
 # define MINISHELL_H
 
 # include "../lib/ft_printf.h"
-# include "colors.h"
-# include <stdio.h>				// para printf
-# include <stdlib.h>			// para malloc, free, exit
-# include <unistd.h>			// para write, access, fork, wait, waitpid, wait3, wait4, execve, dup, dup2, pipe, getcwd, chdir, stat, lstat, fstat, unlink, getpid
-# include <signal.h>			// para signal, sigaction, sigemptyset, sigaddset, kill
-# include <dirent.h>			// para opendir, readdir, closedir
-# include <string.h>			// para strerror, perror
-# include <termios.h>			// para tcsetattr, tcgetattr, tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
-# include <fcntl.h>				// para open
-# include <errno.h>				// para perror
-# include <limits.h>			// para PATH_MAX
-# include <unistd.h>			// para isatty, ttyname, ttyslot
-# include <curses.h>			// para tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
-# include <term.h>				// para tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
-# include <fcntl.h>				// para open, close
-# include <sys/types.h>			// para tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
-# include <sys/stat.h>			// para stat, lstat, fstat
-# include <sys/ioctl.h>			// para ioctl
-# include <sys/wait.h>			// para waitpid
-# include <readline/readline.h>	// para readline
-# include <readline/history.h>	// para add_history, rl_clear_history, rl_on_new_line, rl_replace_line, rl_redisplay
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <signal.h>
+# include <dirent.h>
+# include <string.h>
+# include <termios.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <limits.h>
+# include <unistd.h>
+# include <curses.h>
+# include <term.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/ioctl.h>
+# include <sys/wait.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # define WRITE_END 1
 # define READ_END 0
@@ -51,34 +50,34 @@ typedef struct s_helper
 typedef struct s_varenv
 {
 	char			*key;
-	char			*var; //malloc
+	char			*var;
 	struct s_varenv	*next;
 	struct s_varenv	*head;
 }			t_varenv;
 
-typedef struct	s_token
+typedef struct s_token
 {
-	int				fd_in; // input fd
-	int				fd_out; // output fd
-	int				pipe_in; // pipe fd in
-	int				pipe_out; // ppe fd out
-	int				hd_fd; // read from heredoc pipe
-	int				hd; // flag to inform if the node has an heredoc
-	char			*cmd; // string with only the command
-	char			*real_path; // bin path of the command
-	char			*token; // the string node
-	char			**arr; // array with all the params divided by space
-	char			**args; // array with the command and its args
+	int				fd_in;
+	int				fd_out;
+	int				pipe_in;
+	int				pipe_out;
+	int				hd_fd;
+	int				hd;
+	char			*cmd;
+	char			*real_path;
+	char			*token;
+	char			**arr;
+	char			**args;
 	pid_t			pid;
 	struct s_token	*next;
 	struct s_token	*head;
 }				t_token;
 
-typedef struct		s_main
+typedef struct s_main
 {
 	t_varenv	*envs;
 	t_token		*cmds;
-	char		**envp; //malloc
+	char		**envp;
 	char		**splited_pipe;
 	char		**paths;
 	char		**splited_input;
@@ -90,28 +89,28 @@ typedef struct		s_main
 
 enum e_type_of_flags
 {
-	C = 1, // Command
-	P = 2, // Command + Pipe
-	H = 3, // Heredoc
-	A = 4, // Append
-	I = 5, // Redirect input
-	O = 6, // Redirect output
+	C = 1,
+	P = 2,
+	H = 3,
+	A = 4,
+	I = 5,
+	O = 6
 };
 
 enum e_type_of_errors
 {
-	QUOTE = 1, //Looking for matching quote
-	NDIR = 2, //No such file or dir
-	NPERM = 3, //Permission denied
-	NCMD = 4, //Command not found
-	DUPERR = 5, //dup2 failed
-	FORKERR= 6, //fork failed
-	PIPERR = 7,//error creating pipe
-	PIPENDERR = 8, //syntax error near unexpected toke '|'
-	MEM = 9, //no memory left on device
-	IS_DIR = 10, //Is a dir
-	NO_DIR = 11, //Not a
-	ARGS = 12 //Too many arguments
+	QUOTE = 1,
+	NDIR = 2,
+	NPERM = 3,
+	NCMD = 4,
+	DUPERR = 5,
+	FORKERR= 6,
+	PIPERR = 7,
+	PIPENDERR = 8,
+	MEM = 9,
+	IS_DIR = 10,
+	NO_DIR = 11,
+	ARGS = 12
 };
 
 extern int	g_status;
@@ -123,14 +122,6 @@ int			exec_redirects(t_token *node, t_main *bag);
 int			append_func(t_token *node, t_main *bag, int i);
 int			redirect_in(t_token *node, t_main *bag, int i);
 int			redirect_out(t_token *node, t_main *bag, int i);
-
-/*
-int		exec_redirects(t_token *node, t_main *bag);
-void	heredoc_func(t_token *node, t_main *bag, int i);
-void	append_func(t_token *node, t_main *bag, int i);
-void	redirect_in(t_token *node, t_main *bag, int i);
-void	redirect_out(t_token *node, t_main *bag, int i);
-*/
 
 /*-- path functions --*/
 char		*find_env_path(t_varenv *envp);
@@ -237,11 +228,11 @@ char		**linked_to_env(t_varenv *env);
 int			make_pipe(t_main *bag);
 int			if_pipe(t_main *main);
 
-
 /*-- need to delete --*/
-void	print_node(t_main *bag);
+void		print_node(t_main *bag);
 
-void	sig_int_handle(int sig);
-void	sigs_handle(void);
+/*-- signals --*/
+void		sig_int_handle(int sig);
+void		sigs_handle(void);
 
 #endif
