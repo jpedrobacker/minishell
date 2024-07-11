@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:00:52 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/11 09:51:27 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:39:47 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	exec_cmds_pipe(t_main *main, t_token *token)
 	token->pid = fork();
 	if (token->pid != 0)
 		return ;
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 	if (!our_builtins(token->cmd))
 	{
 		new_env = linked_to_env(main->envs);
@@ -53,6 +55,8 @@ void	exec_non_builtin_cmd(t_token *token, char **new_env)
 	token->pid = fork();
 	if (token->pid != 0)
 		return ;
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 	redir_(token);
 	temp = token;
 	close_fds(temp);
