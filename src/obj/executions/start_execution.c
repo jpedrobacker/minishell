@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/11 11:06:11 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/11 11:49:15 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void	start_execution(char *usr_input, t_main *main)
 	if (!make_pipe(main))
 		ft_putstr_fd("Pipe Error.\n", 2);
 	ordering_fds(main);
-
 	main_exec(main);
 	wait_all(main->cmds);
 	free_all(main);

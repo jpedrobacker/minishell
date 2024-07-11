@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/11 10:18:36 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/11 11:56:14 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,24 @@ void	create_token(char *s, t_token **head, t_main *bag)
 	current->next = new;
 }
 
+void	tokenize(t_main *bag)
+{
+	int	i;
+
+	i = 0;
+	init_bag(bag);
+	while (bag->splited_pipe[i])
+	{
+		create_token(bag->splited_pipe[i], &bag->cmds, bag);
+		replace_char(bag->splited_pipe[i], '\t', '|');
+		replace_char(bag->splited_pipe[i], '\v', ' ');
+		replace_char(bag->splited_pipe[i], '\a', '>');
+		replace_char(bag->splited_pipe[i], '\n', '<');
+		i++;
+	}
+	fix_matrix(&bag->cmds);
+}
+
 /*void	print_node(t_main *bag)
 {
 	t_token	*aux;
@@ -91,7 +109,8 @@ void	create_token(char *s, t_token **head, t_main *bag)
 		ft_printf("----- NODE: %i -----\n", i);
 		ft_printf("token :%s: \n", aux->token);
 		ft_printf("COMANDO :%s: \n", aux->cmd);
-		ft_printf("FDs-> in:%i, out:%i, hd:%i\n", aux->fd_in, aux->fd_out, aux->hd_fd);
+		ft_printf("FDs-> in:%i, out:%i, hd:%i\n", 
+			aux->fd_in, aux->fd_out, aux->hd_fd);
 		ft_printf("FLAGS-> heredoc:%i\n", aux->hd);
 		while (aux->arr[x])
 		{
@@ -109,23 +128,3 @@ void	create_token(char *s, t_token **head, t_main *bag)
 		i++;
 	}
 }*/
-
-void	tokenize(t_main *bag)
-{
-	int	i;
-
-	i = 0;
-	init_bag(bag);
-	while (bag->splited_pipe[i])
-	{
-		create_token(bag->splited_pipe[i], &bag->cmds, bag);
-		replace_char(bag->splited_pipe[i], '\t', '|');
-		replace_char(bag->splited_pipe[i], '\v', ' ');
-		replace_char(bag->splited_pipe[i], '\a', '>');
-		replace_char(bag->splited_pipe[i], '\n', '<');
-		i++;
-	}
-	fix_matrix(&bag->cmds);
-	//print_node(bag);
-	ft_putstr_fd("-----FIM TOKENIZE-------\n", 1);
-}

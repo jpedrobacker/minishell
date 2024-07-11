@@ -6,11 +6,38 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 10:10:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/11 10:20:23 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:27:25 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	helper_invalid_redis(char *dup, char type, int i)
+{
+	if (type == '<')
+	{
+		if (dup[i + 1] && dup[i + 1] == '<')
+		{
+			if (!valid_appendoc(dup, i, dup[i]))
+				return (0);
+		}
+		else
+			if (!valid_rin_rout(dup, i))
+				return (0);
+	}
+	else if (type == '>')
+	{
+		if (dup[i + 1] && dup[i + 1] == '>')
+		{
+			if (!valid_appendoc(dup, i, dup[i]))
+				return (0);
+		}
+		else
+			if (!valid_rin_rout(dup, i))
+				return (0);
+	}
+	return (1);
+}
 
 int	ft_strcmp(const char *s1, const char *s2)
 {

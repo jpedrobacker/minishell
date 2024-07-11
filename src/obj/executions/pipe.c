@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:11:49 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/11 09:47:01 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/11 11:53:39 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static int	create_pipe(t_token *node, int size)
 
 	last_pipe = -1;
 	counter = 1;
-	if (size == 1)
-		return (1);
 	while (node)
 	{
 		if (counter != 1)
@@ -55,6 +53,8 @@ int	make_pipe(t_main *bag)
 		size++;
 		aux = aux->next;
 	}
+	if (size == 1)
+		return (1);
 	if (!create_pipe(bag->cmds, size))
 		return (0);
 	return (1);

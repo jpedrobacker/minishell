@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 16:11:54 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/11 10:17:52 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:32:23 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	check_invalid_pipe(char *s)
 	return (1);
 }
 
-static int	valid_rin_rout(char *s, int i)
+int	valid_rin_rout(char *s, int i)
 {
 	int	len;
 
@@ -83,7 +83,7 @@ static int	valid_rin_rout(char *s, int i)
 	return (0);
 }
 
-static int	valid_appendoc(char *s, int i, char c)
+int	valid_appendoc(char *s, int i, char c)
 {
 	int	len;
 
@@ -123,26 +123,72 @@ int	check_invalid_redirects(char *s)
 	{
 		if (dup[i] == '<')
 		{
-			if (dup[i + 1] && dup[i + 1] == '<')
-			{
-				if (!valid_appendoc(dup, i, dup[i]))
-					return (free(dup), 0);
-			}
-			else
-				if (!valid_rin_rout(dup, i))
-					return (free(dup), 0);
+			if (!helper_invalid_redis(dup, '<', i))
+				return (free(dup), 0);
 		}
 		else if (dup[i] == '>')
 		{
-			if (dup[i + 1] && dup[i + 1] == '>')
-			{
-				if (!valid_appendoc(dup, i, dup[i]))
-					return (free(dup), 0);
-			}
-			else
-				if (!valid_rin_rout(dup, i))
-					return (free(dup), 0);
+			if (!helper_invalid_redis(dup, '>', i))
+				return (free(dup), 0);
 		}
 	}
 	return (free(dup), 1);
 }
+
+/*
+int	helper_invalid_redis(char *dup, char type, int i)
+{
+	if (type == '<')
+	{
+		if (dup[i + 1] && dup[i + 1] == '<')
+		{
+			if (!valid_appendoc(dup, i, dup[i]))
+				return (0);
+		}
+		else
+			if (!valid_rin_rout(dup, i))
+				return (0);
+	}
+	else if (type == '>')
+	{
+		if (dup[i + 1] && dup[i + 1] == '>')
+		{
+			if (!valid_appendoc(dup, i, dup[i]))
+				return (0);
+		}
+		else
+			if (!valid_rin_rout(dup, i))
+				return (0);
+	}
+	return (1);
+}
+*/
+
+/*
+while (dup[++i])
+{
+	if (dup[i] == '<')
+	{
+		if (dup[i + 1] && dup[i + 1] == '<')
+		{
+			if (!valid_appendoc(dup, i, dup[i]))
+				return (free(dup), 0);
+		}
+		else
+			if (!valid_rin_rout(dup, i))
+				return (free(dup), 0);
+	}
+	else if (dup[i] == '>')
+	{
+		if (dup[i + 1] && dup[i + 1] == '>')
+		{
+			if (!valid_appendoc(dup, i, dup[i]))
+				return (free(dup), 0);
+		}
+		else
+			if (!valid_rin_rout(dup, i))
+				return (free(dup), 0);
+	}
+}
+return (free(dup), 1);
+*/
