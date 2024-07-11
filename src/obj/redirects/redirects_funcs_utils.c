@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:22:56 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/11 10:46:14 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/11 13:58:20 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 // Elas nao vao dar dup2() em NADA agora.
 // O dup2() tem que ser feito dentro do fork()
 
+/*
 void	sig_int_heredoc_handle(int sig)
 {
 	if (sig == SIGINT)
@@ -78,6 +79,7 @@ int	heredoc_func(t_token *node, t_main *bag, int i)
 		return (-1);
 	return (hd_fd[0]);
 }
+*/
 
 int	append_func(t_token *node, t_main *bag, int i)
 {

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:03:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/11 10:59:18 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/11 13:54:27 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,46 @@ int	is_appendoc(char *s, int *i, char c)
 	return (0);
 }
 
+static void	exec_redis_helper(t_token **node, t_main *bag, int i, char c)
+{
+	if (c == '<')
+	{
+		if ((*node)->fd_in != 0)
+			close((*node)->fd_in);
+		if (!ft_strncmp((*node)->arr[i], "<<", 2))
+			(*node)->fd_in = heredoc_func((*node), bag, i);
+		else
+			(*node)->fd_in = redirect_in((*node), bag, i);
+	}
+	else if (c == '>')
+	{
+		if ((*node)->fd_out != 1)
+			close((*node)->fd_out);
+		if (!ft_strncmp((*node)->arr[i], ">>", 2))
+			(*node)->fd_out = append_func((*node), bag, i);
+		else
+			(*node)->fd_out = redirect_out((*node), bag, i);
+	}
+}
+
+int	exec_redirects(t_token *node, t_main *bag)
+{
+	int	i;
+
+	i = -1;
+	while (node->arr[++i])
+	{
+		if (node->arr[i][0] == '<')
+			exec_redis_helper(&node, bag, i, '<');
+		else if (node->arr[i][0] == '>')
+			exec_redis_helper(&node, bag, i, '>');
+		if (node->fd_in == -1 || node->fd_out == -1)
+			return (0);
+	}
+	return (1);
+}
+
+/*
 int	exec_redirects(t_token *node, t_main *bag)
 {
 	int	i;
@@ -100,3 +140,4 @@ int	exec_redirects(t_token *node, t_main *bag)
 	}
 	return (1);
 }
+*/
