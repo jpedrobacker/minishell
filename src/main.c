@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/10 19:28:53 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:27:14 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ int	main(int ac, char **av, char **envp)
 	{
 		rl_replace_line("", 0);
 		usr_input = readline("minihell$>> ");
-		update_gstatus(bag.envs);
 		if (!validate_prompt(usr_input, &bag))
 		{
 			free(usr_input);
 			continue ;
 		}
 		start_execution(usr_input, &bag);
+		update_gstatus(bag.envs);
 		add_history(usr_input);
 		free(usr_input);
 	}
