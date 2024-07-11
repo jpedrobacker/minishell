@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 11:21:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/10 19:15:01 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/11 09:58:30 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	check_builtins(t_main *main, t_token *token)
 	if (ft_strcmp("cd", token->cmd) == 0)
 		status = built_cd(main, token);
 	if (ft_strcmp("echo", token->cmd) == 0)
-		status = built_echo(main, token, echo_flag(token->args));
+		status = built_echo(token, echo_flag(token->args));
 	if (ft_strcmp("env", token->cmd) == 0)
 		status = built_env(main, token);
 	if (ft_strcmp("pwd", token->cmd) == 0)
@@ -40,7 +40,7 @@ void	check_builtins_pipes(t_main *main, t_token *token)
 	if (ft_strcmp("cd", token->cmd) == 0)
 		exit(built_cd(main, token));
 	if (ft_strcmp("echo", token->cmd) == 0)
-		exit(built_echo(main, token, echo_flag(token->args)));
+		exit(built_echo(token, echo_flag(token->args)));
 	if (ft_strcmp("env", token->cmd) == 0)
 		exit(built_env(main, token));
 	if (ft_strcmp("pwd", token->cmd) == 0)

@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 17:39:47 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/10 19:23:01 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/11 09:49:16 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	pre_execute(t_token *token)
 	return (1);
 }
 
-int	test_execution(t_token *token)
+int	test_exec(t_token *token)
 {
 	if (token->fd_in == -1 || token->fd_out == -1)
 		return (0);

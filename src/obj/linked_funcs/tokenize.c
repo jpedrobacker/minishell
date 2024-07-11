@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/10 14:44:20 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/11 10:18:36 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ static void	populate_nodes(t_token **node)
 
 void	create_token(char *s, t_token **head, t_main *bag)
 {
-	t_token		*new;
-	t_token		*current;
+	t_token	*new;
+	t_token	*current;
 
 	new = malloc(sizeof(t_token));
 	if (!new)
 		return (ft_putstr_fd("ERROR\n", 2));
 	new->arr = ft_split(s, ' ');
-	new->cmd = get_cmd(new->arr); // << ola "seg fault"
+	new->cmd = get_cmd(new->arr);
 	new->args = get_args(new->arr);
 	new->token = s;
 	new->real_path = get_real_path(&bag->paths, new->cmd);
@@ -76,9 +76,9 @@ void	create_token(char *s, t_token **head, t_main *bag)
 	current->next = new;
 }
 
-void	print_node(t_main *bag)
+/*void	print_node(t_main *bag)
 {
-	t_token		*aux;
+	t_token	*aux;
 	int		i;
 	int		x;
 
@@ -93,7 +93,6 @@ void	print_node(t_main *bag)
 		ft_printf("COMANDO :%s: \n", aux->cmd);
 		ft_printf("FDs-> in:%i, out:%i, hd:%i\n", aux->fd_in, aux->fd_out, aux->hd_fd);
 		ft_printf("FLAGS-> heredoc:%i\n", aux->hd);
-		//exec_redirects(aux);
 		while (aux->arr[x])
 		{
 			ft_printf("matrix :%s: \n", aux->arr[x]);
@@ -109,23 +108,7 @@ void	print_node(t_main *bag)
 		aux = aux->next;
 		i++;
 	}
-}
-
-/*
-int	ordering_fds(t_main *bag)
-{
-	t_token	*aux;
-
-	aux = bag->cmds;
-	while (aux)
-	{
-		ft_printf("----- changing FDs -----\n");
-		exec_redirects(aux, bag);
-		aux = aux->next;
-	}
-	return (1);
-}
-*/
+}*/
 
 void	tokenize(t_main *bag)
 {
@@ -143,14 +126,6 @@ void	tokenize(t_main *bag)
 		i++;
 	}
 	fix_matrix(&bag->cmds);
-	print_node(bag);
+	//print_node(bag);
 	ft_putstr_fd("-----FIM TOKENIZE-------\n", 1);
-	//ordering_fds(bag);
-
-	//------------ IMPORTANTE ---------------
-	//TODOS ESSES FREES() ESTAO FUNCIONANDO. MAS PRECISAMOS DAR OS FREES NA START_EXECUTION.C
-	//free_all(bag);
-	//token_free(&bag->cmds);
-	//so damos free na linked list envp apenas quando encerramos o programa!
-	//envs_free(&bag->envs);
 }

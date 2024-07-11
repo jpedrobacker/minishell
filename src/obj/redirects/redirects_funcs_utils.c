@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:22:56 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/09 14:55:35 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/11 10:46:14 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,7 @@ int	append_func(t_token *node, t_main *bag, int i)
 	(void)bag;
 	fd = 0;
 	if (!node->arr[i + 1])
-	{
-		//FREE NAS PARADA TODA
 		return (-1);
-	}
 	fd = open(node->arr[i + 1], O_CREAT | O_RDWR | O_APPEND, 00777);
 	if (fd < 0)
 	{
@@ -108,10 +105,7 @@ int	redirect_in(t_token *node, t_main *bag, int i)
 	(void)bag;
 	fd = 0;
 	if (!node->arr[i + 1])
-	{
-		//FREE NAS PARADA TODA
 		return (-1);
-	}
 	if (!access(node->arr[i + 1], F_OK | R_OK))
 		fd = open(node->arr[i + 1], O_RDONLY);
 	else
@@ -133,10 +127,7 @@ int	redirect_out(t_token *node, t_main *bag, int i)
 	(void)bag;
 	fd = 0;
 	if (!node->arr[i + 1])
-	{
-		//FREE NAS PARADA TODA
 		return (-1);
-	}
 	fd = open(node->arr[i + 1], O_CREAT | O_RDWR | O_TRUNC, 00777);
 	if (fd < 0)
 	{

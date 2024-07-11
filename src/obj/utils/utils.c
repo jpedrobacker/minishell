@@ -6,23 +6,11 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:30:13 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/10 17:35:00 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/11 10:20:28 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-char	*get_cmd(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i] && (arr[i][0] == '<' || arr[i][0] == '>'))
-		i += 2;
-	if (arr[i])
-		return (ft_strdup(arr[i]));
-	return (NULL);
-}
 
 static int	count_args(char **arr)
 {
@@ -88,25 +76,16 @@ char	**get_args(char **arr)
 	return (new);
 }
 
-int	ft_isvar(char c)
-{
-	if (c == '?')
-		return (1);
-	if (ft_isalnum(c))
-		return (1);
-	return (0);
-}
-
 int	is_there_var(char *s)
 {
 	int	i;
 	int	onequote;
 	int	check;
 
-	i = 0;
+	i = -1;
 	onequote = 0;
 	check = 0;
-	while (s[i])
+	while (s[++i])
 	{
 		if (s[i] == 39)
 			onequote++;
@@ -116,15 +95,10 @@ int	is_there_var(char *s)
 			{
 				if (s[i + 1] && ft_isvar(s[i + 1]))
 					check = 0;
-				//if (s[i + 1] && ft_isalnum(s[i + 1]))
-				//	check = 0;
 			}
 			else if (s[i + 1] && ft_isvar(s[i + 1]))
 				check = 1;
-			//else if (s[i + 1] && ft_isalnum(s[i + 1]))
-			//	check = 1;
 		}
-		i++;
 	}
 	if (check)
 		return (1);
@@ -151,25 +125,4 @@ void	fix_matrix(t_token **head)
 		i = 0;
 		aux = aux->next;
 	}
-}
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	size_t	i;
-
-	i = -1;
-	while (s1[++i] || s2[i])
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
-
-void	copy_char_pointer(char ***dest, char **src)
-{
-	int i;
-
-	i = -1;
-	while (src[++i])
-		(*dest)[i] = ft_strdup(src[i]);
-	(*dest)[i] = NULL;
 }

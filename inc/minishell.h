@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/10 19:23:42 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/11 09:58:48 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,12 +173,11 @@ void		new_expand_envs(char ***matrix, t_varenv *envs);
 int			our_builtins(char *s);
 int			built_cd(t_main *main, t_token *token);
 int			built_pwd(t_token *node);
-int			built_echo(t_main *main, t_token *token, int flag);
+int			built_echo(t_token *token, int flag);
 int			built_env(t_main *main, t_token *token);
 void		built_exit(t_main *main);
 int			built_export(t_varenv *env, t_token *token);
 int			built_unset(t_main *main, t_token *token);
-int			built_clear(t_token *token);
 int			check_builtins(t_main *main, t_token *token);
 void		check_builtins_pipes(t_main *main, t_token *token);
 
@@ -218,7 +217,7 @@ void		wait_all(t_token *token);
 void		exec_cmds_pipe(t_main *main, t_token *token);
 void		call_cmd(t_main *main, t_token *token);
 int			pre_execute(t_token *token);
-int			test_execution(t_token *token);
+int			test_exec(t_token *token);
 
 /*-- env utils --*/
 char		*get_env_key(char *envp, char c);

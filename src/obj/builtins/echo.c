@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/10 16:38:43 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/11 09:58:02 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,11 @@ void	print_with_no_quotes(t_token *token, char **arr, int i)
 	}
 }
 
-int	built_echo(t_main *main, t_token *token, int flag)
+int	built_echo(t_token *token, int flag)
 {
 	t_token	*aux;
 	int		args;
 	int		i;
-	(void) main;
 
 	aux = token;
 	args = count_cmds(aux->args);
@@ -69,6 +68,5 @@ int	built_echo(t_main *main, t_token *token, int flag)
 	}
 	if (flag == 0)
 		return (0);
-	ft_putstr_fd("\n", token->fd_out);
-	return (0);
+	return (ft_putstr_fd("\n", token->fd_out), 0);
 }

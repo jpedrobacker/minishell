@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:00:52 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/10 16:31:13 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/11 09:51:27 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	exec_normal_cmd_pipe(t_token *token, char **new_env)
 {
 	t_token	*temp;
+
 	redir_(token);
 	temp = token;
 	close_fds(temp);

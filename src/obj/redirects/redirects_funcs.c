@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:03:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/07 17:07:45 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/11 10:46:42 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static int	special(char c, char *in)
 	return (0);
 }
 
-//RETIRAR O PRINTF DESSA FUNC...
 int	ordering_fds(t_main *bag)
 {
 	t_token	*aux;
@@ -37,7 +36,8 @@ int	ordering_fds(t_main *bag)
 		ft_printf("----- changing FDs -----\n");
 		if (!exec_redirects(aux, bag))
 			return (0);
-		ft_printf("in: %i, out: %i, hd: %i\n", aux->fd_in, aux->fd_out, aux->hd_fd);
+		ft_printf("in: %i, out: %i, hd: %i\n",
+			aux->fd_in, aux->fd_out, aux->hd_fd);
 		aux = aux->next;
 	}
 	return (1);
@@ -74,8 +74,8 @@ int	exec_redirects(t_token *node, t_main *bag)
 {
 	int	i;
 
-	i = 0;
-	while (node->arr[i])
+	i = -1;
+	while (node->arr[++i])
 	{
 		if (node->arr[i][0] == '<')
 		{
@@ -97,7 +97,6 @@ int	exec_redirects(t_token *node, t_main *bag)
 		}
 		if (node->fd_in == -1 || node->fd_out == -1)
 			return (0);
-		i++;
 	}
 	return (1);
 }

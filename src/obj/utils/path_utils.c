@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:07:29 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/10 19:15:33 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/11 10:09:14 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*get_real_path(char ***all_paths, char *command)
 	int		i;
 
 	i = 0;
-	if (command && access(command, F_OK & X_OK) == 0) // Correcao para o relative path como input
+	if (command && access(command, F_OK & X_OK) == 0)
 		return (ft_strdup(command));
 	if (!real_path_helper(all_paths, command))
 		return (NULL);

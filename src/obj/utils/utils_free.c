@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:00:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/10 15:48:37 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/11 10:08:43 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,11 @@ void	free_all(t_main *bag)
 {
 	free(bag->new_input);
 	free(bag->dup_usr_input);
-//	free(bag->envs_path);
 	free_splits(bag->splited_input);
 	free_splits(bag->splited_pipe);
 	free_splits(bag->paths);
-//	token_free(&bag->cmds);
-//	envs_free(&bag->envs);
 	bag->new_input = NULL;
 	bag->dup_usr_input = NULL;
-//	bag->envs_path = NULL;
 	bag->splited_input = NULL;
 	bag->splited_pipe = NULL;
 	bag->paths = NULL;
