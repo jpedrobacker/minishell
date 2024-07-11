@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/11 09:58:02 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:56:57 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	built_echo(t_token *token, int flag)
 	aux = token;
 	args = count_cmds(aux->args);
 	if (args == 1)
-		return (0);
+		return (ft_putstr_fd("\n", token->fd_out), 0);
 	i = 0;
 	if (flag == 0)
 		i = 1;

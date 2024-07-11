@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 12:45:21 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/11 10:48:16 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:54:57 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*get_value_test(char *name, t_varenv *envs)
 	aux = envs;
 	while (aux)
 	{
-		if (!ft_strncmp(aux->key, name, ft_strlen(name)))
+		if (!ft_strcmp(aux->key, name))
 			return (aux->var);
 		aux = aux->next;
 	}
