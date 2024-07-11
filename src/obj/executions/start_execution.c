@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:26:30 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/10 19:24:09 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/10 19:40:47 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	update_gstatus(t_varenv *env)
 	t_varenv	*aux_env;
 	t_varenv	*temp;
 
-	aux_env = env;
 	temp = env;
 	while (temp)
 	{
@@ -44,6 +43,7 @@ void	update_gstatus(t_varenv *env)
 			free(temp->var);
 		temp = temp->next;
 	}
+	aux_env = env;
 	g_status_char = ft_itoa(g_status);
 	status = ft_strdup(g_status_char);
 	change_status_var(aux_env, status);
