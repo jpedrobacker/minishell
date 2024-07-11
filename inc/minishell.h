@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/11 10:55:52 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/11 12:29:38 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,9 @@ int			check_invalid_pipe(char *s);
 int			check_invalid_redirects(char *s);
 int			deal_redirects(t_main *bag);
 int			is_appendoc(char *s, int *i, char c);
+int			helper_invalid_redis(char *dup, char type, int i);
+int			valid_appendoc(char *s, int i, char c);
+int			valid_rin_rout(char *s, int i);
 
 /*-- deal quotes functions --*/
 void		change_pipe(char *s, int *start, int *end);
