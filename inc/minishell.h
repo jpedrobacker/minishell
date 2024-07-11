@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/11 09:58:48 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/11 10:55:52 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ int			test_exec(t_token *token);
 
 /*-- env utils --*/
 char		*get_env_key(char *envp, char c);
-char		*get_env_name(char *s, int flag, int s_len);
+char		*get_env_name(char *s, int flag);
 char		*find_var_key(t_varenv *env, char *key_to_find);
 int			update_new_pwd(t_varenv *env);
 int			update_old_pwd(t_varenv *env);
