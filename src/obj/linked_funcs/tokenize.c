@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:15 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/11 11:56:14 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/12 14:44:53 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,38 +93,3 @@ void	tokenize(t_main *bag)
 	}
 	fix_matrix(&bag->cmds);
 }
-
-/*void	print_node(t_main *bag)
-{
-	t_token	*aux;
-	int		i;
-	int		x;
-
-	aux = bag->cmds;
-	i = 1;
-	x = 0;
-	while (aux)
-	{
-		x = 0;
-		ft_printf("----- NODE: %i -----\n", i);
-		ft_printf("token :%s: \n", aux->token);
-		ft_printf("COMANDO :%s: \n", aux->cmd);
-		ft_printf("FDs-> in:%i, out:%i, hd:%i\n", 
-			aux->fd_in, aux->fd_out, aux->hd_fd);
-		ft_printf("FLAGS-> heredoc:%i\n", aux->hd);
-		while (aux->arr[x])
-		{
-			ft_printf("matrix :%s: \n", aux->arr[x]);
-			x++;
-		}
-		x = 0;
-		while (aux->args[x])
-		{
-			ft_printf("ARGS :%s: \n", aux->args[x]);
-			x++;
-		}
-		ft_printf("path :%s: \n", aux->real_path);
-		aux = aux->next;
-		i++;
-	}
-}*/

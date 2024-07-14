@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:25:23 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/11 14:32:24 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/12 13:02:18 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ int			built_cd(t_main *main, t_token *token);
 int			built_pwd(t_token *node);
 int			built_echo(t_token *token, int flag);
 int			built_env(t_main *main, t_token *token);
-void		built_exit(t_main *main);
+void		built_exit(t_main *main, t_token *token);
 int			built_export(t_varenv *env, t_token *token);
 int			built_unset(t_main *main, t_token *token);
 int			check_builtins(t_main *main, t_token *token);

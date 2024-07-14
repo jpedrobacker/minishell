@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/11 16:56:57 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/14 11:11:10 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	check_quotes(char *s)
 {
-	int	len;
+	int	count;
 
 	if (!s)
 		return (1);
-	len = ft_strlen(s) - 1;
-	if ((s[0] == '\"' && s[len] == '\"') || (s[0] == '\'' && s[len] == '\''))
+	count = ft_strlen(s) - 1;
+	if ((s[0] == '\"' && s[count] == '\"') || (s[0] == '\'' && s[count] == '\''))
 		return (0);
 	return (1);
 }
@@ -55,6 +55,9 @@ int	built_echo(t_token *token, int flag)
 	i = 0;
 	if (flag == 0)
 		i = 1;
+	int j = 0;
+	while (aux->args[++j])
+		ft_printf("Teste: %s\n", aux->arr[j]);
 	while (++i < args)
 	{
 		if (ft_strcmp(aux->args[i], ">") == 0)

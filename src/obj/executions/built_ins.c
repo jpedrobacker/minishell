@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 11:21:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/11 09:58:30 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/12 13:04:28 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_builtins(t_main *main, t_token *token)
 	if (ft_strcmp("unset", token->cmd) == 0)
 		status = built_unset(main, token);
 	if (ft_strcmp("exit", token->cmd) == 0)
-		built_exit(main);
+		built_exit(main, token);
 	g_status = status;
 	return (status);
 }
@@ -50,5 +50,5 @@ void	check_builtins_pipes(t_main *main, t_token *token)
 	if (ft_strcmp("unset", token->cmd) == 0)
 		exit(built_unset(main, token));
 	if (ft_strcmp("exit", token->cmd) == 0)
-		built_exit(main);
+		built_exit(main, token);
 }

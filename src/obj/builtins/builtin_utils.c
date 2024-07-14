@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 10:12:36 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/10 16:39:30 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:44:57 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ int	echo_flag(char **args)
 
 int	count_cmds(char **args)
 {
-	int		i;
+	int	i;
 
+	if (!args[0])
+		return (0);
 	i = 0;
 	while (args[i])
 		i++;

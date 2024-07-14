@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 11:55:58 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/11 10:06:44 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/14 11:20:43 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,25 @@ void	link_envp(char *envp, t_varenv *head)
 void	add_gstatus_to_env(t_varenv *envs)
 {
 	char		*str_gstatus;
+	int			i;
+	t_varenv	*temp;
 
-	str_gstatus = ft_strdup("?=0");
-	link_envp(str_gstatus, envs);
-	free(str_gstatus);
+	i = 0;
+	temp = envs;
+	while (temp)
+	{
+		if (ft_strcmp(temp->key, "?") == 0)
+			i++;
+		temp = temp->next;
+	}
+	if (i == 0)
+	{
+		str_gstatus = ft_strdup("?=0");
+		link_envp(str_gstatus, envs);
+		free(str_gstatus);
+	}
+	else
+		return ;
 }
 
 void	add_elems(t_varenv *node, char *envp)

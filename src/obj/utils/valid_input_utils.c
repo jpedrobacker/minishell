@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 16:11:54 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/11 12:32:23 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/12 14:46:53 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,61 +134,3 @@ int	check_invalid_redirects(char *s)
 	}
 	return (free(dup), 1);
 }
-
-/*
-int	helper_invalid_redis(char *dup, char type, int i)
-{
-	if (type == '<')
-	{
-		if (dup[i + 1] && dup[i + 1] == '<')
-		{
-			if (!valid_appendoc(dup, i, dup[i]))
-				return (0);
-		}
-		else
-			if (!valid_rin_rout(dup, i))
-				return (0);
-	}
-	else if (type == '>')
-	{
-		if (dup[i + 1] && dup[i + 1] == '>')
-		{
-			if (!valid_appendoc(dup, i, dup[i]))
-				return (0);
-		}
-		else
-			if (!valid_rin_rout(dup, i))
-				return (0);
-	}
-	return (1);
-}
-*/
-
-/*
-while (dup[++i])
-{
-	if (dup[i] == '<')
-	{
-		if (dup[i + 1] && dup[i + 1] == '<')
-		{
-			if (!valid_appendoc(dup, i, dup[i]))
-				return (free(dup), 0);
-		}
-		else
-			if (!valid_rin_rout(dup, i))
-				return (free(dup), 0);
-	}
-	else if (dup[i] == '>')
-	{
-		if (dup[i + 1] && dup[i + 1] == '>')
-		{
-			if (!valid_appendoc(dup, i, dup[i]))
-				return (free(dup), 0);
-		}
-		else
-			if (!valid_rin_rout(dup, i))
-				return (free(dup), 0);
-	}
-}
-return (free(dup), 1);
-*/

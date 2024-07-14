@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:00:53 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/11 10:08:43 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/14 11:13:28 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,35 +32,6 @@ void	to_free_varenv(t_varenv **lst_env)
 	}
 	*lst_env = NULL;
 }
-
-/*
-void	to_free_token(t_token **token)
-{
-	t_token	*begin;
-	t_token	*temp;
-
-	begin = (*(token));
-	free_splits(begin->arr_cmd_input);
-	free(begin->cmd_name);
-	free(begin->cmd_input);
-	free(begin->env);
-	temp = begin->next;
-	free(begin);
-	begin = temp;
-	while (begin != NULL)
-	{
-		temp = begin->next;
-		free_splits(begin->arr_cmd_input);
-		free(begin->cmd_name);
-		free(begin->cmd_input);
-		free(begin->env);
-		free(begin);
-		begin = NULL;
-		begin = temp;
-	}
-	*token = NULL;
-}
-*/
 
 void	free_splits(char **split)
 {

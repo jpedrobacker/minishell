@@ -6,31 +6,17 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:02:14 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/11 10:44:30 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:51:32 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-// ---------------------------------------------------------------
-// arquivo totalmente desnecessario :D
-// ---------------------------------------------------------------
-
 int	deal_redirects(t_main *bag)
 {
-	int		i;
-	char	**s;
-
-	i = 0;
 	if (!bag->dup_usr_input)
 		return (0);
 	bag->splited_input = split_in_tokens(bag->dup_usr_input,
 			"\"' $\v\t\n\a<>|", bag->envs);
-	s = bag->splited_input;
-	while (s[i])
-	{
-		ft_printf("splited :%s: \n", s[i]);
-		i++;
-	}
 	return (1);
 }

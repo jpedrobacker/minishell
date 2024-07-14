@@ -6,26 +6,11 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:51:06 by aprado            #+#    #+#             */
-/*   Updated: 2024/07/10 12:08:28 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/12 14:47:00 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-/*
-void	replace_char(char *s, char old, char want)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == old)
-			s[i] = want;
-		i++;
-	}
-}
-*/
 
 void	change_reds(char *s, int *start, int *end)
 {

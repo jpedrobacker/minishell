@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:29:24 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/11 16:27:14 by aprado           ###   ########.fr       */
+/*   Updated: 2024/07/12 15:37:10 by jbergfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	validate_prompt(char *usr_input, t_main *main)
 {
 	(void) main;
 	if (!usr_input)
-		built_exit(main);
+		built_exit(main, main->cmds);
 	if (!validate_input(usr_input, main) || !deal_redirects(main))
 		return (0);
 	return (1);
@@ -55,6 +55,7 @@ int	main(int ac, char **av, char **envp)
 		usr_input = readline("minihell$>> ");
 		if (!validate_prompt(usr_input, &bag))
 		{
+			add_history(usr_input);
 			free(usr_input);
 			continue ;
 		}
