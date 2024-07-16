@@ -6,39 +6,52 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:36:50 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/14 11:11:10 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:49:41 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	check_quotes(char *s)
+static int	check_quotes(char *s)
 {
-	int	count;
+	int	i;
 
+	i = 0;
 	if (!s)
-		return (1);
-	count = ft_strlen(s) - 1;
-	if ((s[0] == '\"' && s[count] == '\"') || (s[0] == '\'' && s[count] == '\''))
 		return (0);
+	while (s[i])
+	{
+		if (s[i] == 39 || s[i] == 34)
+			return (0);
+		i++;
+	}
 	return (1);
 }
 
-void	print_with_no_quotes(t_token *token, char **arr, int i)
+static void	print_with_quotes(char *s, int fd)
 {
-	int	j;
-	int	len;
+	int		i;
+	char	c;
 
-	if (!arr[i])
+	i = -1;
+	if (!s)
 		return ;
-	j = 1;
-	len = ft_strlen(arr[i]);
-	while (arr[i][j])
+	while (s[++i])
 	{
-		if (arr[i][j] == '\0' || j == len - 1)
-			break ;
-		ft_putchar_fd(arr[i][j], token->fd_out);
-		j++;
+		if (s[i] == 39 || s[i] == 34)
+		{
+			c = s[i];
+			i++;
+			while (s[i] && s[i] != c)
+			{
+				ft_putchar_fd(s[i], fd);
+				i++;
+			}
+			if (!s[i])
+				return ;
+		}
+		else
+			ft_putchar_fd(s[i], fd);
 	}
 }
 
@@ -55,17 +68,12 @@ int	built_echo(t_token *token, int flag)
 	i = 0;
 	if (flag == 0)
 		i = 1;
-	int j = 0;
-	while (aux->args[++j])
-		ft_printf("Teste: %s\n", aux->arr[j]);
 	while (++i < args)
 	{
-		if (ft_strcmp(aux->args[i], ">") == 0)
-			i = i + 2;
-		if (check_quotes(aux->args[i]) == 1 && aux->args[i] != NULL)
-			ft_putstr_fd(aux->args[i], token->fd_out);
-		else if (aux->args[i] != NULL)
-			print_with_no_quotes(token, aux->args, i);
+		if (!check_quotes(aux->args[i]))
+			print_with_quotes(aux->args[i], aux->fd_out);
+		else
+			ft_putstr_fd(aux->args[i], aux->fd_out);
 		if (aux->args[i + 1])
 			ft_putchar_fd(' ', token->fd_out);
 	}
