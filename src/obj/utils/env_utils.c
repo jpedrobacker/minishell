@@ -6,7 +6,7 @@
 /*   By: jbergfel <jbergfel@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:26:41 by jbergfel          #+#    #+#             */
-/*   Updated: 2024/07/11 10:40:51 by jbergfel         ###   ########.fr       */
+/*   Updated: 2024/07/31 10:29:53 by aprado           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,10 @@ char	**linked_to_env(t_varenv *env)
 	new_env = malloc(sizeof(char *) * (linked_len + 1));
 	while (env)
 	{
-		new_env[i] = ft_env_join(env->key, env->var);
+		if (env->var)
+			new_env[i] = ft_env_join(env->key, env->var);
+		else
+			new_env[i] = ft_strdup(env->key);
 		i++;
 		env = env->next;
 	}
